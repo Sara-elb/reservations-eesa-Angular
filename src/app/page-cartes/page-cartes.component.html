@@ -1,0 +1,407 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<main>
+    <!-- <header>
+            <div class="row-nav">
+                <div class="logo">
+                        <img src="../assets/img/logo2.png" alt="logo" width="110" height="90">
+                </div>
+                
+                <div class="menu">
+                    <ul>
+                        <li>Les séances</li>
+                        <li>Les équidés</li>
+                        <li><a routerLink="['admin/espace-administrateur/gestion-des-cavaliers']">Les cavaliers</a></li>
+                        <li>
+                        <a routerLink="['admin/espace-administrateur/gestion-des-cartes']" >Les cartes</a> 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </header> -->
+    <body>
+        <!-- <mat-form-field appearance="standard">
+            <mat-label>Filtrer</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+        </mat-form-field> -->
+        <div id="options">
+          <div id="nv">
+            <button mat-raised-button (click)="addCard()">Ajouter une carte</button>
+          </div>
+          <div id="actif">
+            <button mat-raised-button (click)="refreshActivCard()">Actives</button>
+          </div>
+          <div id="non-actif">
+            <button mat-raised-button (click)="refreshInactivCard()">Non actives</button>
+          </div>
+        </div>
+
+        <div *ngIf="alertAddNewCard" class="alert alert-success" role="alert">
+          <strong>OK !</strong> La nouvelle carte a été créée avec succès.
+          <button (click)="closeAlertAddNewCard()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div *ngIf="alertEditCard" class="alert alert-success" role="alert">
+          <strong>OK !</strong> Carte modifiée avec succès.
+          <button (click)="closeAlertEditCard()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div *ngIf="alertDeleteCard" class="alert alert-success" role="alert">
+          <strong>OK !</strong> Carte supprimée avec succès.
+          <button (click)="closeAlertDeleteCard()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div *ngIf="alertErrorDeleteCard" class="alert alert-danger" role="alert">
+          <strong>OK !</strong> La carte n'a pas pu être supprimée.
+          <button (click)="closeAlerErrortDeleteCard()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div id="box" [style.visibility]="containerAddVisible">
+          <div class="exit"> 
+            <button id="buttonExit" (click)="exitNewCard()">
+              <mat-icon>exit_to_app</mat-icon>
+            </button>
+          </div>
+          <div id="formulaireCarte">
+            <form id="formulaireAjoutCarte" [formGroup]="cardFormControl">
+                  <mat-form-field appearance="fill">
+                    <p>Type de séances</p>
+                        <p><input id="textInputContent" formControlName="type" type="text" placeholder="de 7 à 17 ans"
+                                    matInput /></p>
+                        <mat-error *ngIf="cardFormControl.get('content')?.hasError('required')">
+                              <strong>Entrer</strong> le type des séances.
+                        </mat-error>
+                        <br>
+                        <p>Nombre de séances</p>
+                        <p><input id="number" formControlName="nbSeances" type="number"  step="1" value="1" min="1" max="100"
+                          matInput /></p>
+                        <mat-error *ngIf="cardFormControl.get('content')?.hasError('required')">
+                              <strong>Entrer</strong> le nombre de séances contenues dans cette carte.
+                        </mat-error>
+                        
+                  </mat-form-field>
+            </form>
+            
+          </div>
+          <div id="validationNvCarte">
+              <button id="cardButton" (click)="createCard()">
+                Valider
+              </button>
+          </div>
+        </div>
+
+        <div id="box" [style.visibility]="containerEditVisible">
+          <div class="exit"> 
+            <button id="buttonExit" (click)="exitEditCard()">
+              <mat-icon>exit_to_app</mat-icon>
+            </button>
+          </div>
+          <div id="formulaireCarte">
+            <form id="formulaireAjoutCarte" [formGroup]="cardFormControl">
+                  <mat-form-field appearance="fill">
+                    <p>Type de séances</p>
+                        <p><input id="textInputContent" formControlName="type" type="text" value={{typeSeance}}
+                                    matInput /></p>
+                        <mat-error *ngIf="cardFormControl.get('content')?.hasError('required')">
+                              <strong>Entrer</strong> le type des séances.
+                        </mat-error>
+                        <br>
+                        <p>Nombre de séances</p>
+                        <p><input id="number" formControlName="nbSeances" type="number"  step="1" value={{nbSeances}} min="1" max="100"
+                          matInput /></p>
+                        <mat-error *ngIf="cardFormControl.get('content')?.hasError('required')">
+                              <strong>Entrer</strong> le nombre de séances contenues dans cette carte.
+                        </mat-error>
+                        
+                  </mat-form-field>
+            </form>
+            
+          </div>
+          <div id="validationNvCarte">
+              <button id="cardButton" (click)="validationEditCard()">
+                Valider
+              </button>
+          </div>
+        </div>
+        
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+              <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+                  <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                  <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+
+                </ng-container>
+                <ng-container matColumnDef="expand">
+                  <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button id="editIcon"(click)="editCard(element.id)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button id="deleteIcon"(click)="deleteCard(element.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+
+                <!-- 
+                <ng-container matColumnDef="expandedDetail">
+                  <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                    <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                      <div class="example-element-diagram" >
+                        <span class="example-element-description-attribution"> -- BOUTONS </span>
+                        </div>
+                    </div>
+                    </td>
+                </ng-container> -->
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsWithExpand"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsWithExpand;"></tr>
+                <!-- <tr mat-row *matRowDef="let element of cards; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+                </table>
+        
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                            showFirstLastButtons 
+                            aria-label="Select page of cards data">
+            </mat-paginator>
+        </div>
+    </body> 
+        <!-- <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-uppercase mb-0">Gestion des utilisateurs</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table no-wrap user-table mb-0">
+                              <thead>
+                                <tr>
+                                  <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                                  <th scope="col" class="border-0 text-uppercase font-medium">Nom</th>
+                                  <th scope="col" class="border-0 text-uppercase font-medium">Statut</th>
+                                  <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
+                                  <th scope="col" class="border-0 text-uppercase font-medium">Added</th>
+                                  <th scope="col" class="border-0 text-uppercase font-medium">Category</th>
+                                  <th scope="col" class="border-0 text-uppercase font-medium">actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="pl-4">1</td>
+                                  <td>
+                                      <h5 class="font-medium mb-0">Daniel Kristeen</h5>
+                                      <span class="text-muted">Texas, Unitedd states</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">Visual Designer</span><br>
+                                      <span class="text-muted">Past : teacher</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">daniel@website.com</span><br>
+                                      <span class="text-muted">999 - 444 - 555</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">15 Mar 1988</span><br>
+                                      <span class="text-muted">10: 55 AM</span>
+                                  </td>
+                                  <td>
+                                    <select class="form-control category-select" id="exampleFormControlSelect1">
+                                      <option>Modulator</option>
+                                      <option>Admin</option>
+                                      <option>User</option>
+                                      <option>Subscriber</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-key"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-upload"></i> </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="pl-4">2</td>
+                                  <td>
+                                      <h5 class="font-medium mb-0">Emma Smith</h5>
+                                      <span class="text-muted">Texas, Unitedd states</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">Visual Designer</span><br>
+                                      <span class="text-muted">Past : teacher</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">daniel@website.com</span><br>
+                                      <span class="text-muted">999 - 444 - 555</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">15 Mar 1855</span><br>
+                                      <span class="text-muted">10: 00 AM</span>
+                                  </td>
+                                  <td>
+                                    <select class="form-control category-select" id="exampleFormControlSelect1">
+                                      <option>Modulator</option>
+                                      <option>Admin</option>
+                                      <option>User</option>
+                                      <option>Subscriber</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-key"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-upload"></i> </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="pl-4">3</td>
+                                  <td>
+                                      <h5 class="font-medium mb-0">Olivia Johnson</h5>
+                                      <span class="text-muted">Texas, Unitedd states</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">Visual Designer</span><br>
+                                      <span class="text-muted">Past : teacher</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">daniel@website.com</span><br>
+                                      <span class="text-muted">999 - 444 - 555</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">17 Aug 1988</span><br>
+                                      <span class="text-muted">12: 55 AM</span>
+                                  </td>
+                                  <td>
+                                    <select class="form-control category-select" id="exampleFormControlSelect1">
+                                      <option>Modulator</option>
+                                      <option>Admin</option>
+                                      <option>User</option>
+                                      <option>Subscriber</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-key"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-upload"></i> </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="pl-4">4</td>
+                                  <td>
+                                      <h5 class="font-medium mb-0">Isabella Williams</h5>
+                                      <span class="text-muted">Texas, Unitedd states</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">Visual Designer</span><br>
+                                      <span class="text-muted">Past : teacher</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">daniel@website.com</span><br>
+                                      <span class="text-muted">999 - 444 - 555</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">26 Mar 1999</span><br>
+                                      <span class="text-muted">10: 55 AM</span>
+                                  </td>
+                                  <td>
+                                    <select class="form-control category-select" id="exampleFormControlSelect1">
+                                      <option>Cavalier</option>
+                                      <option>Moniteur</option>
+                                      <option>Cavalier non actif</option>
+                                      <option>Moniteur non actif</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-key"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-upload"></i> </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="pl-4">5</td>
+                                  <td>
+                                      <h5 class="font-medium mb-0">Sophia Jones</h5>
+                                      <span class="text-muted">Texas, Unitedd states</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">Visual Designer</span><br>
+                                      <span class="text-muted">Past : teacher</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">daniel@website.com</span><br>
+                                      <span class="text-muted">999 - 444 - 555</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">16 Aug 2001</span><br>
+                                      <span class="text-muted">10: 55 AM</span>
+                                  </td>
+                                  <td>
+                                    <select class="form-control category-select" id="exampleFormControlSelect1">
+                                      <option>Modulator</option>
+                                      <option>Admin</option>
+                                      <option>User</option>
+                                      <option>Subscriber</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-key"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-upload"></i> </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="pl-4">6</td>
+                                  <td>
+                                      <h5 class="font-medium mb-0">Charlotte Brown</h5>
+                                      <span class="text-muted">Texas, Unitedd states</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">Visual Designer</span><br>
+                                      <span class="text-muted">Past : teacher</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">daniel@website.com</span><br>
+                                      <span class="text-muted">999 - 444 - 555</span>
+                                  </td>
+                                  <td>
+                                      <span class="text-muted">15 Mar 1988</span><br>
+                                      <span class="text-muted">10: 55 AM</span>
+                                  </td>
+                                  <td>
+                                    <select class="form-control category-select" id="exampleFormControlSelect1">
+                                      <option>Modulator</option>
+                                      <option>Admin</option>
+                                      <option>User</option>
+                                      <option>Subscriber</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-key"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </button>
+                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-upload"></i> </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div> 
+</main>-->

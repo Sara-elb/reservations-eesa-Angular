@@ -1,0 +1,122 @@
+
+
+
+
+footer{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+    justify-content: center;
+    background-color: black;
+    color: aliceblue;
+}
+
+.hr {
+    /* centre verticalement les enfants entre eux */
+    align-items: center;
+
+    /* active flexbox */
+    display: flex;
+
+    /* garde le texte centré s’il passe sur plusieurs lignes ou si flexbox n’est pas supporté */
+    text-align: center;
+}
+
+.hr::before,
+.hr::after
+{
+    /* remplir le fond du trait permet également d’utiliser des images ou dégradés ! */
+    background: currentColor;
+
+    /* nécessaire pour afficher les pseudo-éléments */
+    content: "";
+
+    /* partage le reste de la largeur disponible */
+    flex: 1;
+
+    /* l’unité « em » garantit un ratio constant avec la taille du texte */
+    height: .025em;
+
+    /* espace les traits du texte */
+    margin:0.5em ;
+}
+
+
+h2 {
+    font-size: 1rem;
+    font-style: italic;
+}
+
+img {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+img:hover {
+    transform:scale(1.1);
+}
+
+.row-nav{
+    padding: 12px 0;
+    background: black;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.menu{
+    margin-top: 35px;
+    /* right: 0; */
+}
+
+.menu ul{
+    padding: 0;
+    /* margin-left: 0; */
+    /* margin-right: 0; */
+    /* display: flex;*/
+    flex-direction: row; 
+    display: flex;
+
+/* justify-content: flex-end; */
+
+}
+
+.menu ul li a{
+    list-style-type: none;
+    color:#FFFFFF;
+    text-transform : uppercase;
+    margin-right: 30px;
+    margin-left: 10px;
+    text-decoration:  none;
+}
+
+.menu ul li a:visited{
+    color:white;
+}
+
+.menu ul li a:hover{
+    transition: 0.45s ease-in-out;
+    color:#c63b3b;
+    cursor: pointer;
+}
+// #lienCartes{
+//     color:#c63b3b;
+// }
+// .menu ul li a:active{
+//     color:#c63b3b;
+// }
+
+@media only screen and (max-width:523px){
+    .menu{
+        position: absolute;
+        right: 0;
+        margin-left:10px;
+        top : 64px;
+        background: black;
+    }
+    
+}

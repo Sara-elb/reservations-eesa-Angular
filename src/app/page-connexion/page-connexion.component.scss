@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+}
+
+main{
+    background-image: url("/assets/img/fond-centre.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    border: 0;
+    margin-top: 20px;
+    color:#FFFFFF;
+}
+
+#logo{
+    margin-bottom: 10px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+body{
+
+}
+
+#container{
+    height: 70%;
+    margin-left: 36%;
+    margin-right: 36%;
+    background: rgba(0,0,0,0.85);
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+    padding: 15px;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+form a{
+    margin-top: 3%;
+    color : #77021D;
+    margin-bottom: 50px;
+}
+
+#container h1{
+    margin-top: 4%;
+    margin-bottom: 2%;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: lighter;
+}
+
+#container .input_field{
+    margin-top: 10%;
+    margin-bottom: 5%;
+    border-bottom : 1px solid #CD0C18;
+    /* border-radius: 20px; */
+    background: none;
+    display: block;
+    padding: 14px 0px;
+    width:70%;
+    outline: none;
+    transition: 0.25px;
+    color: #FFFFFF;
+}
+
+#container .input_field:hover{
+    transition: .5s;
+    width: 72%;
+    border-color:	#0CCFC2 ;
+    font-size: 16px;
+    content: '';
+    color: #FFFFFF;
+}
+
+#container .input_field::placeholder{
+    transition: .5s;
+    width: 82%;
+    border-color:	#0CCFC2 ;
+    font-size: 16px;
+    content: '';
+    color: #ADADAD;
+}
+
+button{
+    border: 0;
+    background-color: #77021D;
+    opacity: 0.7;
+    display: block;
+    margin: 12% auto 1% auto;
+    text-align: center;
+    padding: 15px 33px;
+    outline: none;
+    color: #FFFFFF;
+    border-radius: 24px;
+    transition: 0.25px;
+    cursor: pointer;
+}
+
+button:hover{
+    opacity: 1;
+    font-weight: bold;
+}
+
+
+a{
+    color :black;
+}
+
+a:link{
+    text-decoration:none; 
+}
+
+a:visited{
+
+}
+
+a:hover{
+    font-weight: bold;
+}
+
+
+
+
+#footer{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+    justify-content: center;
+}
+
+.hr {
+    /* centre verticalement les enfants entre eux */
+    align-items: center;
+
+    /* active flexbox */
+    display: flex;
+
+    /* garde le texte centré s’il passe sur plusieurs lignes ou si flexbox n’est pas supporté */
+    text-align: center;
+}
+
+.hr::before,
+.hr::after
+{
+    /* remplir le fond du trait permet également d’utiliser des images ou dégradés ! */
+    background: currentColor;
+
+    /* nécessaire pour afficher les pseudo-éléments */
+    content: "";
+
+    /* partage le reste de la largeur disponible */
+    flex: 1;
+
+    /* l’unité « em » garantit un ratio constant avec la taille du texte */
+    height: .025em;
+
+    /* espace les traits du texte */
+    margin:0.5em ;
+}
+
+
+h2 {
+    font-size: 1rem;
+    font-style: italic;
+}
+
+img {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+img:hover {
+    transform:scale(1.1);
+}
