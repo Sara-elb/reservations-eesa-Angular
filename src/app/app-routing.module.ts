@@ -6,7 +6,7 @@ import { PageCavaliersComponent } from './page-cavaliers/page-cavaliers.componen
 import { PageConnexionComponent } from './page-connexion/page-connexion.component';
 
 const routes: Routes = [
-  {path:'', component: PageConnexionComponent},
+  {path:'connexion', component: PageConnexionComponent},
   {path:'espace-administrateur/gestion-des-cavaliers', component: PageCavaliersComponent},
   {path:'espace-administrateur/gestion-des-cartes', component: PageCartesComponent},
   {path:'espace-administrateur', component: EspaceAdministrateurComponent}

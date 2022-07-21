@@ -77,14 +77,14 @@
                     <p>Type de séances</p>
                         <p><input id="textInputContent" formControlName="type" type="text" placeholder="de 7 à 17 ans"
                                     matInput /></p>
-                        <mat-error *ngIf="cardFormControl.get('content')?.hasError('required')">
+                        <mat-error *ngIf="cardFormControl.get('type')?.hasError('required')">
                               <strong>Entrer</strong> le type des séances.
                         </mat-error>
                         <br>
                         <p>Nombre de séances</p>
                         <p><input id="number" formControlName="nbSeances" type="number"  step="1" value="1" min="1" max="100"
                           matInput /></p>
-                        <mat-error *ngIf="cardFormControl.get('content')?.hasError('required')">
+                        <mat-error *ngIf="cardFormControl.get('nbSeances')?.hasError('required')">
                               <strong>Entrer</strong> le nombre de séances contenues dans cette carte.
                         </mat-error>
                         
@@ -111,14 +111,14 @@
                     <p>Type de séances</p>
                         <p><input id="textInputContent" formControlName="type" type="text" value={{typeSeance}}
                                     matInput /></p>
-                        <mat-error *ngIf="cardFormControl.get('content')?.hasError('required')">
+                        <mat-error *ngIf="cardFormControl.get('type')?.hasError('required')">
                               <strong>Entrer</strong> le type des séances.
                         </mat-error>
                         <br>
                         <p>Nombre de séances</p>
                         <p><input id="number" formControlName="nbSeances" type="number"  step="1" value={{nbSeances}} min="1" max="100"
                           matInput /></p>
-                        <mat-error *ngIf="cardFormControl.get('content')?.hasError('required')">
+                        <mat-error *ngIf="cardFormControl.get('nbSeances')?.hasError('required')">
                               <strong>Entrer</strong> le nombre de séances contenues dans cette carte.
                         </mat-error>
                         

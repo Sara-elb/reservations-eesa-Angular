@@ -31,7 +31,7 @@ export interface RidersData {
 export class PageCavaliersComponent implements OnInit {
   public containerAddVisible = "hidden";
   public containerEditVisible = "hidden"
-  // message: any;
+  public containerIdsVisible = "hidden";
   public alertAddNewRider : boolean = false;
   public alertEditRider : boolean =false;
   public alertDeleteRider:boolean=false;
@@ -43,10 +43,14 @@ export class PageCavaliersComponent implements OnInit {
   public idConnectedUser: any;
   public identifiant:string="";
   public newMDP:string="";
+  public levelsList: any;
 
   public riderFormControl: FormGroup = this.formBuilder.group({
-    "type": ["", [Validators.required]],
-    "nbSeances": ["", [Validators.required]]
+    "nom": ["", [Validators.required]],
+    "prenom": ["", [Validators.required]],
+    "email": ["", [Validators.required, Validators.email]],
+    "dateDeNaissance": ["", [Validators.required]],
+    "niveau": ["", [Validators.required]],
   });
 
   displayedColumns: string[] = ['id', 'nom', 'prenom','email','identifiant','age','niveau','actif'];
@@ -71,6 +75,7 @@ export class PageCavaliersComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshRidersList();
+    this.generateLevelsList();
 
     // this.dataSource.sort = this.sort;
     this.tokenIdentification.user.subscribe(
@@ -109,21 +114,20 @@ export class PageCavaliersComponent implements OnInit {
     if (this.riderFormControl.valid) {
       console.log("ok fonction create rider");
       this.rider = this.riderFormControl.value;
-      this.client.post("http://" + environment.serverAddress + "/admin/ajoutercavalier", this.rider)
-        .subscribe((rider:any) => {
-          if (rider != null) {
+      this.client.post("http://" + environment.serverAddress + "/admin/ajouter-cavalier", this.rider)
+        .subscribe((response:any) => {
+          if (response.length == 2) {
             this.alertAddNewRider=true;
             this.containerAddVisible = "hidden";
-            this.newMDP= rider.motDePasse;
-            this.identifiant=rider.identifiant;
-
-            console.log("rider créée")
+            this.identifiant=response[0];
+            this.newMDP=response[1];
+            this.refreshRidersList();
           } else {
-              alert("erreur")
+            alert("erreur")
           }
         })
     }
-    this.refreshRidersList();
+    this.containerIdsVisible = "visible";
   }
 
   public exitNewRider() {
@@ -132,6 +136,10 @@ export class PageCavaliersComponent implements OnInit {
 
   public exitEditRider() {
     this.containerEditVisible = "hidden";
+  }
+
+  public exitIds() {
+    this.containerIdsVisible = "hidden";
   }
 
   closeAlertAddNewRider(){
@@ -160,9 +168,6 @@ export class PageCavaliersComponent implements OnInit {
       console.log(this.typeSeance+" nb : "+this.nbSeances)
       this.nbSeances=response.nbSeances;
     });
-
-
-  
   }
 
   validationEditRider():void{
@@ -214,6 +219,11 @@ export class PageCavaliersComponent implements OnInit {
       this.dataSource = new MatTableDataSource<RidersData>(this.riders);
       this.dataSource.paginator = this.paginator;
     });
+  }
+
+  generateLevelsList(){
+        this.client.get('http://' + environment.serverAddress + '/admin/liste-niveaux')
+      .subscribe(response => this.levelsList = response);
   }
 
 }

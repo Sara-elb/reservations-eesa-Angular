@@ -31,18 +31,24 @@ main{
 }
 
 body{
-
+    color: white;
 }
 
 #container{
     height: 70%;
     margin-left: 36%;
     margin-right: 36%;
+    // background-color: white;
     background: rgba(0,0,0,0.85);
     text-align: center;
     border-radius: 5px;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
     padding: 15px;
+    color: white;
+}
+
+mat-form-field{
+    color: white;
 }
 
 form{
@@ -50,6 +56,7 @@ form{
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    color: white;
 }
 
 form a{

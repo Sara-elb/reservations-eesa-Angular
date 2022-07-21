@@ -13,7 +13,6 @@ export class AppComponent {
   public monitor: boolean=false;
   public rider: boolean=false;
 
-
   constructor(
     private tokenIdentification: TokenIdentificationService
   ) { }
@@ -33,6 +32,11 @@ export class AppComponent {
       }
     );
     this.tokenIdentification.refreshToken();
+  }
+
+  signOut(){
+    this.admin = false;
+    this.tokenIdentification.onTokenExpired();
   }
   
 }

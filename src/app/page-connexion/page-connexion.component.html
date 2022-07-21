@@ -7,17 +7,29 @@
 
         <div class="form-container sign-in-container">
             <form [formGroup]="signInFormControl" (submit)="onSignIn()">
-                <input class="input_field" formControlName="identifiant" type="text" placeholder="identifiant" minlength="6" maxlength="12" matInput /><span></span>
-                    <mat-error *ngIf="signInFormControl.get('identifiant')?.hasError('required')">Entrer votre <strong>identifiant</strong></mat-error>
-                    <mat-error *ngIf="signInFormControl.get('identifiant')?.hasError('minlength')">L'identifiant doit avoir <strong>au moins 6 lettres</strong></mat-error>
+                <!-- <mat-form-field hintLabel="Max 13 caractères" appearance="fill">
+                    <mat-label>Identifiant</mat-label>
+                    <input matInput #inputId maxlength="13" placeholder="Ex. dupont1eesa">
+                    <mat-hint align="end">{{inputId.value?.length || 0}}/13</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field hintLabel="8 caractères" appearance="fill">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput #inputPassword maxlength="8">
+                    <mat-hint align="end">{{inputPassword.value?.length || 0}}/8</mat-hint>
+                </mat-form-field> -->minlength="8" maxlength="13" 
+                <input class="input_field" hintLabel="Max 13 caractères" formControlName="identifiant" type="text" #inputId placeholder="identifiant" matInput /><span></span>
+                <mat-hint align="end">{{inputId.value?.length || 0}}/13</mat-hint>
+                    <!-- <mat-error *ngIf="signInFormControl.get('identifiant')?.hasError('required')">Entrer votre <strong>identifiant</strong></mat-error> -->
+                    <!-- <mat-error *ngIf="signInFormControl.get('identifiant')?.hasError('minlength')">L'identifiant doit avoir <strong>au moins 6 lettres</strong></mat-error>  -->
                 <input class="input_field" formControlName="motDePasse" type="password" placeholder="Mot de passe" autocomplete="on" matInput /><span></span>
                     <mat-error *ngIf="signInFormControl.get('password')?.hasError('required')">Le mot de passe est <strong>obligatoire</strong></mat-error>
                     <mat-error *ngIf="signInFormControl.get('password')?.hasError('minlength')">
                         Le mot de passe doit avoir <strong>au moins 6 lettres</strong>
-                    </mat-error>
+                    </mat-error> 
                     <button type="submit">Se connecter</button>
-                    <a href="#">Mot de passe oublié?</a>
-            </form>
+                    <a href="#">Mot de passe oublié ?</a>
+                </form>
         </div>
     </div>
 </main>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { TokenInterceptor } from './token.interceptor';
 import { MatInputModule } from '@angular/material/input';
 import {CdkTableModule} from '@angular/cdk/table';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -43,8 +44,10 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatSortModule,
     MatInputModule,
     CdkTableModule,
+    MatSelectModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

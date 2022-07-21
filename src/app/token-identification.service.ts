@@ -23,7 +23,7 @@ export class TokenIdentificationService {
       }
     }
   
-    public onTokenExprired() {
+    public onTokenExpired() {
       localStorage.removeItem("token");
       this.refreshToken();
       //this.utilisateur.next(null);

@@ -6,15 +6,17 @@
         <mat-label>Filtrer</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
     </mat-form-field> -->
+    <h1>Gestion des cavaliers</h1>
+    <br>
     <div id="options">
       <div id="nv">
-        <button mat-raised-button (click)="addRider()">Ajouter une carte</button>
+        <button mat-raised-button (click)="addRider()">Ajouter un cavalier</button>
       </div>
       <div id="actif">
-        <button mat-raised-button (click)="refreshActivRider()">Actives</button>
+        <button mat-raised-button (click)="refreshActivRider()">Actifs</button>
       </div>
       <div id="non-actif">
-        <button mat-raised-button (click)="refreshInactivRider()">Non actives</button>
+        <button mat-raised-button (click)="refreshInactivRider()">Non actifs</button>
       </div>
     </div>
 
@@ -46,39 +48,89 @@
       </button>
     </div>
 
+    <div id="boxIds" [style.visibility]="containerIdsVisible">
+        <div class="exit"> 
+          <button id="buttonExit" (click)="exitIds()">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+        </div>
 
+        <div id="ids">
+          <h1>Identifiants du nouveau cavalier :</h1>
+          <br>
+          <br>
+          <br>
+          <h2>Identifiant</h2>
+          <h3>{{this.identifiant}}</h3>
+          <br>
+          <br>
+          <h2>Mot de passe</h2>
+          <h3>{{this.newMDP}}</h3>
+        </div>
+    </div>
+    
     <div id="box" [style.visibility]="containerAddVisible">
       <div class="exit"> 
         <button id="buttonExit" (click)="exitNewRider()">
           <mat-icon>exit_to_app</mat-icon>
         </button>
       </div>
-      <div id="formulaireCarte">
-        <form id="formulaireAjoutCarte" [formGroup]="riderFormControl">
-              <!-- <mat-form-field appearance="fill">
-                <p>Type de séances</p>
-                    <p><input id="textInputContent" formControlName="type" type="text" placeholder="de 7 à 17 ans"
-                                matInput /></p>
-                    <mat-error *ngIf="riderFormControl.get('content')?.hasError('required')">
-                          <strong>Entrer</strong> le type des séances.
-                    </mat-error>
-                    <br>
-                    <p>Nombre de séances</p>
-                    <p><input id="number" formControlName="nbSeances" type="number"  step="1" value="1" min="1" max="100"
-                      matInput /></p>
-                    <mat-error *ngIf="riderFormControl.get('content')?.hasError('required')">
-                          <strong>Entrer</strong> le nombre de séances contenues dans cette carte.
-                    </mat-error>
-                    
-              </mat-form-field> -->
+      <div id="formulaireCavalier">
+        <form id="formulaireAjoutCavalier" [formGroup]="riderFormControl" (submit)="createRider()">
+            <p>Nom</p>
+            <input id="textInputContent" formControlName="nom" type="text" placeholder="Doe"
+                                matInput />
+
+            <br>
+
+            <p>Prénom</p>
+            <input id="textInputContent" formControlName="prenom" type="text"  placeholder="Dona"
+                    matInput />
+              <mat-error *ngIf="riderFormControl.get('prenom')?.hasError('required')">
+              <strong>Entrer</strong> le prénom du cavalier.
+              </mat-error>
+            <br>
+
+            <p>Email</p>
+            <p><input id="textInputContent" formControlName="email" type="email"  placeholder="dona.doe@gmail.fr"
+                    matInput /></p>
+              <mat-error *ngIf="riderFormControl.get('email')?.hasError('required')">
+              <strong>Entrer</strong> l'adresse email du cavalier.
+              </mat-error>
+              <mat-error *ngIf="riderFormControl.get('email')?.hasError('email')">
+              Fournir une <strong>adresse mail correcte</strong>
+              </mat-error>
+            <br>
+
+            <p>Date de naissance</p>
+            <p><input id="textInputContent" formControlName="dateDeNaissance" type="date"  placeholder="24/06/2010"
+                    matInput /></p>
+            <mat-error *ngIf="riderFormControl.get('dateDeNaissance')?.hasError('required')">
+            <strong>Entrer</strong> la date de naissance du cavalier.
+            </mat-error>
+            <br>
+
+            <p>Choisir un niveau:</p>
+            <mat-select formControlName="niveau">
+                  <mat-option *ngFor="let level of levelsList"
+                        [value]="level" >{{level.nom}} 
+                  </mat-option>
+            </mat-select>
+
+            <!-- <p><input id="textInputContent" formControlName="niveau" type="text"  placeholder=""
+                    matInput /></p>
+            <mat-error *ngIf="riderFormControl.get('niveau')?.hasError('required')">
+            <strong>Sélectionner</strong>le niveau.
+            </mat-error>
+            <br> -->    
+          <div id="validationNewRider">
+            <button type="submit" id="riderButton">
+              Valider
+            </button>
+        </div>
         </form>
-        
       </div>
-      <div id="validationNvCarte">
-          <button id="riderButton" (click)="createRider()">
-            Valider
-          </button>
-      </div>
+
     </div>
 
     <div id="box" [style.visibility]="containerEditVisible">
@@ -87,8 +139,8 @@
           <mat-icon>exit_to_app</mat-icon>
         </button>
       </div>
-      <div id="formulaireCarte">
-        <!-- <form id="formulaireAjoutCarte" [formGroup]="riderFormControl">
+      <div id="formulaireEditCavalier">
+        <!-- <form id="formulaireAjoutCa" [formGroup]="riderFormControl">
               <mat-form-field appearance="fill">
                 <p>Type de séances</p>
                     <p><input id="textInputContent" formControlName="type" type="text" value={{typeSeance}}

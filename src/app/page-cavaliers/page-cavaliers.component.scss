@@ -1,6 +1,12 @@
 
 
 /* ____________ */
+h1{
+  margin-left: 5px;
+  color: #c63b3b;
+  text-transform: uppercase;
+  font-weight: 3000;
+}
 
 body{
     background: #edf1f5;
@@ -58,18 +64,55 @@ button {
   // box-shadow: 5px 0px 0px 2px black
 }
 
-#box {
+#boxIds {
   display: flex;
   flex-direction: column;
-
-  width: 70%;
-  height: 45%;
+  justify-content: center;
+  width: 75%;
+  height: 55%;
   margin: 0 20% 0 20%;
+  text-align: center;
   // margin-top: 10px;
   // margin-bottom: 50px;
   position: absolute;
   z-index: 2;
   background-color: #425b8a;
+  border-radius: 3px;
+  box-shadow: 3px 3px 0.5px 0.25px rgba(7, 7, 33, 0.5);
+}
+
+#ids{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#ids h1{
+  color: white;
+  font-family: Gotham, Tahoma, sans-serif;
+  text-align: center;
+  font-weight: 150;
+  letter-spacing: 0.04;
+  margin-bottom: 2px solid white;
+}
+
+#ids h2{
+  color : white;
+}
+
+
+#box {
+  display: flex;
+  flex-direction: column;
+
+  width: 70%;
+  height: 70%;
+  margin: 0 20% 0 20%;
+  // margin-top: 10px;
+  // margin-bottom: 50px;
+  position: absolute;
+  z-index: 2;
+  background-color: #B3B6C3;
   border-radius: 3px;
   box-shadow: 3px 3px 0.5px 0.25px rgba(7, 7, 33, 0.5);
 }
@@ -80,7 +123,7 @@ button {
     padding: 8px 12px 8px 12px;
     margin-right: 0 ;
     margin-bottom: 8px;
-    background-color: #425b8a;
+    background-color: inherit;
     opacity: 0.8;
     // border-radius: 50% 20% / 10% 40%;;
     // border: 2px #FFFFFF solid;
@@ -92,11 +135,12 @@ button {
 }
 
 
-#buttonExit :hover{
+#buttonExit:hover{
     opacity: 1;
     transition:250ms;
     transform: scale(1.1, 1.1);
     filter: none;
+    color: #6d7180;
 
 }
 
@@ -106,7 +150,7 @@ button {
     justify-content: right;
 }
 
-#validationNvCarte{
+#validationNewRider{
     margin-top: 5px;
     display: flex;
     flex-direction: row;
@@ -120,33 +164,33 @@ button {
     border-radius: 50px;
     border: 2px #FFFFFF solid;
     opacity: 0.8;
-    background-color: #425b8a;
+    background-color: #6d7180;
     color:#FFFFFF;
     filter: none;
 
 }
 
-#riderButton :hover{
+#riderButton:hover{
     opacity: 1;
     background-color: #FFFFFF;
-    // color:yellow;
+    color:#6d7180;
     transition:250ms;
-    transform: scale(1.1, 1.1);
+    transform: scale(1.01, 1.01);
     filter: none;
 
 }
 
-#formulaireCarte{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    color: #FFFFFF;
-    margin-left: 7%;
-
+#formulaireAjoutCavalier{
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  width: 80%;
+  color: #FFFFFF;
+  margin-left: 20%;
 }
-#formulaireCarte{
+
+#formulaireCavalier{
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -254,7 +298,7 @@ width: 90%;
   }
 
   #non-actif button{
-    color:burlywood;
+    color:sienna;
     border: solid 2px sienna;
     filter: drop-shadow(0 0 0.2rem sienna);
   }
