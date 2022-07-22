@@ -51,6 +51,11 @@ export class PageCartesComponent implements OnInit {
     "nbSeances": ["", [Validators.required]]
   });
 
+  public editCardFormControl: FormGroup = this.formBuilder.group({
+    "type": ["", Validators.required ],
+    "nbSeances": ["", Validators.required ]
+  });
+
   displayedColumns: string[] = ['id', 'type', 'nbSeances'];
   displayedColumnsWithExpand = [...this.displayedColumns, 'expand'];
 
@@ -163,37 +168,73 @@ export class PageCartesComponent implements OnInit {
   }
 
   public editCard(idCard:number): void {
-    this.containerEditVisible = "visible";
     this.client.get("http://"+ environment.serverAddress +"/carte/"+idCard)
     .subscribe((response:any) => { 
       this.idCarte=idCard;
-      console.log("idCarte"+this.idCarte)
       this.typeSeance=response.type;
-      console.log(this.typeSeance+" nb : "+this.nbSeances)
       this.nbSeances=response.nbSeances;
-    });
-
-
-  
+      console.log(" bouton edit -- id "+this.idCarte +" typeSeance "+this.typeSeance+ " nb seance "+this.nbSeances)
+    }); 
+    this.containerEditVisible = "visible";
   }
 
   validationEditCard():void{
-    if (this.cardFormControl.valid) {
-      console.log("ok fonction edit card"+this.idCarte);
-      this.carte = this.cardFormControl.value;
+    // this.editCard(this.idCarte);
+  if(this.editCardFormControl.value.type == "" ){
+        console.log("ici")
+        this.editCardFormControl.value.type = this.typeSeance;
+      
+        this.carte = this.editCardFormControl.value;
+        this.client.post("http://" + environment.serverAddress + "/admin/modifier-carte/"+ this.idCarte, this.carte)
+          .subscribe(carte => {
+            if (carte != null) {
+              this.alertEditCard=true;
+              this.containerEditVisible = "hidden";
+              this.refreshCardsList();
+              console.log("Carte modifiée");
+
+            } else {
+                alert("Erreur lors de la modification ")
+            }
+          })
+    }else if( this.editCardFormControl.value.nbSeances == "" || this.editCardFormControl.value.nbSeances ==null){
+      console.log("ichelpi")
+      this.editCardFormControl.value.nbSeances = this.nbSeances;
+    
+      this.carte = this.editCardFormControl.value;
       this.client.post("http://" + environment.serverAddress + "/admin/modifier-carte/"+ this.idCarte, this.carte)
         .subscribe(carte => {
           if (carte != null) {
             this.alertEditCard=true;
             this.containerEditVisible = "hidden";
             this.refreshCardsList();
+            console.log("Carte modifiée");
 
-            console.log("Carte modifiée")
+          } else {
+              alert("Erreur lors de la modification ")
+          }
+        })
+    }else if (this.editCardFormControl.valid) {
+      console.log("là");
+      this.carte = this.editCardFormControl.value;
+      this.client.post("http://" + environment.serverAddress + "/admin/modifier-carte/"+ this.idCarte, this.carte)
+        .subscribe(carte => {
+          if (carte != null) {
+            this.alertEditCard=true;
+            this.containerEditVisible = "hidden";
+            this.refreshCardsList();
+            console.log("Carte modifiée");
           } else {
               alert("Erreur lors de la modification ")
           }
         })
     }
+    else{
+      alert("Erreur : formulaire mal complété")
+    }
+    this.editCardFormControl.value.type="";
+
+    this.editCardFormControl.value.nbSeances="";
   }
 
   deleteCard(idCard:number): void {
@@ -227,5 +268,9 @@ export class PageCartesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
   }
+}
+
+function value(value: any, arg1: { this: any; }) {
+  throw new Error('Function not implemented.');
 }
 

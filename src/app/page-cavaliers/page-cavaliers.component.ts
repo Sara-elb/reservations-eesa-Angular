@@ -1,7 +1,10 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ListKeyManager } from '@angular/cdk/a11y';
+// import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatDateFormats } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -24,8 +27,18 @@ export interface RidersData {
 
 @Component({
   selector: 'app-page-cavaliers',
+  styleUrls: ['./page-cavaliers.component.scss'],
   templateUrl: './page-cavaliers.component.html',
-  styleUrls: ['./page-cavaliers.component.scss']
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({
+        height: '*',
+        minHeight: ''
+      })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 
 export class PageCavaliersComponent implements OnInit {
@@ -36,14 +49,21 @@ export class PageCavaliersComponent implements OnInit {
   public alertEditRider : boolean =false;
   public alertDeleteRider:boolean=false;
   public alertErrorDeleteRider:boolean=false;
-  public typeSeance: string ="";
-  public nbSeances: number=0;
   public idRider: any;
   public admin: boolean = false;
   public idConnectedUser: any;
   public identifiant:string="";
   public newMDP:string="";
   public levelsList: any;
+
+  public nom: string = " ";
+  public prenom: string= " ";
+  public email: string =" ";
+  public dateDeNaissance:Date= new Date;
+  public niveau: any=null;
+  public idNiveau: number=0;
+  // public listeCards:Array<Object>;
+  // soldes:Object;
 
   public riderFormControl: FormGroup = this.formBuilder.group({
     "nom": ["", [Validators.required]],
@@ -53,11 +73,21 @@ export class PageCavaliersComponent implements OnInit {
     "niveau": ["", [Validators.required]],
   });
 
+  public editRiderFormControl: FormGroup = this.formBuilder.group({
+    "nom": ["", ],
+    "prenom": ["", ],
+    "email": ["", ],
+    "dateDeNaissance": ["", ],
+    "niveau": ["", ],
+  });
+
   displayedColumns: string[] = ['id', 'nom', 'prenom','email','identifiant','age','niveau','actif'];
   displayedColumnsWithExpand = [...this.displayedColumns, 'expand'];
 
   // columnsToDisplayWithExpand = [...this.displayedColumns, 'expand']
   dataSource = new MatTableDataSource<RidersData>();
+  expandedElement: RidersData | null | undefined;
+
   riders : any;
   rider = null;
   // expandedElement: RidersData | null | undefined;
@@ -65,11 +95,13 @@ export class PageCavaliersComponent implements OnInit {
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+  
   constructor(
     private formBuilder: FormBuilder,
     private client: HttpClient,
     private tokenIdentification: TokenIdentificationService,
     private router: Router,
+    // private datePipe : DatePipe,
   ) { }
 
 
@@ -98,7 +130,7 @@ export class PageCavaliersComponent implements OnInit {
   // }
 
   refreshRidersList() {
-    this.client.get('http://' + environment.serverAddress + '/admin/liste-utilisateurs')
+    this.client.get('http://' + environment.serverAddress + '/admin/liste-cavaliers')
       .subscribe(response => {
         this.riders = response;
         this.dataSource = new MatTableDataSource<RidersData>(this.riders);
@@ -163,20 +195,32 @@ export class PageCavaliersComponent implements OnInit {
     this.client.get("http://"+ environment.serverAddress +"/admin/cavalier/"+idRider)
     .subscribe((response:any) => { 
       this.idRider=idRider;
-      console.log("idRider"+this.idRider)
-      this.typeSeance=response.type;
-      console.log(this.typeSeance+" nb : "+this.nbSeances)
-      this.nbSeances=response.nbSeances;
+      this.nom=response.nom;
+      this.prenom=response.prenom;
+      this.email=response.email;
+      // this.dateDeNaissance
+      
+      // console.log(this.datePipe.transform(response.dateDeNaissance, 'dd/MM/yyyy'));
+      this.idNiveau=response.niveau.id;
+
+      console.log(" niveau : "+this.idNiveau)
     });
   }
 
   validationEditRider():void{
-    if (this.riderFormControl.valid) {
-      console.log("ok fonction edit rider"+this.idRider);
-      this.rider = this.riderFormControl.value;
+    this.client.get("http://"+ environment.serverAddress +"/niveau/"+this.editRiderFormControl.value.niveau)
+    .subscribe((response:any) => { 
+      this.niveau=response;
+      this.editRiderFormControl.value.niveau = this.niveau;
+      this.rider = this.editRiderFormControl.value;
+    }); 
+    
+      // console.log("ok fonction edit rider"+this.idNiveau);
       this.client.post("http://" + environment.serverAddress + "/admin/modifier/cavalier/"+ this.idRider, this.rider)
         .subscribe(rider => {
           if (rider != null) {
+            console.log("là fct rider ");
+
             this.alertEditRider=true;
             this.containerEditVisible = "hidden";
             this.refreshRidersList();
@@ -186,7 +230,7 @@ export class PageCavaliersComponent implements OnInit {
               alert("Erreur lors de la modification ")
           }
         })
-    }
+    this.editRiderFormControl.value.reset;
   }
 
   deleteRider(idRider:number): void {

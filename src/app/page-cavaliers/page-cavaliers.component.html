@@ -76,11 +76,10 @@
         </button>
       </div>
       <div id="formulaireCavalier">
-        <form id="formulaireAjoutCavalier" [formGroup]="riderFormControl" (submit)="createRider()">
+        <form id="formulaireEditCavalier" [formGroup]="riderFormControl" (submit)="createRider()">
             <p>Nom</p>
             <input id="textInputContent" formControlName="nom" type="text" placeholder="Doe"
                                 matInput />
-
             <br>
 
             <p>Prénom</p>
@@ -133,76 +132,105 @@
 
     </div>
 
-    <div id="box" [style.visibility]="containerEditVisible">
+    <!-- box modification du cavalier -->
+    <div id="boxEditRider" [style.visibility]="containerEditVisible">
       <div class="exit"> 
         <button id="buttonExit" (click)="exitEditRider()">
           <mat-icon>exit_to_app</mat-icon>
         </button>
       </div>
-      <div id="formulaireEditCavalier">
-        <!-- <form id="formulaireAjoutCa" [formGroup]="riderFormControl">
+      <div id="formulaireCavalier">
+        <form id="formulaireEditCavalier" [formGroup]="editRiderFormControl">
               <mat-form-field appearance="fill">
-                <p>Type de séances</p>
-                    <p><input id="textInputContent" formControlName="type" type="text" value={{typeSeance}}
-                                matInput /></p>
-                    <mat-error *ngIf="riderFormControl.get('content')?.hasError('required')">
-                          <strong>Entrer</strong> le type des séances.
-                    </mat-error>
-                    <br>
-                    <p>Nombre de séances</p>
-                    <p><input id="number" formControlName="nbSeances" type="number"  step="1" value={{nbSeances}} min="1" max="100"
-                      matInput /></p>
-                    <mat-error *ngIf="riderFormControl.get('content')?.hasError('required')">
-                          <strong>Entrer</strong> le nombre de séances contenues dans cette carte.
-                    </mat-error>
-                    
+                <p>Nom</p>
+                <p><input id="textInputContent" formControlName="nom" type="text" value={{nom}} matInput /></p>
               </mat-form-field>
-        </form> -->
-      </div>
-      <div id="validationNvCarte">
-          <button id="riderButton" (click)="validationEditRider()">
-            Valider
-          </button>
+
+              <mat-form-field appearance="fill">
+                <p>Prénom</p>
+                <p><input id="textInputContent" formControlName="prenom" type="text" value={{prenom}} matInput /></p>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <p>Email</p>
+                <p><input id="textInputContent" formControlName="email" type="email" value={{email}} matInput /></p>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <p>Date de naissance</p>
+                <p><input id="textInputContent" formControlName="dateDeNaissance" type="date" value={{dateDeNaissance}} matInput /></p>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <p>Niveau</p>
+                <mat-select formControlName="niveau">
+                  <mat-option *ngFor="let level of levelsList"
+                        value={{level.id}} >{{level.nom}}  
+                  </mat-option>
+            </mat-select>
+                <!-- <p><input id="textInputContent" formControlName="niveau" type="text" value={{niveau}} matInput /></p> -->
+              </mat-form-field> 
+
+              <div id="validationEditRider">
+                <button id="riderButton" (click)="validationEditRider()">
+                  Valider
+                </button>
+              </div>             
+        </form>
       </div>
     </div>
-    
+    <!-- LISTE DES CAVALIERS -->
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
 
           <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
               <th mat-header-cell *matHeaderCellDef> {{column}} </th>
               <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+          </ng-container>
 
-            </ng-container>
-            <ng-container matColumnDef="expand">
-              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-              <td mat-cell *matCellDef="let element">
-                <button id="editIcon"(click)="editRider(element.id)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button id="deleteIcon"(click)="deleteRider(element.id)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </td>
-            </ng-container>
+          <ng-container  matColumnDef="expand">
+            <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon><mat-icon>assignment</mat-icon>
+                <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+              </button>
+            </td>
+          </ng-container>
 
-
-            <!-- 
-            <ng-container matColumnDef="expandedDetail">
-              <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-                <div class="example-element-detail"
-                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                  <div class="example-element-diagram" >
-                    <span class="example-element-description-attribution"> -- BOUTONS </span>
-                    </div>
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsWithExpand.length">
+              <div class="example-element-detail"
+                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="example-element-diagram">
+                  <div class="example-element-position"> {{element.id}} </div>
+                  <div class="example-element-symbol"> {{element.email}} </div>
+                  <div class="example-element-name"> {{element.nom}} </div>
+                  <div class="example-element-weight"> {{element.prenom}} </div>
                 </div>
-                </td>
-            </ng-container> -->
+                <div class="example-element-description">
+                  {{element.dateDeNaissance}}
+                  <span class="example-element-description-attribution">  Wikipedia </span>
+                    <button id="editIcon"(click)="editRider(element.id)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button id="deleteIcon"(click)="deleteRider(element.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+              </div>
+            </td>
+          </ng-container>
 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumnsWithExpand"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumnsWithExpand;"></tr>
-            </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsWithExpand"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumnsWithExpand;"
+              class="example-element-row"
+              [class.example-expanded-row]="expandedElement === element"
+              (click)="expandedElement = expandedElement === element ? null : element">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
     
         <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                         showFirstLastButtons 

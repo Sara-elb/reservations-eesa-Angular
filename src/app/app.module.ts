@@ -28,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
     PageCartesComponent,
     PageCavaliersComponent,
     EspaceAdministrateurComponent,
+    
   ],
   imports: [
     BrowserModule,

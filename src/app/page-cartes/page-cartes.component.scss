@@ -1,6 +1,13 @@
 
 
 /* ____________ */
+h1{
+  margin-left: 5px;
+  color: #c63b3b;
+  text-transform: uppercase;
+  font-weight: 3000;
+  margin-bottom: 0;
+}
 
  body{
     background: #edf1f5;
@@ -254,7 +261,7 @@ width: 90%;
   }
 
   #non-actif button{
-    color:burlywood;
+    color:sienna;
     border: solid 2px sienna;
     filter: drop-shadow(0 0 0.2rem sienna);
   }
