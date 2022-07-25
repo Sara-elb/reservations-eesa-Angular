@@ -46,7 +46,7 @@ export class PageConnexionComponent implements OnInit {
             if(this.admin){
               this.router.navigateByUrl('espace-administrateur');
             }else if (this.monitor){
-              this.router.navigateByUrl('espace-moniteurr');
+              this.router.navigateByUrl('espace-moniteur');
             }else if(this.rider){
               this.router.navigateByUrl('espace-cavalier');
             }

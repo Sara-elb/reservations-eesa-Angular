@@ -55,6 +55,7 @@ export class PageCavaliersComponent implements OnInit {
   public identifiant:string="";
   public newMDP:string="";
   public levelsList: any;
+  public cardsList: any;
 
   public nom: string = " ";
   public prenom: string= " ";
@@ -62,6 +63,7 @@ export class PageCavaliersComponent implements OnInit {
   public dateDeNaissance:Date= new Date;
   public niveau: any=null;
   public idNiveau: number=0;
+  // public formater:SimpleDateFormat;
   // public listeCards:Array<Object>;
   // soldes:Object;
 
@@ -81,7 +83,7 @@ export class PageCavaliersComponent implements OnInit {
     "niveau": ["", ],
   });
 
-  displayedColumns: string[] = ['id', 'nom', 'prenom','email','identifiant','age','niveau','actif'];
+  displayedColumns: string[] = ['id', 'nom', 'prenom','email','identifiant','age','actif'];
   displayedColumnsWithExpand = [...this.displayedColumns, 'expand'];
 
   // columnsToDisplayWithExpand = [...this.displayedColumns, 'expand']
@@ -135,6 +137,7 @@ export class PageCavaliersComponent implements OnInit {
         this.riders = response;
         this.dataSource = new MatTableDataSource<RidersData>(this.riders);
         this.dataSource.paginator = this.paginator;
+        // formater = new SimpleDate
       });
   }
 
@@ -155,7 +158,8 @@ export class PageCavaliersComponent implements OnInit {
             this.newMDP=response[1];
             this.refreshRidersList();
           } else {
-            alert("erreur")
+            alert(response[0]);
+            console.log(response[0]);
           }
         })
     }
@@ -268,6 +272,11 @@ export class PageCavaliersComponent implements OnInit {
   generateLevelsList(){
         this.client.get('http://' + environment.serverAddress + '/admin/liste-niveaux')
       .subscribe(response => this.levelsList = response);
+  }
+
+  infoRider(idRider:number){
+    this.client.get('http://' + environment.serverAddress + '/admin/cartes/cavalier/'+idRider)
+    .subscribe(response => this.cardsList = response);
   }
 
 }

@@ -5,7 +5,7 @@
     </div>
 
     <div class="logo">
-            <img src="../assets/img/logo2.png" alt="logo" width="110" height="90">
+      <img src="../assets/img/logo2.png" alt="logo" width="110" height="90">
     </div>
 
     <div *ngIf="admin" class="menu">
@@ -28,10 +28,10 @@
 
     <div *ngIf="rider" class="menu">
       <ul>
-          <li><a routerLink="espace-administrateur/gestion-des-séances">Les séances</a></li>
-          <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Les cavaliers</a></li>
-          <li><a routerLink="espace-administrateur/gestion-des-cartes">Les cartes</a></li>
-          <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Espace cavalier</a></li>
+        <li><a routerLink="espace-cavalier/gestion-des-séances">Les séances</a></li>
+        <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Les cavaliers</a></li>
+        <li><a routerLink="espace-administrateur/gestion-des-cartes">Les cartes</a></li>
+        <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Espace cavalier</a></li>
       </ul>
     </div>
   </div>
@@ -40,7 +40,7 @@
 <router-outlet></router-outlet>
 <footer>
   <p>
-        <a href="http://ecole-equitation-saint-avold.simplesite.com/">École d'équitation de Saint-Avold</a> -
-        <a href="https://fr-fr.facebook.com/ecoleequitationsaintavold/">Facebook<mat-icon>facebook</mat-icon></a>
+    <a href="http://ecole-equitation-saint-avold.simplesite.com/">École d'Équitation de Saint-Avold</a> -
+    <a href="https://fr-fr.facebook.com/ecoleequitationsaintavold/">Facebook<mat-icon>facebook</mat-icon></a>
   </p>
 </footer>

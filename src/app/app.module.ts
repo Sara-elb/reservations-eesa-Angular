@@ -18,8 +18,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { TokenInterceptor } from './token.interceptor';
 import { MatInputModule } from '@angular/material/input';
-import {CdkTableModule} from '@angular/cdk/table';
+import { CdkTableModule} from '@angular/cdk/table';
 import { MatSelectModule } from '@angular/material/select';
+import { PlanningReservationsComponent } from './planning-reservations/planning-reservations.component';
+import { CommonModule } from '@angular/common';
+import { DateAdapter, MatNativeDateModule } from '@angular/material/core';
+// import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarModule } from 'angular-calendar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
     PageCartesComponent,
     PageCavaliersComponent,
     EspaceAdministrateurComponent,
+    PlanningReservationsComponent,
     
   ],
   imports: [
@@ -46,8 +57,18 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     CdkTableModule,
     MatSelectModule,
+    NgbModule,
+    CommonModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, MatDatepickerModule],
   bootstrap: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
 })

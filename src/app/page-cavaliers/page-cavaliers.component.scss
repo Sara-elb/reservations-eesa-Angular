@@ -9,6 +9,16 @@ h1{
   margin-bottom: 0;
 }
 
+h3{
+  margin-bottom:0;
+  font-weight: bold;
+  margin-top:15px;
+}
+
+li{
+  text-decoration:  none;
+}
+
 body{
     background: #edf1f5;
     margin-top:13px;
@@ -193,6 +203,7 @@ button {
 
 #formulaireCavalier{
     width: 90%;
+    height:90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -289,10 +300,21 @@ width: 90%;
   }
   
   td, th {
-    width: 11.11%;
+    width: 1.110%;
   }
 
-  #options{
+  .mat-column {
+    flex: 0 0 75px;
+  }
+
+  // td #option{
+  //   display:flex;
+  //   flex-direction: row;
+  //   width: 25%;
+
+  // }
+
+  #optionsFiltre{
     display:flex;
     flex-direction: row;
   }
@@ -301,7 +323,14 @@ width: 90%;
     color: rgb(125, 161, 125);
     border: solid 2px rgb(125, 161, 125);
     filter: drop-shadow(0 0 0.2rem rgb(125, 161, 125));
+  }
 
+  #actif button:hover{
+    color:white;
+    background-color: rgb(125, 161, 125);
+    border: solid 2px rgb(125, 161, 125);
+    filter: drop-shadow(0 0 0.2rem rgb(125, 161, 125));
+    transition: 0.65s ease-in-out;
   }
 
   #non-actif button{
@@ -310,10 +339,69 @@ width: 90%;
     filter: drop-shadow(0 0 0.2rem sienna);
   }
 
+  #non-actif button:hover{
+    background-color:sienna;
+    color:white;
+    border: solid 2px sienna;
+    filter: drop-shadow(0 0 0.2rem sienna);
+    transition: 0.65s ease-in-out;
+  }
+
   #nv button{
     color:#425b8a;
     border: solid 2px #425b8a;
     filter: drop-shadow(0 0 0.2rem #425b8a);
+  }
+
+  #nv button:hover{
+    background-color:#425b8a;
+    color: white;
+    border: solid 2px #425b8a;
+    filter: drop-shadow(0 0 0.2rem #425b8a);
+    transition: 0.65s ease-in-out;
+  }
+
+  #rechercheParNiveau {
+    display:flex;
+    flex-direction: row;
+    color : #1c0f2a;
+    border: solid 2px #1c0f2a;
+    filter: drop-shadow(0 0 0.2rem #1c0f2a);
+    height: 46px;
+    width: 300px;
+
+    padding: 6px 12px 8px 12px;
+    margin-left: 8px ;
+    margin-bottom: 8px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+
+  }
+
+  #btnNiveau{
+    padding: 2px 12px 8px 12px;
+    margin-left: 8px ;
+    margin-bottom: 8px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    // border: none;
+    color : #1c0f2a;
+    border: solid 2px #1c0f2a;
+    border-radius: 5px;
+    filter: drop-shadow(0 0 0.2rem #1c0f2a);
+    border: none;
+    height: 30px;
+    margin-top: 0;
+    // filter: drop-shadow(0 0 0.75rem grey);
+
+  }
+
+  #btnNiveau:hover{
+    transition: 0.65s ease-in-out;
+
+    background-color : #1c0f2a;
+color:white;
+
   }
 
   #editIcon{
