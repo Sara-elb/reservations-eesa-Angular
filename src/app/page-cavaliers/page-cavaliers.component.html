@@ -87,21 +87,18 @@
       <div id="formulaireCavalier">
         <form id="formulaireEditCavalier" [formGroup]="riderFormControl" (submit)="createRider()">
             <p>Nom</p>
-            <input id="textInputContent" formControlName="nom" type="text" placeholder="Doe"
-                                matInput />
+            <input id="textInputContent" formControlName="nom" type="text" placeholder="Doe" matInput />
             <br>
 
             <p>Prénom</p>
-            <input id="textInputContent" formControlName="prenom" type="text"  placeholder="Dona"
-                    matInput />
+            <input id="textInputContent" formControlName="prenom" type="text"  placeholder="Dona" matInput />
               <mat-error *ngIf="riderFormControl.get('prenom')?.hasError('required')">
               <strong>Entrer</strong> le prénom du cavalier.
               </mat-error>
             <br>
 
             <p>Email</p>
-            <p><input id="textInputContent" formControlName="email" type="email"  placeholder="dona.doe@gmail.fr"
-                    matInput /></p>
+            <p><input id="textInputContent" formControlName="email" type="email"  placeholder="dona.doe@gmail.com" matInput /></p>
               <mat-error *ngIf="riderFormControl.get('email')?.hasError('required')">
               <strong>Entrer</strong> l'adresse email du cavalier.
               </mat-error>
@@ -196,7 +193,6 @@
               <th mat-header-cell *matHeaderCellDef> {{column}} </th>
               <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
           </ng-container>
-
 
           <ng-container  matColumnDef="expand">
             <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>

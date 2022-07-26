@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TokenIdentificationService } from './token-identification.service';
+import { TokenIdentificationService } from './services/token-identification.service';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +35,7 @@ export class AppComponent {
   }
 
   signOut(){
-    this.admin = false;
+    this.email = "";
     this.tokenIdentification.onTokenExpired();
   }
   

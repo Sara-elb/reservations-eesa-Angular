@@ -9,7 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { TokenIdentificationService } from '../token-identification.service';
+import { TokenIdentificationService } from '../services/token-identification.service';
 
 
 export interface RidersData {  

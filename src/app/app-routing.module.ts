@@ -5,14 +5,15 @@ import { PageCartesComponent } from './page-cartes/page-cartes.component';
 import { PageCavaliersComponent } from './page-cavaliers/page-cavaliers.component';
 import { PageConnexionComponent } from './page-connexion/page-connexion.component';
 import { PlanningReservationsComponent } from './planning-reservations/planning-reservations.component';
+import { AdminGuard } from './services/admin.guard';
 
 const routes: Routes = [
   {path:'', component: PageConnexionComponent},
   // {path:'connexion', component: PageConnexionComponent},
   {path:'espace-administrateur/gestion-des-cavaliers', component: PageCavaliersComponent},
-  {path:'espace-administrateur/gestion-des-cartes', component: PageCartesComponent},
-  {path:'espace-administrateur', component: EspaceAdministrateurComponent},
-  {path:'planning-reservations', component: PlanningReservationsComponent}
+  {path:'espace-administrateur/gestion-des-cartes', component: PageCartesComponent, canActivate : [AdminGuard]},
+  {path:'espace-administrateur', component: EspaceAdministrateurComponent, canActivate : [AdminGuard]},
+  {path:'espace-cavalier', component: PlanningReservationsComponent}
 
 ];
 
