@@ -75,8 +75,8 @@ form a{
 
 #container .input_field{
     margin-top: 10%;
-    margin-bottom: 5%;
-    border-bottom : 1px solid #CD0C18;
+    // margin-bottom: 5%;
+    // border-bottom : 1px solid #CD0C18;
     /* border-radius: 20px; */
     background: none;
     display: block;
@@ -94,6 +94,7 @@ form a{
     font-size: 16px;
     content: '';
     color: #FFFFFF;
+    // background-color: black;
 }
 
 #container .input_field::placeholder{
@@ -102,7 +103,22 @@ form a{
     border-color:	#0CCFC2 ;
     font-size: 16px;
     content: '';
-    color: #ADADAD;
+    color: #ADADAD;   
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px rgba(14, 14, 14, 1) inset !important;
+    // opacity: 0.01;
+    color:#FFFFFF;
+}
+
+input:-webkit-autofill{
+    -webkit-text-fill-color: white !important;
+    // opacity: 1;
 }
 
 button{

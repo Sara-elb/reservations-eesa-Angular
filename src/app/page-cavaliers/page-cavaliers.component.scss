@@ -7,12 +7,13 @@ h1{
   text-transform: uppercase;
   font-weight: 3000;
   margin-bottom: 0;
+  margin-top: -200px;
 }
 
 h3{
   margin-bottom:0;
   font-weight: bold;
-  margin-top:15px;
+  // margin-top:15px;
 }
 
 li{
@@ -20,9 +21,12 @@ li{
 }
 
 body{
-    background: #edf1f5;
-    margin-top:13px;
+  display: flex;
+  flex-direction: column;
+  background: #edf1f5;
+  margin-top:0;
     justify-content: center;
+    width: 100%;
 }
 .rider {
     position: relative;
@@ -79,9 +83,9 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 75%;
+  width: 50%;
   height: 55%;
-  margin: 0 20% 0 20%;
+  margin: 0 25% 0 25%;
   text-align: center;
   // margin-top: 10px;
   // margin-bottom: 50px;
@@ -105,6 +109,7 @@ button {
   font-weight: 150;
   letter-spacing: 0.04;
   margin-bottom: 2px solid white;
+  margin-top: 10px;
 }
 
 #ids h2{
@@ -112,38 +117,7 @@ button {
 }
 
 
-#box {
-  display: flex;
-  flex-direction: column;
 
-  width: 70%;
-  height: 70%;
-  margin: 0 20% 0 20%;
-  // margin-top: 10px;
-  // margin-bottom: 50px;
-  position: absolute;
-  z-index: 2;
-  background-color: #B3B6C3;
-  border-radius: 3px;
-  box-shadow: 3px 3px 0.5px 0.25px rgba(7, 7, 33, 0.5);
-}
-
-
-
-#buttonExit{
-    padding: 8px 12px 8px 12px;
-    margin-right: 0 ;
-    margin-bottom: 8px;
-    background-color: inherit;
-    opacity: 0.8;
-    // border-radius: 50% 20% / 10% 40%;;
-    // border: 2px #FFFFFF solid;
-    // filter: drop-shadow(0 0 0.75rem white);
-    width: 10%;
-    color: white;
-    filter: none;
-
-}
 
 
 #buttonExit:hover{
@@ -167,53 +141,91 @@ button {
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    margin-left: -26%;
     // height: 30%;
   }
 
 #riderButton{
-    width: 60%;
-    border-radius: 50px;
-    border: 2px #FFFFFF solid;
-    opacity: 0.8;
-    background-color: #6d7180;
-    color:#FFFFFF;
-    filter: none;
-
+  width: 60%;
+  border-radius: 50px;
+  border: 2px #FFFFFF solid;
+  opacity: 0.8;
+  background-color: #6d7180;
+  color:#FFFFFF;
+  filter: none;
+  margin-left: 22%;
 }
 
 #riderButton:hover{
     opacity: 1;
     background-color: #FFFFFF;
     color:#6d7180;
+    border: 2px #6d7180 solid;
     transition:250ms;
     transform: scale(1.01, 1.01);
     filter: none;
+}
 
+#box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  // margin: 0 15% 0 20%;
+  // margin-top: 10px;
+  // margin-bottom: 50px;
+  position: absolute;
+  z-index: 2;
+}
+
+#buttonExit{
+  padding: 5px 9px 5px 9px;
+  margin-right: 0 ;
+  margin-bottom: 1px;
+  margin-top:1px;
+  background-color: inherit;
+  opacity: 0.8;
+  // border-radius: 50% 20% / 10% 40%;;
+  // border: 2px #FFFFFF solid;
+  // filter: drop-shadow(0 0 0.75rem white);
+  width: 10%;
+  color: white;
+  filter: none;
+}
+
+#formulaireCavalier{
+  background-color: #B3B6C3;
+  border: #8898aa 0.2px solid;
+  border-radius: 3px;
+  box-shadow: 3px 3px 0.5px 0.25px rgba(7, 7, 33, 0.5);
+  width:50%;
+  height:80%;
+  display: flex;
+  flex-direction: column;
+  // padding-top: 2%;
+  justify-content: center;
+  margin-left: 25%;
+  // text-align: center;
 }
 
 #formulaireEditCavalier{
   display: flex;
   flex-direction: column;
-  // justify-content: center;
+  justify-content: center;
   // align-items: center;
-  width: 90%;
+  width: 80%;
   color: #FFFFFF;
-  margin-left: 26%;
+  margin-left: 22%;
 }
 
-#formulaireCavalier{
-    width: 90%;
-    height:90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+p{
+  margin-bottom: 0;
 }
 
 
 input{
     color: #000000;
-    // margin-bottom: 1%;
 }
 
 input[type=number]{
@@ -368,7 +380,7 @@ width: 90%;
     border: solid 2px #1c0f2a;
     filter: drop-shadow(0 0 0.2rem #1c0f2a);
     height: 46px;
-    width: 300px;
+    width: 340px;
 
     padding: 6px 12px 8px 12px;
     margin-left: 8px ;

@@ -22,12 +22,12 @@ import { CdkTableModule} from '@angular/cdk/table';
 import { MatSelectModule } from '@angular/material/select';
 import { PlanningReservationsComponent } from './planning-reservations/planning-reservations.component';
 import { CommonModule } from '@angular/common';
-import { DateAdapter, MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 // import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { CalendarModule } from 'angular-calendar';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
@@ -66,7 +66,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
       useFactory: adapterFactory,
     }),
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, MatDatepickerModule],
   bootstrap: [AppComponent],

@@ -8,7 +8,7 @@ import { PlanningReservationsComponent } from './planning-reservations/planning-
 import { AdminGuard } from './services/admin.guard';
 
 const routes: Routes = [
-  {path:'', component: PageConnexionComponent},
+  {path:'connexion', component: PageConnexionComponent},
   // {path:'connexion', component: PageConnexionComponent},
   {path:'espace-administrateur/gestion-des-cavaliers', component: PageCavaliersComponent},
   {path:'espace-administrateur/gestion-des-cartes', component: PageCartesComponent, canActivate : [AdminGuard]},

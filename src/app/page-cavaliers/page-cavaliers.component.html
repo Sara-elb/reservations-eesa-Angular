@@ -19,13 +19,24 @@
         <button mat-raised-button (click)="refreshInactivRider()">Non actifs</button>
       </div>
       <div id="rechercheParNiveau">
-        <mat-label>Niveau</mat-label>
-          <mat-select>        
+        <mat-label>Niveau:</mat-label>
+          <mat-select #idLevel  (selectionChange)="refreshLevel($event.value)">        
             <mat-option *ngFor="let level of levelsList"
-                  value={{level.id}} >{{level.nom}}  
+              [value]="level.id" >{{level.nom}}
+                
             </mat-option>
+            <!-- <button id="btnNiveau">Rechercher</button> -->
+
         </mat-select>
-        <button id="btnNiveau">Rechercher</button>
+
+        <!-- <mat-form-field>
+          <mat-select placeholder="Client*" #clientValue  (selectionChange)="changeClient($event.value)">
+          <mat-option  *ngFor="let client of clientDetails" [value]="client.id">
+            {{client.clientName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
       </div>
     </div>
 
@@ -77,50 +88,56 @@
           <h3>{{this.newMDP}}</h3>
         </div>
     </div>
-    
+    <!-- FORMULAIRE AJOUT CAVALIER -->
     <div id="box" [style.visibility]="containerAddVisible">
-      <div class="exit"> 
-        <button id="buttonExit" (click)="exitNewRider()">
-          <mat-icon>exit_to_app</mat-icon>
-        </button>
-      </div>
       <div id="formulaireCavalier">
+        <div class="exit"> 
+          <button id="buttonExit" (click)="exitNewRider()">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+        </div>
         <form id="formulaireEditCavalier" [formGroup]="riderFormControl" (submit)="createRider()">
-            <p>Nom</p>
+          <p>Nom</p>
+          <mat-form-field appearance="fill">
             <input id="textInputContent" formControlName="nom" type="text" placeholder="Doe" matInput />
-            <br>
+          </mat-form-field>
 
-            <p>Prénom</p>
+          <p>Prénom</p>
+          <mat-form-field appearance="fill">
             <input id="textInputContent" formControlName="prenom" type="text"  placeholder="Dona" matInput />
               <mat-error *ngIf="riderFormControl.get('prenom')?.hasError('required')">
               <strong>Entrer</strong> le prénom du cavalier.
               </mat-error>
-            <br>
+            </mat-form-field>
 
             <p>Email</p>
-            <p><input id="textInputContent" formControlName="email" type="email"  placeholder="dona.doe@gmail.com" matInput /></p>
+            <mat-form-field appearance="fill">
+            <input id="textInputContent" formControlName="email" type="email"  placeholder="dona.doe@gmail.com" matInput />
               <mat-error *ngIf="riderFormControl.get('email')?.hasError('required')">
               <strong>Entrer</strong> l'adresse email du cavalier.
               </mat-error>
               <mat-error *ngIf="riderFormControl.get('email')?.hasError('email')">
               Fournir une <strong>adresse mail correcte</strong>
               </mat-error>
-            <br>
+            </mat-form-field>
 
             <p>Date de naissance</p>
-            <p><input id="textInputContent" formControlName="dateDeNaissance" type="date"  placeholder="24/06/2010"
-                    matInput /></p>
+            <mat-form-field appearance="fill">
+            <input id="textInputContent" formControlName="dateDeNaissance" type="date"  placeholder="24/06/2010"
+                    matInput />
             <mat-error *ngIf="riderFormControl.get('dateDeNaissance')?.hasError('required')">
             <strong>Entrer</strong> la date de naissance du cavalier.
             </mat-error>
-            <br>
+            </mat-form-field>
 
-            <p>Choisir un niveau:</p>
-            <mat-select formControlName="niveau">
-                  <mat-option *ngFor="let level of levelsList"
-                        [value]="level" >{{level.nom}} 
-                  </mat-option>
-            </mat-select>
+            <mat-form-field>
+              <mat-label>Choisir un niveau:</mat-label>
+              <mat-select formControlName="niveau">
+                    <mat-option *ngFor="let level of levelsList"
+                          [value]="level" >{{level.nom}} 
+                    </mat-option>
+              </mat-select>
+            </mat-form-field>
 
             <!-- <p><input id="textInputContent" formControlName="niveau" type="text"  placeholder=""
                     matInput /></p>
@@ -137,6 +154,8 @@
       </div>
 
     </div>
+    <!-- FIN FORMULAIRE AJOUT CAVALIER -->
+
 
     <!-- box modification du cavalier -->
     <div id="boxEditRider" [style.visibility]="containerEditVisible">
@@ -213,7 +232,7 @@
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsWithExpand.length">
               <div class="example-element-detail"
-                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                  [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                 <div class="example-element-diagram" *ngFor="let card of cardsList">
                   <h3>{{card.type}}</h3>
                   Nombre de séances restantes : 15 sur {{card.nbSeances}}          
@@ -250,4 +269,6 @@
                         aria-label="Select page of riders data">
         </mat-paginator>
     </div>
+    <!-- FIN LISTE DES CAVALIERS -->
+
 </body> 

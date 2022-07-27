@@ -1,6 +1,6 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { TokenIdentificationService } from '../services/token-identification.service';
+import {jsPDF} from "jspdf";
 
 export interface CardsData {  
   id: number;
@@ -56,7 +57,7 @@ export class PageCartesComponent implements OnInit {
     "nbSeances": ["", Validators.required ]
   });
 
-  displayedColumns: string[] = ['id', 'type', 'nbSeances'];
+  displayedColumns: string[] = ['id', 'typeCarte', 'nbSeances'];
   displayedColumnsWithExpand = [...this.displayedColumns, 'expand'];
 
   // columnsToDisplayWithExpand = [...this.displayedColumns, 'expand']
@@ -68,6 +69,8 @@ export class PageCartesComponent implements OnInit {
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+
+  @ViewChild('content', {static: false}) el!:ElementRef;
 
 
   constructor(
@@ -268,9 +271,21 @@ export class PageCartesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
   }
+
+  makePDF(){
+    let pdf = new jsPDF('p','pt','a4');
+    pdf.html(this.el.nativeElement, {
+      callback:(pdf)=>{
+        pdf.save("historique.pdf");
+      }
+    });
+  }
+
 }
 
 function value(value: any, arg1: { this: any; }) {
   throw new Error('Function not implemented.');
 }
+
+
 

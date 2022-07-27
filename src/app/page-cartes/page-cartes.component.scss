@@ -52,6 +52,7 @@ h1{
 
 table {
     width: 100%;
+    max-width: 2480px;
 }
 
 button {
@@ -238,6 +239,11 @@ width: 90%;
 //     opacity: 0.5;
 //   }
 // ____________
+#content{
+  width:100%;
+  height: 500px;
+}
+//_____________
   
   .mat-form-field {
     font-size: 14px;
@@ -245,7 +251,11 @@ width: 90%;
   }
   
   td, th {
-    width: 11.11%;
+    // width: 11.11%;
+    width: auto;
+    overflow: hidden;
+    word-wrap: break-word;
+
   }
 
   #options{
