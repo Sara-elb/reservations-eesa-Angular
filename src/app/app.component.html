@@ -1,17 +1,21 @@
-<!-- <header>
-  <div *ngIf="email!=''" class="row-nav">
+<header>
+  <div *ngIf="email!= ''" class="row-nav">
     <div class="signOut">
-      <a routerLink="" (click)="signOut()">Se déconnecter</a>
+      <div><button routerLink="" (click)="signOut()">Se déconnecter</button></div>
+      <!-- <div><img src="../assets/img/horse-1.png" alt="icon" width="45" height="25"></div> -->
+
     </div>
 
     <div class="logo">
-      <img src="../assets/img/logo2.png" alt="logo" width="110" height="90">
+      <a routerLink="planning">
+      <img src="../assets/img/logo2.png" alt="logo" width="115" height="95">
+      </a>
     </div>
 
     <div *ngIf="admin" class="menu">
         <ul>
-            <li><a routerLink="espace-cavalier">Les séances</a></li>
-            <li><a routerLink="espace-administrateur/gestion-des-équidés">Les équidés</a></li>
+            <li><a routerLink="espace-administrateur">Les séances</a></li>
+            <li><a routerLink="espace-administrateur/gestion-des-equides">Les équidés</a></li>
             <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Les cavaliers</a></li>
             <li><a routerLink="espace-administrateur/gestion-des-cartes">Les cartes</a></li>
         </ul>
@@ -19,25 +23,36 @@
 
     <div *ngIf="monitor" class="menu">
       <ul>
-          <li><a routerLink="espace-administrateur/gestion-des-séances">Les séances</a></li>
-          <li><a routerLink="espace-administrateur/gestion-des-équidés">Les équidés</a></li>
-          <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Les cavaliers</a></li>
-          <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Attribution / moniteur</a></li>
+          <li><a routerLink="espace-moniteur/gestion-des-seances">Les séances</a></li>
+          <li><a routerLink="espace-moniteur/gestion-des-equides">Les équidés</a></li>
+          <li><a routerLink="espace-moniteur/gestion-des-cavaliers">Les cavaliers</a></li>
+          <li><a routerLink="espace-moniteur/gestion-des-cavaliers">Attribution / moniteur</a></li>
       </ul>
     </div>
 
     <div *ngIf="rider" class="menu">
       <ul>
-        <li><a routerLink="espace-cavalier">Les séances</a></li>
-        <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Les cavaliers</a></li>
-        <li><a routerLink="espace-administrateur/gestion-des-cartes">Les cartes</a></li>
-        <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Espace cavalier</a></li>
+        <li><a routerLink="planning">Planning</a></li>
+        <li><a routerLink="historique-reservations">Historique</a></li>
+        <li><a routerLink="espace-cavalier/informations-personnelles">Informations personnelles</a></li>
+        <!-- <li><a routerLink="espace-cavalier/gestion-des-cavaliers">Espace cavalier</a></li> -->
       </ul>
     </div>
   </div>
-</header> -->
+</header>
+
+<div *ngIf="rider" id="banniere">
+  <div id="photo">
+      <h1>Espace cavalier</h1>
+      <img id="picture" src="../assets/img/the-girls-ride-on-horses.jpg" width="95" height="95" />
+      <div class="cercle"></div>
+  </div>
+  <h3>Hello {{ name }}</h3>
+
+</div>
 
 <router-outlet></router-outlet>
+
 <!-- <footer>
   <p>
     <a href="http://ecole-equitation-saint-avold.simplesite.com/">École d'Équitation de Saint-Avold</a> -

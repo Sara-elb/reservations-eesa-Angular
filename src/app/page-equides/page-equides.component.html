@@ -1,0 +1,271 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<body>
+    <!-- <mat-form-field appearance="standard">
+        <mat-label>Filtrer</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field> -->
+    <h1>Gestion des equides</h1>
+    <br>
+    <div id="optionsFiltre">
+      <div id="nv">
+        <button mat-raised-button (click)="addHorse()">Ajouter un equide</button>
+      </div>
+      <div id="actif">
+        <button mat-raised-button (click)="refreshActivHorse()">Actifs</button>
+      </div>
+      <div id="non-actif">
+        <button mat-raised-button (click)="refreshInactivHorse()">Non actifs</button>
+      </div>
+      <div id="rechercheParTypeEquide">
+        <mat-label id="txtRecherche">Type </mat-label>
+          <mat-select #idType  (selectionChange)="generateType($event.value)">        
+            <mat-option *ngFor="let typeEquide of typesList"
+              [value]="typeEquide.id" >{{typeEquide.nom}}
+                
+            </mat-option>
+            <!-- <button id="btnTypeEquide">Rechercher</button> -->
+
+        </mat-select>
+
+        <!-- <mat-form-field>
+          <mat-select placeholder="Client*" #clientValue  (selectionChange)="changeClient($event.value)">
+          <mat-option  *ngFor="let client of clientDetails" [value]="client.id">
+            {{client.clientName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+      </div>
+    </div>
+
+    <div *ngIf="alertAddNewHorse" class="alert alert-success" role="alert">
+      <strong>OK !</strong>Nouveau equide créé avec succès.
+      <button (click)="closeAlertAddNewHorse()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div *ngIf="alertEditHorse" class="alert alert-success" role="alert">
+      <strong>OK !</strong> Equide modifié avec succès.
+      <button (click)="closeAlertEditHorse()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div *ngIf="alertDeleteHorse" class="alert alert-success" role="alert">
+      <strong>OK !</strong> Equide supprimé avec succès.
+      <button (click)="closeAlertDeleteHorse()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div *ngIf="alertErrorDeleteHorse" class="alert alert-danger" role="alert">
+      <strong>OK !</strong> Le equide n'a pas pu être supprimée.
+      <button (click)="closeAlerErrortDeleteHorse()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <!-- FORMULAIRE AJOUT EQUIDE -->
+    <div id="box" [style.visibility]="containerAddVisible">
+      <div id="formulaireEquide">
+        <div class="exit"> 
+          <button id="buttonExit" (click)="exitNewHorse()">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+        </div>
+        <form id="formulaireEditEquide" [formGroup]="horseFormControl" (submit)="createHorse()">
+          <p>Nom</p>
+          <mat-form-field appearance="fill">
+            <input id="textInputContent" formControlName="nom" type="text" placeholder="Doe" matInput />
+          </mat-form-field>
+
+
+            <p>Date de naissance</p>
+            <mat-form-field appearance="fill">
+            <input id="textInputContent" formControlName="dateNaissance" type="date"  placeholder="24/06/2010"
+                    matInput />
+            <mat-error *ngIf="horseFormControl.get('dateNaissance')?.hasError('required')">
+            <strong>Entrer</strong> la date de naissance.
+            </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Choisir un type d'équidé:</mat-label>
+              <mat-select formControlName="typeEquide">
+                    <mat-option *ngFor="let typeEquide of typesList"
+                          [value]="typeEquide" >{{typeEquide.nom}} 
+                    </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <p>Nombre de reprise par jour</p>
+            <mat-form-field appearance="fill">
+            <input id="textInputContent" formControlName="nombreReprise" type="number"  placeholder="3"
+                    matInput />
+            <mat-error *ngIf="horseFormControl.get('nombreReprise')?.hasError('required')">
+            <strong>Entrer</strong> le nombre de reprise.
+            </mat-error>
+            </mat-form-field>
+
+            <!-- <p><input id="textInputContent" formControlName="typeequide" type="text"  placeholder=""
+                    matInput /></p>
+            <mat-error *ngIf="horseFormControl.get('typeequide')?.hasError('required')">
+            <strong>Sélectionner</strong>le typeequide.
+            </mat-error>
+            <br> -->    
+          <div id="validationNewHorse">
+            <button type="submit" id="horseButton">
+              Valider
+            </button>
+        </div>
+        </form>
+      </div>
+
+    </div>
+    <!-- FIN FORMULAIRE AJOUT EQUIDE -->
+
+
+    <!-- box modification du equide -->
+    <div id="boxEditHorse" [style.visibility]="containerEditVisible">
+
+    <div id="formulaireEquide">
+        <div class="exit"> 
+        <button id="buttonExit" (click)="exitEditHorse()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+        </div>
+        <form id="formulaireEditEquide" [formGroup]="editHorseFormControl">
+            <mat-form-field appearance="fill">
+                <p>Nom</p>
+                <p><input id="textInputContent" formControlName="nom" type="text" value={{nom}} matInput /></p>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill">
+                <p>Date de naissance</p>
+                <p><input id="textInputContent" formControlName="dateDeNaissance" type="date" value={{dateDeNaissance}} matInput /></p>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <p>Type équidé</p>
+                <mat-select formControlName="typeEquide">
+                  <mat-option *ngFor="let type of typesList"
+                        value={{type.id}} >{{type.nom}}  
+                </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <p>Nombre de reprise</p>
+                <p><input id="textInputContent" formControlName="nombreReprise" type="number" value={{nombreReprise}} matInput /></p>
+            </mat-form-field>
+
+                <!-- <p><input id="textInputContent" formControlName="typeequide" type="text" value={{typeequide}} matInput /></p> -->
+
+            <div id="validationEditHorse">
+                <button id="horseButton" (click)="validationEditHorse()">
+                Valider
+                </button>
+            </div>             
+        </form>
+    </div>
+    </div>
+    <!-- LISTE DES EQUIDES -->
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+
+          <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+              <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+              <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+              <th>
+                &nbsp;
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <li><h3>TypeEquide:</h3> {{element.typeEquide.nom}}</li>
+
+              <button id="editIcon" (click)="editHorse(element.id)">
+                <mat-icon>edit</mat-icon>
+                </button>
+                <button id="deleteIcon" (click)="deleteHorse(element.id)">
+                <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+          </ng-container>
+
+          <ng-container matColumnDef="option">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell id="options" *matCellDef="let element">
+           {{element.typeEquide.nom}}
+            </td>
+          </ng-container>
+<!-- 
+          <ng-container matColumnDef="option">
+            <th mat-header-cell *matHeaderCellDef>Options</th>
+            <td mat-cell id="options" *matCellDef="let element">
+
+                </td>
+          </ng-container> -->
+
+          <ng-container  matColumnDef="expand">
+            <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+            <td mat-cell id="options" *matCellDef="let element">
+                 <button id="editIcon" (click)="editHorse(element.id)">
+                <mat-icon>edit</mat-icon>
+                </button>
+                <button id="deleteIcon" (click)="deleteHorse(element.id)">
+                <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+                <!--  
+                <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation(); infoHorse(element.id)">
+                <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                </button> -->
+            
+          </ng-container>
+
+          <!--<ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsWithExpand.length">
+              <div class="example-element-detail"
+                  [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                 <div class="example-element-diagram" *ngFor="let card of cardsList">
+                  <h3>{{card.type}}</h3>
+                  Nombre de séances restantes : 15 sur {{card.nbSeances}}          
+                </div>
+                <div class="example-element-position"> {{element.id}} </div> 
+                 <div class="example-element-symbol"> {{element.email}} </div> 
+                 <div class="example-element-name"> {{element.nom}} </div> 
+                 <div class="example-element-weight"> {{element.prenom}} </div> 
+                <ul>
+                   <li><h3>Date de naissance:</h3> {{element.dateDeNaissance | date:'mediumDate'}}</li> 
+                </ul>
+                 <div class="example-element-description">
+                  
+                  <span class="example-element-description-attribution">  Wikipedia </span>
+
+                </div> 
+              </div>
+            </td>
+          </ng-container> -->
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsWithExpand"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumnsWithExpand;"
+              class="example-element-row"
+              [class.example-expanded-row]="expandedElement === element"
+              (click)="expandedElement = expandedElement === element ? null : element">
+          </tr>
+          <!-- <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+        </table>
+    
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                        showFirstLastButtons 
+                        aria-label="Select page of horses data">
+        </mat-paginator>
+    </div>
+    <!-- FIN LISTE DES EQUIDES -->
+
+</body> 

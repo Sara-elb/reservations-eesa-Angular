@@ -1,3 +1,6 @@
+
+
+
 import {
   Component,
   ChangeDetectionStrategy,
@@ -22,13 +25,14 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
+import { EventColor } from 'calendar-utils';
 
-export interface IColors{
-  primary : string;
-  secondary:string;
-}
+// export interface IColors{
+//   primary : string;
+//   secondary:string;
+// }
 
-const colors: any = {
+const colors: Record<string, EventColor> = {
   red: {
     primary: '#ad2121',
     secondary: '#FAE3E3',
@@ -44,8 +48,15 @@ const colors: any = {
 };
 
 @Component({
+  
   selector: 'mwl-demo-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: [
+    // 'node_modules/angular-calendar/dist/css/angular-calendar.css',
+    './planning-reservations.component.scss',
+    // 'node_modules/angular2-calendar/dist/css/angular2-calendar.css',
+
+  ],
   styles: [
     `
       h3 {
@@ -61,7 +72,7 @@ const colors: any = {
   templateUrl: './planning-reservations.component.html',
 })
 export class PlanningReservationsComponent {
-  color.primary!: IColors | null|undefined;
+//   color.primary!: IColors | null|undefined;
 
 
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
@@ -102,7 +113,7 @@ export class PlanningReservationsComponent {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
       title: 'A 3 day event',
-      color: colors.red,
+      color: { ...colors['red'] },
       actions: this.actions,
       allDay: true,
       resizable: {
@@ -114,21 +125,21 @@ export class PlanningReservationsComponent {
     {
       start: startOfDay(new Date()),
       title: 'An event with no end date',
-      color: colors.yellow,
+      color: { ...colors['yellow'] },
       actions: this.actions,
     },
     {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
-      color: colors.blue,
+      color: { ...colors['blue'] },
       allDay: true,
     },
     {
       start: addHours(startOfDay(new Date()), 2),
       end: addHours(new Date(), 2),
       title: 'A draggable and resizable event',
-      color: colors.yellow,
+      color: { ...colors['yellow'] },
       actions: this.actions,
       resizable: {
         beforeStart: true,
@@ -186,7 +197,7 @@ export class PlanningReservationsComponent {
         title: 'New event',
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
-        color: colors.red,
+        color: colors['red'],
         draggable: true,
         resizable: {
           beforeStart: true,

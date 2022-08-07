@@ -19,7 +19,7 @@
         <button mat-raised-button (click)="refreshInactivRider()">Non actifs</button>
       </div>
       <div id="rechercheParNiveau">
-        <mat-label>Niveau:</mat-label>
+        <mat-label>Niveau :</mat-label>
           <mat-select #idLevel  (selectionChange)="refreshLevel($event.value)">        
             <mat-option *ngFor="let level of levelsList"
               [value]="level.id" >{{level.nom}}
@@ -159,12 +159,13 @@
 
     <!-- box modification du cavalier -->
     <div id="boxEditRider" [style.visibility]="containerEditVisible">
-      <div class="exit"> 
-        <button id="buttonExit" (click)="exitEditRider()">
-          <mat-icon>exit_to_app</mat-icon>
-        </button>
-      </div>
+
       <div id="formulaireCavalier">
+        <div class="exit"> 
+          <button id="buttonExit" (click)="exitEditRider()">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+        </div>
         <form id="formulaireEditCavalier" [formGroup]="editRiderFormControl">
               <mat-form-field appearance="fill">
                 <p>Nom</p>

@@ -1,3 +1,5 @@
+<!-- <script src="node_modules/angular-calendar/dist/umd/angular-calendar.js"></script> -->
+
 <div class="row text-center">
   <div class="col-md-4">
     <div class="btn-group">
@@ -8,14 +10,14 @@
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
       >
-        Previous
+        Précédent
       </div>
       <div
         class="btn btn-outline-secondary"
         mwlCalendarToday
         [(viewDate)]="viewDate"
       >
-        Today
+        Aujourd'hui
       </div>
       <div
         class="btn btn-primary"
@@ -24,7 +26,7 @@
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
       >
-        Next
+        Prochain
       </div>
     </div>
   </div>
@@ -38,21 +40,21 @@
         (click)="setView(CalendarView.Month)"
         [class.active]="view === CalendarView.Month"
       >
-        Month
+        Mois
       </div>
       <div
         class="btn btn-primary"
         (click)="setView(CalendarView.Week)"
         [class.active]="view === CalendarView.Week"
       >
-        Week
+        Semaine
       </div>
       <div
         class="btn btn-primary"
         (click)="setView(CalendarView.Day)"
         [class.active]="view === CalendarView.Day"
       >
-        Day
+        Jour
       </div>
     </div>
   </div>
@@ -90,7 +92,7 @@
   </mwl-calendar-day-view>
 </div>
 
-<!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+<!-- Everything you see below is just for the demo, you don't need to include it in your app 
 
 <br /><br /><br />
 
@@ -126,18 +128,20 @@
           />
         </td>
         <td>
+          couleur primaire
           <input
             type="color"
             [(ngModel)]="event.color.primary"
             (change)="refresh.next()"
-          />
+          />  
         </td>
         <td>
+          couleur secondaire
           <input
             type="color"
             [(ngModel)]="event.color.secondary"
             (change)="refresh.next()"
-          />
+          />  
         </td>
         <td>
           <input
@@ -177,7 +181,7 @@
       </tr>
     </tbody>
   </table>
-</div>
+</div> 
 
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
@@ -201,4 +205,4 @@
       OK
     </button>
   </div>
-</ng-template>
+</ng-template> -->

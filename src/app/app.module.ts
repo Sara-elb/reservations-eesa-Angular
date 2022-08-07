@@ -29,7 +29,28 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { PageEquidesComponent } from './page-equides/page-equides.component';
+import { PagePlanningComponent } from './page-planning/page-planning.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+// import { BootstrapModule } from './bootstrap.module';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { EspaceCavalierComponent } from './espace-cavalier/espace-cavalier.component';
+import { HistoriqueReservationsComponent } from './historique-reservations/historique-reservations.component';
+import * as moment from 'moment';
+import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment-adapter";
 
+
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  listPlugin,
+  interactionPlugin
+])
 
 @NgModule({
   declarations: [
@@ -39,7 +60,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     PageCavaliersComponent,
     EspaceAdministrateurComponent,
     PlanningReservationsComponent,
-    
+    PageEquidesComponent,
+    PagePlanningComponent,
+    EspaceCavalierComponent,
+    HistoriqueReservationsComponent
+  
   ],
   imports: [
     BrowserModule,
@@ -67,10 +92,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     }),
     MatDatepickerModule,
     MatNativeDateModule,
-
+    FullCalendarModule,
+    MatAutocompleteModule,
+    
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, MatDatepickerModule],
   bootstrap: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  exports:[ PlanningReservationsComponent],
 })
 export class AppModule { }

@@ -70,9 +70,6 @@ export class PageCartesComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
-  @ViewChild('content', {static: false}) el!:ElementRef;
-
-
   constructor(
     private formBuilder: FormBuilder,
     private client: HttpClient,
@@ -272,14 +269,7 @@ export class PageCartesComponent implements OnInit {
     });
   }
 
-  makePDF(){
-    let pdf = new jsPDF('p','pt','a4');
-    pdf.html(this.el.nativeElement, {
-      callback:(pdf)=>{
-        pdf.save("historique.pdf");
-      }
-    });
-  }
+
 
 }
 

@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 import { TokenIdentificationService } from './services/token-identification.service';
 
 @Component({
@@ -7,6 +10,9 @@ import { TokenIdentificationService } from './services/token-identification.serv
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  public name: string = "";
+  public identifiant: string = "";
+
   title = 'reservations-eesa';
   public email: string = "";
   public admin: boolean=false;
@@ -14,10 +20,12 @@ export class AppComponent {
   public rider: boolean=false;
 
   constructor(
+    private client: HttpClient,
     private tokenIdentification: TokenIdentificationService
   ) { }
 
   ngOnInit() {
+    this.email="";
     this.tokenIdentification.user.subscribe(
       user => {
         if (user != null) {
@@ -25,6 +33,8 @@ export class AppComponent {
           this.admin = user.droits.includes("ROLE_ADMINISTRATEUR");
           this.monitor = user.droits.includes("ROLE_MONITEUR");
           this.rider = user.droits.includes("ROLE_CAVALIER");
+          this.identifiant = user.sub
+
           console.log("admin : "+this.admin+ " monitor : "+this.monitor+ " rider : "+this.rider)
         } else {
           this.email = "";
@@ -32,11 +42,22 @@ export class AppComponent {
       }
     );
     this.tokenIdentification.refreshToken();
+    this.refreshName(this.identifiant);
+
   }
 
   signOut(){
     this.email = "";
     this.tokenIdentification.onTokenExpired();
   }
+
+  public refreshName(identifiant: string): void {
+    this.client.get("http://" + environment.serverAddress + "/utilisateur/" + identifiant)
+      .subscribe((response: any) => {
+        this.name = response.prenom;
+        console.log("name" + this.name);
+      });
+  }
+
   
 }

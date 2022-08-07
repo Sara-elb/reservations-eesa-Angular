@@ -1,0 +1,54 @@
+// #banniere{
+//     background: #d8dfbd;
+//     background-image: url("/assets/img/the-girls-ride-on-horses.jpg"); 
+//     background-size: 165px 135px;
+//     background-repeat: no-repeat;
+//     height: 100px;
+//     width:100%;
+//     // background-image: url("/assets/img/the-girls-ride-on-horses.jpg") width="165" height="135", linear-gradient(#eb01a5, #d13531); /* W3C */
+
+// }
+
+main{
+    background-color: #ffffff;
+    font-family:'Didot';
+    font-style:normal;
+    font-weight:normal;
+    font-size: 16px;
+}
+
+#menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    font-weight: bold;
+    font-family: 'Didot';
+    width: 75%;
+    align-items:center;
+}
+
+#menu button {
+    margin-left: 53px;
+    font-size: 20px;
+    font-family: 'Didot';
+    border-radius: 5px;
+    padding: 7px 9px 7px 9px;
+    border: #575555 1px solid;
+    height:40px;
+    margin-bottom: 0px;
+    background-size: 70px 35px;
+    background-repeat: no-repeat;
+    // color: #994837;
+}
+
+#menu button:hover {
+    background-color: #994837;
+    transition: 0.15s ease-in-out;
+    color:#ffffff;
+    border:#d8dfbd 1px solid;
+}
+
+
+
+
+
