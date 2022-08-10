@@ -33,7 +33,7 @@
     <div *ngIf="rider" class="menu">
       <ul>
         <li><a routerLink="planning">Planning</a></li>
-        <li><a routerLink="historique-reservations">Historique</a></li>
+        <li><a routerLink="espace-cavalier/historique-reservations">Historique</a></li>
         <li><a routerLink="espace-cavalier/informations-personnelles">Informations personnelles</a></li>
         <!-- <li><a routerLink="espace-cavalier/gestion-des-cavaliers">Espace cavalier</a></li> -->
       </ul>
@@ -47,15 +47,15 @@
       <img id="picture" src="../assets/img/the-girls-ride-on-horses.jpg" width="95" height="95" />
       <div class="cercle"></div>
   </div>
-  <h3>Hello {{ name }}</h3>
+  <div><h3>Hello {{ name }}</h3></div>
 
 </div>
 
 <router-outlet></router-outlet>
 
-<!-- <footer>
+<footer>
   <p>
     <a href="http://ecole-equitation-saint-avold.simplesite.com/">École d'Équitation de Saint-Avold</a> -
     <a href="https://fr-fr.facebook.com/ecoleequitationsaintavold/">Facebook<mat-icon>facebook</mat-icon></a>
   </p>
-</footer> -->
+</footer>

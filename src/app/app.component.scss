@@ -62,17 +62,19 @@
 
 .signOut button:hover{
     transition: 0.6s ease-in-out;
-    color:#d3e1a4;
+    color:#d8dfbd;
     cursor: pointer;
     background-image: url("../assets/img/horse-2.png" );
     background-size: 66px 42px;
+    transform:scale(1.1);
+    font-weight: bold;
+
 }
 
 
 .menu{
     margin-top: 25px;
     justify-content: space-between;
-
     /* right: 0; */
 }
 
@@ -94,10 +96,11 @@
     margin-right: 30px;
     margin-left: 10px;
     text-decoration:  none;
+    color: #ffffff;
 }
 
 .menu ul li a:visited{
-    color:white;
+    color:#994837;
 }
 
 .menu ul li a:hover{
@@ -174,7 +177,8 @@ footer{
     flex-direction: row;
     height: 10%;
     justify-content: center;
-    background-color: black;
+    background: linear-gradient(90deg,#5d6f63 0%, #575555 35%, #000000 100%);
+    // background-color: #994837;
     color: aliceblue;
 }
 
@@ -188,6 +192,8 @@ footer{
     background: #d8dfbd;
     height: 20px;
     width:100%;
+    justify-content: space-between;
+    padding-right: 15px;
 }
 
 #photo{
@@ -227,4 +233,8 @@ h1{
     top:7px;
     position: absolute;
     background-color: #575555 ;
+}
+
+h3{
+    font-weight: bolder;
 }

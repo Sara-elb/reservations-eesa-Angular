@@ -3,7 +3,7 @@ import { ListKeyManager } from '@angular/cdk/a11y';
 // import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { MatDateFormats } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -67,7 +67,7 @@ export class PageCavaliersComponent implements OnInit {
   // public listeCards:Array<Object>;
   // soldes:Object;
 
-  public riderFormControl: FormGroup = this.formBuilder.group({
+  public riderFormControl: UntypedFormGroup = this.formBuilder.group({
     "nom": ["", [Validators.required]],
     "prenom": ["", [Validators.required]],
     "email": ["", [Validators.required, Validators.email]],
@@ -75,7 +75,7 @@ export class PageCavaliersComponent implements OnInit {
     "niveau": ["", [Validators.required]],
   });
 
-  public editRiderFormControl: FormGroup = this.formBuilder.group({
+  public editRiderFormControl: UntypedFormGroup = this.formBuilder.group({
     "nom": ["",],
     "prenom": ["",],
     "email": ["",],
@@ -102,7 +102,7 @@ export class PageCavaliersComponent implements OnInit {
 
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private client: HttpClient,
     private tokenIdentification: TokenIdentificationService,
     private router: Router,
@@ -227,8 +227,6 @@ export class PageCavaliersComponent implements OnInit {
     this.client.post("http://" + environment.serverAddress + "/admin/modifier/cavalier/" + this.idRider, this.rider)
       .subscribe(rider => {
         if (rider != null) {
-          console.log("là fct rider ");
-
           this.alertEditRider = true;
           this.containerEditVisible = "hidden";
           this.refreshRidersList();

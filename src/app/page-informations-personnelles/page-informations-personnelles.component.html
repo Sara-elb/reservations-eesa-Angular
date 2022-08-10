@@ -1,0 +1,92 @@
+<main>
+    <div *ngIf="alertEditInfos" class="alert alert-success" role="alert">
+        <strong>OK : </strong>Informations modifiées avec succès.
+        <button (click)="closeAlertEditInfos()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <div id="body">
+        <div id="titre">Informations personnelles</div>
+        <div id="container-infos">
+            <div id="left">
+                <p>Identifiant</p>
+                    <div class="input">{{identifiant}}</div>
+
+                <p>Nom</p>
+                <div class="input">{{nom}}</div>
+
+    
+                <p>Prénom</p>
+                <div class="input">{{prenom}}</div>
+
+    
+                <p>Date de naissance</p>
+                <div class="input">{{dateDeNaissance}}</div>
+
+                <p>Adresse email</p>
+                <div class="input">{{adresseEmail}}</div>
+
+                <p>niveau</p>
+                <div class="input">{{niveau}}</div>
+            </div>
+
+            <div id="right">
+                <form id="formulaireEditEmailAndLevel" [formGroup]="registerForm" (ngSubmit)="editMdpRider()" >
+                    <p>Adresse Email</p>
+                    <mat-form-field appearance="fill">
+                        <input autocomplete="nope" id="textInputContent" formControlName="email" type="text" value={{adresseEmail}} matInput />
+                    </mat-form-field>
+
+                    <p>Niveau</p>
+                    <mat-form-field>
+                        <mat-label>{{niveau}}</mat-label>
+                        <mat-select formControlName="level">
+                            <mat-option *ngFor="let level of levelsList"
+                                    value={{level.id}} >{{level.nom}}  
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <p>Mot de passe actuel</p>
+                    <mat-form-field appearance="fill">
+                        <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="actualPassword" type="password" autocomplete="off"
+                        matInput />
+                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>    
+                    </mat-form-field>
+                    <div *ngIf="!goodPassword">
+                        Entrer le mot de passe actuel
+                      </div>
+
+                    <div id="nvMdp">
+                        <div class="champ">
+                            <p>Nouveau mot de passe</p>
+                            <mat-form-field appearance="fill">
+                                <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="password" type="password" autocomplete="off"
+                                matInput [pattern]="passwordPattern"
+                                />
+                                
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>  
+                            </mat-form-field>
+                        </div>
+
+                        <div class="champ">
+                            <p>Confirmer le nouveau mot de passe</p>
+                            <mat-form-field appearance="fill">
+                                <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" type="password" autocomplete="off"
+                                matInput />
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>  
+                                <div *ngIf="f.confirmPassword.errors?.mustMatch">Passwords must match</div>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div id="validationNewInfos" class="form-group">
+                        <button type="submit" id="infosButton">
+                        Sauvegarder
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

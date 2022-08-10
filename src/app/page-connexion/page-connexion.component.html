@@ -2,7 +2,7 @@
     <div id="container">
         <div id="logo">
             <a href="http://ecole-equitation-saint-avold.simplesite.com/"><img src="assets/img/logo2.png"
-                    alt="logo école d'équiation de saint-avold" width="120" height="100"></a>
+                    alt="logo école d'équiation de saint-avold" ></a>
         </div>
         <h1 class="hr"> Connexion </h1>
 
@@ -22,7 +22,7 @@
                 <mat-form-field appearance="fill">
                     <input class="input_field" hintLabel="Max 13 caractères" formControlName="identifiant" type="text"
                     #inputId placeholder="identifiant" minlength="8" maxlength="13" matInput /><span></span>
-                    <mat-hint align="end">{{inputId.value?.length || 0}}/13</mat-hint>
+                    <mat-hint MatHint.align="end">{{inputId.value?.length || 0}}/13</mat-hint>
                     <mat-error *ngIf="signInFormControl.get('identifiant')?.hasError('required')">Entrer votre <strong>identifiant</strong></mat-error>
                     <mat-error *ngIf="signInFormControl.get('identifiant')?.hasError('minlength')">L'identifiant doit avoir <strong>au moins 6 lettres</strong></mat-error>
                 </mat-form-field>
@@ -40,7 +40,7 @@
                 </mat-form-field>
 
                 <button type="submit">Se connecter</button>
-                <a href="#">Mot de passe oublié ?</a>
+                <!-- <a href="#">Mot de passe oublié ?</a> -->
             </form>
         </div>
     </div>

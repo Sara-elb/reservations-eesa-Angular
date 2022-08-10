@@ -20,8 +20,7 @@ import { TokenInterceptor } from './services/token.interceptor';
 import { MatInputModule } from '@angular/material/input';
 import { CdkTableModule} from '@angular/cdk/table';
 import { MatSelectModule } from '@angular/material/select';
-import { PlanningReservationsComponent } from './planning-reservations/planning-reservations.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 import { MatNativeDateModule } from '@angular/material/core';
 // import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -30,27 +29,22 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PageEquidesComponent } from './page-equides/page-equides.component';
-import { PagePlanningComponent } from './page-planning/page-planning.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import listPlugin from '@fullcalendar/list';
-import interactionPlugin from '@fullcalendar/interaction';
+// import { FullCalendarModule } from '@fullcalendar/angular';
+
 // import { BootstrapModule } from './bootstrap.module';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { EspaceCavalierComponent } from './espace-cavalier/espace-cavalier.component';
 import { HistoriqueReservationsComponent } from './historique-reservations/historique-reservations.component';
 import * as moment from 'moment';
 import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment-adapter";
+import localeFr from '@angular/common/locales/fr';
+import localeFrExtra from '@angular/common/locales/extra/fr';
+import { PageInformationsPersonnellesComponent } from './page-informations-personnelles/page-informations-personnelles.component';
 
+import { NgPasswordValidatorModule, NgPasswordValidatorOptions } from "ng-password-validator";
 
+registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  timeGridPlugin,
-  listPlugin,
-  interactionPlugin
-])
 
 @NgModule({
   declarations: [
@@ -59,11 +53,10 @@ FullCalendarModule.registerPlugins([
     PageCartesComponent,
     PageCavaliersComponent,
     EspaceAdministrateurComponent,
-    PlanningReservationsComponent,
     PageEquidesComponent,
-    PagePlanningComponent,
     EspaceCavalierComponent,
-    HistoriqueReservationsComponent
+    HistoriqueReservationsComponent,
+    PageInformationsPersonnellesComponent,
   
   ],
   imports: [
@@ -92,13 +85,28 @@ FullCalendarModule.registerPlugins([
     }),
     MatDatepickerModule,
     MatNativeDateModule,
-    FullCalendarModule,
     MatAutocompleteModule,
     
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, MatDatepickerModule],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, 
+    MatDatepickerModule,DatePipe,],
   bootstrap: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  exports:[ PlanningReservationsComponent],
 })
 export class AppModule { }
+
+export const MyDefaultOptions: NgPasswordValidatorOptions = {
+  placement: "right",
+  rules: {
+      'password': {
+          'type': "range",
+          'min': 6,
+          'max': 10,
+      },
+      "include-symbol": true,
+      "include-number": false,
+      "include-lowercase-characters": true,
+      "include-uppercase-characters": false,
+  }
+};
+

@@ -1,7 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -47,12 +47,12 @@ export class PageCartesComponent implements OnInit {
 
 
 
-  public cardFormControl: FormGroup = this.formBuilder.group({
+  public cardFormControl: UntypedFormGroup = this.formBuilder.group({
     "type": ["", [Validators.required]],
     "nbSeances": ["", [Validators.required]]
   });
 
-  public editCardFormControl: FormGroup = this.formBuilder.group({
+  public editCardFormControl: UntypedFormGroup = this.formBuilder.group({
     "type": ["", Validators.required ],
     "nbSeances": ["", Validators.required ]
   });
@@ -71,7 +71,7 @@ export class PageCartesComponent implements OnInit {
   paginator!: MatPaginator;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private client: HttpClient,
     private tokenIdentification: TokenIdentificationService,
     private router: Router,
@@ -198,7 +198,6 @@ export class PageCartesComponent implements OnInit {
             }
           })
     }else if( this.editCardFormControl.value.nbSeances == "" || this.editCardFormControl.value.nbSeances ==null){
-      console.log("ichelpi")
       this.editCardFormControl.value.nbSeances = this.nbSeances;
     
       this.carte = this.editCardFormControl.value;
@@ -215,7 +214,6 @@ export class PageCartesComponent implements OnInit {
           }
         })
     }else if (this.editCardFormControl.valid) {
-      console.log("là");
       this.carte = this.editCardFormControl.value;
       this.client.post("http://" + environment.serverAddress + "/admin/modifier-carte/"+ this.idCarte, this.carte)
         .subscribe(carte => {

@@ -1,9 +1,46 @@
 #boutons{
     margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: solid 2px #5d6f63;
+    border-radius: 5px;
+    padding: 3px 5px;
+    align-items: center;
 }
+
+button{
+  border-radius: 5px;
+  padding: 4px 8px;
+  color:#686a6b;
+  border:#686a6b solid 1px;
+  height: 80%;
+  align-items: center;
+}
+
+
+button:hover{
+color:black;
+// background-color: #94ac9d;
+background-color: #edf3d6;
+transition: 0.6s ease-in-out;
+}
+
+#pdf{
+  width: 20%;
+}
+
+#filtre{
+  width: 20%;
+  margin-left: 5%;
+}
+
 table {
-    width: 90%;
+    width: 100%;
     margin-top: 30px;
+    align-items: center;
   }
   
   .mat-form-field {
@@ -21,10 +58,6 @@ table {
     height: 500px;
   }
 
-  button{
-    border-radius: 5px;
-    padding: 5px;
-  }
   
 //   date:
 .example-month-picker .mat-calendar-period-button {

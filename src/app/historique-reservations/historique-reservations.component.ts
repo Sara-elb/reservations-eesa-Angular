@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnInit, Pipe, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -9,10 +9,14 @@ import { environment } from 'src/environments/environment';
 import { TokenIdentificationService } from '../services/token-identification.service';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
-import {default as _rollupMoment, Moment} from 'moment';
-import { MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
-import { DateAdapter } from 'angular-calendar';
-import { FormControl } from '@angular/forms';
+import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
+// import {  } from 'angular-calendar';
+import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { MatDatepicker } from '@angular/material/datepicker';
+import 'moment/locale/ja';
+import 'moment/locale/fr';
+import { DatePipe, formatDate, registerLocaleData } from '@angular/common';
 
 
 export interface ReservationsData {
@@ -22,62 +26,49 @@ export interface ReservationsData {
   listeNiveaux: any;
   typeSeance:string;
   dureeSeance:number;
+  categories:any;
 }
-
-const moment = _rollupMoment || _moment;
-
-// See the Moment.js docs for the meaning of these formats:
-// https://momentjs.com/docs/#/displaying/format/
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'MM/YYYY',
-  },
-  display: {
-    dateInput: 'MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
 
 @Component({
   selector: 'app-historique-reservations',
   templateUrl: './historique-reservations.component.html',
   styleUrls: ['./historique-reservations.component.scss'],
   providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
+    // The locale would typically be provided on the root module of your application. We do it at
+    // the component level here, due to limitations of our example generation script.
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+
+    // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
+    // `MatMomentDateModule` in your applications root module. We provide it at the component level
+    // here, due to limitations of our example generation script.
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
 })
+
+
 export class HistoriqueReservationsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'dateReservation', 'dateSeance', 'listeNiveaux','typeSeance','dureeSeance'];
+  public levelsList: any;
+
+  displayedColumns: string[] = ['id', 'dateReservation', 'dateSeance', 'listeNiveaux','typeSeance','dureeSeance','categories'];
   dataSource= new MatTableDataSource<ReservationsData>();
-  date = new FormControl(moment());
 
-  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value!;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
-    this.date.setValue(ctrlValue);
-    datepicker.close();
-  }
-
-
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
+  
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
   @ViewChild(MatSort) 
   sort!: MatSort;
 
-  reservationsList : any;
+  reservationsList = new Array;
 
   @ViewChild('content', {static: false}) el!:ElementRef;
 
@@ -85,17 +76,25 @@ export class HistoriqueReservationsComponent implements AfterViewInit {
     private client: HttpClient,
     private tokenIdentification: TokenIdentificationService,
     private router: Router,
+    private _adapter: DateAdapter<any>,
+    @Inject(MAT_DATE_LOCALE) 
+    private _locale: string,
+    private datePipe : DatePipe,
   ) {
+    
     // Create 100 users
     // const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
   }
 
+
   public rider: boolean = false;
   public idConnectedUser: any;
 
   ngAfterViewInit() {
+    this._locale = 'fr';
+    this._adapter.setLocale(this._locale);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.tokenIdentification.refreshToken(); 
@@ -119,12 +118,40 @@ export class HistoriqueReservationsComponent implements AfterViewInit {
   public generateReservations(idRider: number): void {
     this.client.get("http://" + environment.serverAddress + "/reservation-seance/cavalier/" + idRider)
       .subscribe((response: any) => {
-        this.reservationsList = response;
-        this.dataSource = new MatTableDataSource(this.reservationsList);
+        console.log(response);
+      console.log( this.datePipe.transform('2022-07-19T17:45:00.000+00:00', 'jj/MM/aaaa'));
 
+        response.forEach((element:any)=>{
+          element.date=this.datePipe.transform(element.date, 'fullDate', 'fr-FR');
+          
+          element.seance.date=this.datePipe.transform(element.seance.date, 'medium');
+          // console.log(formatDate(element.date, 'fullDate', 'fr-FR'));
+        });
+          // element.listeNiveaux.push(this.generateLevelsList(element.seance.id)[0]);
+          // element.listeNiveaux.push(this.generateLevelsList(element.seance.id)[1]);
+
+          // this.reservationsList.push(element);
+          // console.log("kklkl" +this.generateLevelsList(element.seance.id)[0]);
+        // response.seance.date= this.datePipe.transform(response.seance.date, 'dd/MM/yyyy');
+
+
+        this.reservationsList=response;
+        this.dataSource = new MatTableDataSource(this.reservationsList);
         this.dataSource.paginator = this.paginator;
-        console.log(" idRider : " + idRider)
-      });
+
+        })
+      }
+        
+        // this.reservationsList.forEach((element:any) => {
+        //   element.listeNiveaux = this.generateLevelsList(element.id);
+        // });
+  
+  public generateLevelsList(idSeance:number):any {
+    this.client.get('http://' + environment.serverAddress + '/niveauxSeances/'+idSeance)
+      .subscribe(response => {
+        console.log(response);
+        return response;
+      ;})
   }
   
   makePDF(){
@@ -135,7 +162,11 @@ export class HistoriqueReservationsComponent implements AfterViewInit {
       }
     });
   }
+
+
+  
 }
+
 
 /** Builds and returns a new User. */
 // function createNewUser(id: number): UserData {

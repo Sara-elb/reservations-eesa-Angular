@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { TokenIdentificationService } from '../services/token-identification.service';
@@ -11,13 +11,13 @@ import { TokenIdentificationService } from '../services/token-identification.ser
   styleUrls: ['./page-connexion.component.scss']
 })
 export class PageConnexionComponent implements OnInit {
-  public signInFormControl: FormGroup = this.formBuilder.group({
+  public signInFormControl: UntypedFormGroup = this.formBuilder.group({
     "identifiant": ["", [Validators.required, Validators.minLength(6)]],
     "motDePasse": ["", [Validators.required, Validators.minLength(3)]]
   });
   constructor(
     private client: HttpClient,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private tokenIdentification : TokenIdentificationService,
     private router : Router,
   ) { }

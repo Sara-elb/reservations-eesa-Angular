@@ -3,7 +3,7 @@ import { ListKeyManager } from '@angular/cdk/a11y';
 // import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { MatDateFormats } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -60,7 +60,7 @@ export class PageEquidesComponent implements OnInit {
   // public listeCards:Array<Object>;
   // soldes:Object;
 
-  public horseFormControl: FormGroup = this.formBuilder.group({
+  public horseFormControl: UntypedFormGroup = this.formBuilder.group({
     "nom": ["", [Validators.required]],
     "dateNaissance": ["", [Validators.required]],
     "typeEquide": ["", [Validators.required]],
@@ -68,7 +68,7 @@ export class PageEquidesComponent implements OnInit {
 
   });
 
-  public editHorseFormControl: FormGroup = this.formBuilder.group({
+  public editHorseFormControl: UntypedFormGroup = this.formBuilder.group({
     "nom": ["",],
     "typeEquide": ["",],
     "dateNaissance": ["",],
@@ -96,7 +96,7 @@ export class PageEquidesComponent implements OnInit {
   @ViewChild('idLevel', { static: false }) el!: ElementRef;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private client: HttpClient,
     private tokenIdentification: TokenIdentificationService,
     private router: Router,

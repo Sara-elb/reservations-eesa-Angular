@@ -7,8 +7,7 @@ import { PageCartesComponent } from './page-cartes/page-cartes.component';
 import { PageCavaliersComponent } from './page-cavaliers/page-cavaliers.component';
 import { PageConnexionComponent } from './page-connexion/page-connexion.component';
 import { PageEquidesComponent } from './page-equides/page-equides.component';
-import { PagePlanningComponent } from './page-planning/page-planning.component';
-import { PlanningReservationsComponent } from './planning-reservations/planning-reservations.component';
+import { PageInformationsPersonnellesComponent } from './page-informations-personnelles/page-informations-personnelles.component';
 import { AdminGuard } from './services/admin.guard';
 
 const routes: Routes = [
@@ -18,8 +17,10 @@ const routes: Routes = [
   {path:'espace-administrateur/gestion-des-cartes', component: PageCartesComponent, canActivate : [AdminGuard]},
   {path:'espace-administrateur', component: EspaceAdministrateurComponent, canActivate : [AdminGuard]},
   {path:'espace-cavalier', component: EspaceCavalierComponent},
-  {path:'planning', component: PagePlanningComponent},
-  {path:'historique-reservations', component: HistoriqueReservationsComponent}
+  // {path:'planning', component: PagePlanningComponent},
+  {path:'espace-cavalier/historique-reservations', component: HistoriqueReservationsComponent},
+  {path:'espace-cavalier/informations-personnelles', component: PageInformationsPersonnellesComponent}
+
 ];
 
 @NgModule({
