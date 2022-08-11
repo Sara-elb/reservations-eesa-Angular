@@ -53,6 +53,8 @@ export class PageInformationsPersonnellesComponent implements OnInit {
   public idNiveau: any=null;
   public passwordValid: any;
 
+  public containerEditEmail = "hidden";
+
   constructor(
     private formBuilder: UntypedFormBuilder,
     private client: HttpClient,
@@ -186,5 +188,15 @@ export class PageInformationsPersonnellesComponent implements OnInit {
           console.log("controle password : " + this.goodPassword)
         });
         
+    }
+
+    test(){
+      this.containerEditEmail = "visible";
+
+    }
+
+    saveEmail(){
+      this.containerEditEmail = "hidden";
+
     }
 }

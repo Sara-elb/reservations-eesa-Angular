@@ -11,6 +11,8 @@ main{
     border: 0;
     margin-top: 20px;
     color:#FFFFFF;
+    overflow: hidden;
+
 }
 
 #body{
@@ -53,7 +55,7 @@ main{
 #left{
     display: flex;
     flex-direction: column;
-    width: 33%;
+    width: 38%;
     height: 90%;
     background: rgba(0,0,0,0.70);
     text-align: center;
@@ -64,10 +66,55 @@ main{
     color: #FFFFFF;
 }
 
+@media screen and (max-width: 1164px){
+    #left{
+        width: 40%;
+    }
+
+    #right{
+        width: 50%;
+    }
+    
+}
+
+@media screen and (max-width: 1000px){
+    #left{
+        width: 40%;
+    }
+
+    #right{
+        width: 50%;
+    }
+
+    #body{
+        width: 85%;
+    } 
+}
+
+@media screen and (max-width: 640px){
+    #left{
+        width: 80%;
+    }
+
+    #right{
+        width: 80%;
+    }
+
+    #body{
+        width: 80%;
+    } 
+
+    #container-infos{
+        display: flex;
+        flex-direction: column;
+        // background-color: aqua;
+    }
+}
+
 #right{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 56%;
     height: 90%;
     background: rgba(0,0,0,0.70);
     text-align: center;
@@ -109,6 +156,8 @@ main{
     transform: scale(1.01, 1.01);
     filter: none;
 }
+
+
 
 // form{
 //     margin-top: 5%;
@@ -184,4 +233,46 @@ input:-webkit-autofill:active{
 input:-webkit-autofill{
     -webkit-text-fill-color: white !important;
     // opacity: 1;
+}
+
+button{
+    width: 60%;
+    border-radius: 50px;
+    border: 2px #000000 solid;
+  //   opacity: 0.8;
+    background-color: rgba(216,223,189,0.9);
+    color:#000000;
+    filter: none;
+    margin-left: 22%;
+    padding: 5px;
+}
+
+button:hover{
+    opacity: 1;
+    background-color: rgba(93,111,99,0.9);
+    color:#000000;
+    border: 2px #000000 solid;
+    transition:250ms;
+    transform: scale(1.01, 1.01);
+    filter: none;
+}
+
+section{
+    display: flex;
+    flex-direction: row;
+  pointer-events: none;
+  z-index: 0; 
+  -webkit-transition: transform 0.45s cubic-bezier(0, 0, 0.21, 1);
+  transition: transform 0.45s cubic-bezier(0, 0, 0.21, 1);
+}
+
+// a[id= "one"]:target ~ #one {
+//     -webkit-transform: translate3d(0, 0, 0);
+//     transform: translate3d(0, 0, 0);
+// }
+
+button .save{
+    padding: 0;
+    width: 100px;
+    height: 50px;
 }
