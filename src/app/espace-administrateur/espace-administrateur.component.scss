@@ -1,0 +1,267 @@
+main{
+    overflow: hidden;
+}
+
+.row{
+    margin: 20px 0 25px 0;
+}
+
+h3 {
+    margin: 0 0;
+    color:#5d6f63;
+    font-size: 18px;
+    font-weight: lighter;
+    text-transform: uppercase;
+    
+  }
+
+  pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+  }
+
+.btn-primary{
+    background-color: #b7d0bf;
+    border:#000000 solid 1.5px;
+}  
+
+.btn-primary:hover{
+    background-color: #9ab3a2;
+    border:#000000 solid 1.5px;
+} 
+
+.btn{ 
+    border:#000000 solid 1.5px;
+}
+
+.btn-outline-secondary:hover{
+    background-color: #eeed9f;
+    color:#000000;
+}
+
+.active{
+    background-color: #f6f4b5;
+    color: #000000;
+}
+
+// .e-calendar{
+//     background-color: #142519;
+//   }
+
+  
+// /* To specify color and border  */
+// .e-calendar .e-header span, .e-bigger.e-small .e-calendar .e-header span {
+//     border: 1px solid;
+//     color: chocolate;
+// }
+
+.menuSeances{
+    display: flex;
+    flex: row;
+}
+
+button{
+    border: #8d4758 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: #8d4758;
+    color:#ffffff;
+    text-align: center;
+}
+
+button:hover{
+    color:#ffffff;
+    background-color: #9c2542;
+}
+
+#box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    // margin: 0 15% 0 20%;
+    // margin-top: 10px;
+    // margin-bottom: 50px;
+    position: absolute;
+    z-index: 2;
+    // background-color: #9ab3a2;
+}
+
+#formulaireCavalier{
+    background-color: #B3B6C3;
+    border: #8898aa 0.2px solid;
+    border-radius: 3px;
+    box-shadow: 3px 3px 0.5px 0.25px rgba(7, 7, 33, 0.5);
+    width:50%;
+    height:90%;
+    display: flex;
+    flex-direction: column;
+    // padding-top: 2%;
+    justify-content: center;
+    margin-left: 25%;
+    // text-align: center;
+}
+
+.exit{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-top: 7px;
+}
+
+#buttonExit{
+    padding: 5px 9px 5px 9px;
+    margin-right: 0 ;
+    margin-bottom: 1px;
+    margin-top:1px;
+    background-color: inherit;
+    opacity: 0.8;
+    // border-radius: 50% 20% / 10% 40%;;
+    border:none;
+    // filter: drop-shadow(0 0 0.75rem white);
+    width: 10%;
+    color: white;
+    filter: none;
+}
+
+#buttonExit:hover{
+    opacity: 1;
+    transition:250ms;
+    transform: scale(1.1, 1.1);
+    filter: none;
+    color: #6d7180;
+}
+
+#formulaireEditCavalier{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // align-items: center;
+    width: 80%;
+    color: #FFFFFF;
+    margin-left: 13%;
+}
+
+#validationNewSession{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-left: -26%;
+    // height: 30%;
+}
+
+#bp{
+    background-color: #fb9d00;
+}
+
+#pg1{
+    background-color: #feff99;
+}
+
+#pg2{
+    background-color: #ffcc9a;
+}
+
+#pg3{
+    background-color: #9ccbff;
+}
+
+#pg4{
+    background-color: #01ff01;
+}
+
+#pg5{
+    background-color: #943f56;
+}
+
+#cg1{
+    background-color: #fffb04;
+}
+
+#cg2{
+    background-color: #f7a757;
+}
+
+#cg3{
+    background-color: #5275a0;
+}
+
+#cg4{
+    background-color: #1f5229;
+}
+
+#cg5{
+    background-color: #982846;
+}
+
+// .g1{
+//     background-color: #feff99;
+// }
+
+// .g2{
+//     background-color: #ffcc9a;
+// }
+
+// .g3{
+//     background-color: #9ccbff;
+// }
+
+// .g4{
+//     background-color: #01ff01;
+// }
+
+// .g5{
+//     background-color: #943f56;
+// }
+
+h4{
+    color: #000000;
+}
+
+.categ{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #acafbb;
+    padding-top: 6px;
+    width: 100%;
+}
+
+.nom{
+    display: flex;
+    flex-direction: column;
+}
+
+.couleur{
+    display: flex;
+    flex-direction: column;
+}
+
+.colorByLevel{
+    display: flex;
+    flex-direction: row;
+}
+
+.twoColumns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.champ{
+    display: flex;
+    flex-direction: column;
+}
+
+p{
+    color:#525459;
+}
+
+mat-form-field{
+    margin-bottom: 15px;
+}

@@ -53,9 +53,22 @@
 
 <router-outlet></router-outlet>
 
-<footer>
+<!-- <footer>
   <p>
     <a href="http://ecole-equitation-saint-avold.simplesite.com/">École d'Équitation de Saint-Avold</a> -
     <a href="https://fr-fr.facebook.com/ecoleequitationsaintavold/">Facebook<mat-icon>facebook</mat-icon></a>
   </p>
+</footer> -->
+<footer *ngIf="email!= ''">
+  <div class="col">
+    <p><img src="../assets/img/logo2.png" alt="logo" width="50" height="45">
+      <a href="http://ecole-equitation-saint-avold.simplesite.com/">École d'Équitation de Saint-Avold</a>
+    </p>
+    <p><mat-icon> location_on</mat-icon>7 Rue de l'Ermitage, 57500 Saint-Avold</p>
+  </div>
+  <div class="col">
+    <p><mat-icon>phone</mat-icon> 03 87 92 24 24</p>
+    <p><mat-icon>email</mat-icon>equisainta2@wanadoo.fr</p>
+    <p><button href="https://fr-fr.facebook.com/ecoleequitationsaintavold/"><mat-icon>facebook</mat-icon>Facebook</button></p>
+  </div>
 </footer>

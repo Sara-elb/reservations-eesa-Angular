@@ -1,15 +1,22 @@
-<div class="row text-center">
-
+<main>
+  <div class="row text-center">
     <div class="col-md-4">
         <div class="btn-group">
-            <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+            <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
                 Précédent
             </div>
-            <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-                Aujourd
+            <div class="btn btn-outline-secondary"
+            mwlCalendarToday
+            [(viewDate)]="viewDate">
+            Aujourd'hui
             </div>
-            <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
-                Suivant
+            <div
+            class="btn btn-primary"
+            mwlCalendarNextView
+            [view]="view"
+            [(viewDate)]="viewDate"
+            (viewDateChange)="closeOpenMonthViewDay()">
+                        Suivant
             </div>
         </div>
     </div>
@@ -29,18 +36,329 @@
             </div>
         </div>
     </div>
+</div>
+<br/>
+<div id="menuSeances">
+  <!-- <button (click)="addBabyPony()">Ajouter une séance "BABY PONEYS"</button>
+  <button (click)="addPoniesSession()">Ajouter une séance "PONEYS"</button>
+  <button (click)="addHorsesSession()">Ajouter une séance "CHEVAUX"</button>
+  <button (click)="addEvent()">Ajouter une séance "PONEY & CHEVAUX"</button>
+  <button (click)="addEthologySession()">Ajouter une séance "ETHOLOGIE"</button> -->
+  <button (click)="formulaireSeance()">Ajouter une séance</button>
+  <button>Voir les séances</button>
+</div>
+
+<!-- AJOUT SEANCES -->
+<div id="box" [style.visibility]="containerAddVisible">
+  <div id="formulaireCavalier">
+    <div class="exit"> 
+      <button id="buttonExit" (click)="exitNewSession()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </div>
+
+    <form id="formulaireEditCavalier" [formGroup]="sessionFormControl" (submit)="addEvent()">
+      
+      <div class="twoColumns">
+        <div class="champ">
+          <p>Début</p>
+          <mat-form-field>
+            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" formControlName="dateDebut">
+            
+            <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+        
+            <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+          </mat-form-field>
+          <!-- <mat-form-field appearance="fill">
+          <input id="textInputContent" formControlName="dateDebut" type="date"  placeholder="" matInput /> -->
+
+            <!-- <mat-error *ngIf="sessionFormControl.get('email')?.hasError('required')">
+            <strong>Entrer</strong> l'adresse email du cavalier.
+            </mat-error> 
+            <mat-error *ngIf="sessionFormControl.get('email')?.hasError('email')">
+            Fournir une <strong>adresse mail correcte</strong>
+            </mat-error>  -->
+          <!-- </mat-form-field> -->
+
+          <p>Fin</p>
+          <mat-form-field>
+            <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date & time" formControlName="dateFin">
+            
+            <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+        
+            <ngx-mat-datetime-picker #picker2></ngx-mat-datetime-picker>
+          </mat-form-field>
+
+          <!-- <mat-form-field appearance="fill">
+          <input id="textInputContent" formControlName="dateFin" type="date"  placeholder="" matInput />-->
+          <!-- <mat-error *ngIf="sessionFormControl.get('dateDeNaissance')?.hasError('required')"> 
+          <strong>Entrer</strong> la date de naissance du cavalier.
+          </mat-error> -->
+          <!-- </mat-form-field> -->
+
+            <p>Nombre de places</p>
+            <mat-form-field appearance="fill">
+              <input id="textInputContent" formControlName="nombrePlaces" type="number"    step="1" min="1" max="50"matInput />
+            </mat-form-field>
+
+            <p>Commentaire</p>
+            <mat-form-field appearance="fill">
+              <input id="textInputContent" formControlName="commentaire" type="text" placeholder="" matInput />
+            </mat-form-field>
+        </div>
+
+        <div class="champ">
+          <mat-form-field>
+            <mat-label>Niveaux :</mat-label>
+            <mat-select formControlName="niveau" multiple>
+                  <mat-option *ngFor="let level of levelsList" [value]="level.id" >
+                    <!-- <div class="g{{level.id}}">{{level.nom}}</div>  -->
+                    {{level.nom}} 
+    
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+    
+          <mat-form-field>
+            <mat-label>Type :</mat-label>
+            <mat-select formControlName="typeSeance">
+                  <mat-option *ngFor="let type of typeSessionList"
+                        [value]="type" >{{type.nom}} 
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Catégorie :</mat-label>
+            <mat-select formControlName="typeEquideId" multiple>
+                  <mat-option *ngFor="let type of typeEquideList"
+                        [value]="type.id" >{{type.nom}} 
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+    
+            <!-- <mat-form-field appearance="fill"> -->
+              <!-- (change)="refresh.next()" -->
+              <!-- <input id="textInputContent" formControlName="color" type="color" matInput/>
+            </mat-form-field> -->
+          <p>Couleur</p>
+          <div class="categ">
+            <div class="nom">
+              <h4>Baby poneys</h4>
+              <h4>Poneys</h4>
+              <h4>Chevaux</h4>
+              <h4>Autre</h4>
+            </div>
+            <div class="couleur">
+              <div class="colorByLevel">
+                <button id="bp">&nbsp; &nbsp; &nbsp;</button>
+              </div>
+              <div class="colorByLevel">
+                <button id="pg1">G1</button>
+                <button id="pg2">G2</button>
+                <button id="pg3">G3</button>
+                <button id="pg4">G4</button>
+                <button id="pg5">G5</button>
+              </div>
+              <div class="colorByLevel">
+                <button id="cg1">G1</button>
+                <button id="cg2">G2</button>
+                <button id="cg3">G3</button>
+                <button id="cg4">G4</button>
+                <button id="cg5">G5</button>
+              </div>
+              <div class="colorByLevel">
+                <input id="textInputContent" formControlName="color" type="color" matInput/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- <p><input id="textInputContent" formControlName="niveau" type="text"  placeholder=""
+                matInput /></p>
+        <mat-error *ngIf="sessionFormControl.get('niveau')?.hasError('required')">
+        <strong>Sélectionner</strong>le niveau.
+        </mat-error>
+        <br> -->    
+      <div id="validationNewSession">
+        <button type="submit" id="sessionButton">
+          Valider
+        </button>
+      </div>
+    </form>
+  </div>
 
 </div>
+<!-- FIN AJOUT SEANCES -->
 
 <div [ngSwitch]="view">
-
-    <mwl-calendar-month-view (dayClicked)="dayClicked($event.day)" *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events">
+  <!-- <ng-template #customCellTemplate let-day="day">
+    <mat-list *ngFor="let e of day.events">
+        <button class="customEvent" (click)="eventClick(e)">
+          {{e.title}}
+        </button>
+    </mat-list>
+  </ng-template> -->
+    <mwl-calendar-month-view 
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-month-view>
 
-    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events">
+    <mwl-calendar-week-view
+     *ngSwitchCase="CalendarView.Week" 
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)">
+    
     </mwl-calendar-week-view>
 
-    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate"[events]="events">
+    <mwl-calendar-day-view 
+    *ngSwitchCase="CalendarView.Day"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-day-view>
-
 </div>
+
+<h3>
+    Modification de séances
+    <button class="btn btn-primary float-end" 
+    (click)="addEvent()">
+        Ajouter une séance
+    </button>
+    <!-- <input id="ColorPicker" type="text" /> -->
+
+    <div class="clearfix"></div>
+  </h3>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Nombre de places restantes</th>
+            <th>Couleur</th>
+            <th>Secondary + text color</th>
+            <th>Starts at</th>
+            <th>Ends at</th>
+            <th>Supprimer</th>
+        </tr>
+        </thead>
+  
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="event.title"
+              (keyup)="refresh.next()"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="event.nombrePlaces"
+              (keyup)="refresh.next()"
+            />
+          </td>
+          <td>
+            <input
+              type="color"
+              [(ngModel)]="event.color"
+              (change)="refresh.next()"
+            />
+          </td>
+          <td>
+            <input
+              type="color"
+              [(ngModel)]="event.color"
+              (change)="refresh.next()"
+            />
+            <input
+              type="color"
+              [ngModel]="event.color ?? '#1e90ff'"
+              (ngModelChange)="event.color= $event"
+              (change)="refresh.next()"
+            />
+          </td>
+          <td>
+            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" formControlName="dateDebut">
+            
+            <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+        
+            <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              [(ngModel)]="event.start"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Not set"
+            />
+          </td>
+          <td>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              [(ngModel)]="event.end"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Not set"
+            />
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteEvent(event)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #modalContent let-close="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Event action occurred</h5>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        Action:
+        <pre>{{ modalData?.action }}</pre>
+      </div>
+      <div>
+        Event:
+        <pre>{{ modalData?.event | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button>
+    </div>
+  </ng-template>
+</main>

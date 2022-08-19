@@ -270,7 +270,7 @@ export class PageCavaliersComponent implements OnInit {
   }
 
   generateLevelsList() {
-    this.client.get('http://' + environment.serverAddress + '/admin/liste-niveaux')
+    this.client.get('http://' + environment.serverAddress + '/liste-niveaux')
       .subscribe(response => this.levelsList = response);
   }
 

@@ -26,7 +26,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { CalendarModule, CalendarUtils, DateAdapter } from 'angular-calendar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PageEquidesComponent } from './page-equides/page-equides.component';
 // import { FullCalendarModule } from '@fullcalendar/angular';
@@ -45,6 +45,11 @@ import { NgPasswordValidatorModule, NgPasswordValidatorOptions } from "ng-passwo
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -86,6 +91,9 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
     
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, 
