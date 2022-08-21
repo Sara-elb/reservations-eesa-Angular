@@ -10,15 +10,13 @@
         <div id="container-infos">
             <div id="left">
                 <p>Identifiant</p>
-                    <div class="input">{{identifiant}}</div>
+                <div class="input">{{identifiant}}</div>
 
                 <p>Nom</p>
                 <div class="input">{{nom}}</div>
-
     
                 <p>Prénom</p>
                 <div class="input">{{prenom}}</div>
-
     
                 <p>Date de naissance</p>
                 <div class="input">{{dateDeNaissance}}</div>
@@ -31,78 +29,106 @@
             </div>
 
             <div id="right">
-                <button (click)="test()">Modifier adresse email</button>
-                <form id="formulaireEditEmailAndLevel" [formGroup]="registerForm">
-                    <section [style.visibility]="containerEditEmail" id="one">
-                        <div class="champ">
-                            <p>Adresse Email</p>
-                            <mat-form-field appearance="fill">
-                                <input autocomplete="nope" id="textInputContent" formControlName="email" type="text" value={{adresseEmail}} matInput />
-                            </mat-form-field>
-                        </div>
-                        <button (click)="saveEmail()" class="save">Sauvegarder</button>
-                    </section>
-                    <button>Modifier niveau</button>
-
-                    <section [style.visibility]="containerEditEmail" id="one">
-
-                    <div class="champ">
-                        <p>Niveau</p>
-                        <mat-form-field>
-                            <mat-label>{{niveau}}</mat-label>
-                            <mat-select formControlName="level">
-                                <mat-option *ngFor="let level of levelsList"
-                                        value={{level.id}} >{{level.nom}}  
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <button (click)="saveEmail()" class="save">Sauvegarder</button>
-                    </section>
-
-                    <button>Modifier mot de passe</button>
-
-                    <p>Mot de passe actuel</p>
-                    <mat-form-field appearance="fill">
-                        <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="actualPassword" type="password" autocomplete="off"
-                        matInput />
-                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>    
-                    </mat-form-field>
-                    <div *ngIf="!goodPassword">
-                        Entrer le mot de passe actuel
-                      </div>
-
-                    <div id="nvMdp">
-                        <div class="champ">
-                            <p>Nouveau mot de passe</p>
-                            <mat-form-field appearance="fill">
-                                <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="password" type="password" autocomplete="off"
-                                matInput [pattern]="passwordPattern"
-                                />
-                                
-                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>  
-                            </mat-form-field>
-                        </div>
-
-                        <div class="champ">
-                            <p>Confirmer le nouveau mot de passe</p>
-                            <mat-form-field appearance="fill">
-                                <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" type="password" autocomplete="off"
-                                matInput />
-                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>  
-                                <div *ngIf="f.confirmPassword.errors?.mustMatch">Passwords must match</div>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <!-- <div id="validationNewInfos" class="form-group">
-                        (ngSubmit)="editMdpRider()"
-                        <button type="submit" id="infosButton">
-                        Sauvegarder
+                <div id="titre">Modifier mes informations personnelles</div>
+                <div class="alert">
+                    <div *ngIf="alertErrorEditEmail" class="alert alert-danger" role="alert">
+                        <strong>Attention : </strong>Erreur lors de la modification de l'adresse email.
+                        <button (click)="exitAlertEmailDanger()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                         </button>
-                    </div> -->
-                </form>
+                    </div>
+                    <div *ngIf="alertEditEmail" class="alert alert-success" role="alert">
+                        Modification de l'adresse email réalisée avec <strong>succès</strong>.
+                        <button (click)="exitAlertEmailSuccess()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div *ngIf="alertErrorEditLevel" class="alert alert-danger" role="alert">
+                        <strong>Attention : </strong>Erreur lors de la modification du niveau.
+                        <button (click)="exitAlertLevelDanger()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div *ngIf="alertEditLevel" class="alert alert-success" role="alert">
+                        Modification du niveau réalisée avec<strong> succès</strong>.
+                        <button (click)="exitAlertLevelSuccess()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row-btn">
+                    <button class="edit" (click)="changeEmail()">Modifier adresse email</button>
+                    <button class="edit" (click)="changeLevel()">Modifier niveau</button>
+                    <button class="edit" (click)="changePassword()">Modifier mot de passe</button>
+                </div>
+                <div class="modification">
+                    <div class="buttonExit">
+                        <button  *ngIf="containerEditEmail!='hidden'" class="exit" (click)="exitEditEmail()"><mat-icon>exit_to_app</mat-icon></button>
+                        <button *ngIf="containerEditLevel!='hidden'" class="exit" (click)="exitEditLevel()"><mat-icon>exit_to_app</mat-icon></button>
+                        <button *ngIf="containerEditPassword!='hidden'" class="exit" (click)="exitEditPassword()"><mat-icon>exit_to_app</mat-icon></button>
+                    </div>
+                    <div class="modifContainer" [style.visibility]="containerEditEmail" id="one">
+                            <div class="champ">
+                                <p>Adresse Email</p>
+                                <form [formGroup]="emailFormControl">
+                                    <mat-form-field appearance="fill">
+                                        <input autocomplete="nope" id="textInputContent" formControlName="adresseEmail" type="text" value={{adresseEmail}} matInput />
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                            <div><button class="btnEdit" (click)="saveEmail()" class="save">Sauvegarder</button></div>
+                    </div>
+
+                    <div class="modifContainer" [style.visibility]="containerEditLevel" id="two">
+                            <div class="champ">
+                                <p>Niveau</p>
+                                <form [formGroup]="levelFormControl">
+                                    <mat-form-field>
+                                        <mat-label>{{niveau}}</mat-label>
+                                        <mat-select formControlName="niveau">
+                                            <mat-option *ngFor="let level of levelsList"
+                                                    value={{level.id}} >{{level.nom}}  
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                            <div><button class="btnEdit" (click)="saveLevel()" class="save">Sauvegarder</button></div>
+                    </div>
+
+                        <div class="modifContainer" [style.visibility]="containerEditPassword" id="three">
+                            <form [formGroup]="passwordFormControl" [formGroup]="registerForm">
+                                <p>Mot de passe actuel</p>
+                                <mat-form-field appearance="fill">
+                                    <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="actualPassword" type="password" autocomplete="off"
+                                        matInput />
+                                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> 
+                                    <div *ngIf="!goodPassword">Entrer le mot de passe actuel</div>   
+                                </mat-form-field>
+    
+                                <div class="champ">
+                                    <p>Nouveau mot de passe</p>
+                                    <mat-form-field appearance="fill">
+                                        <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="password" type="password" autocomplete="off"
+                                        matInput [pattern]="passwordPattern"/>
+                                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>  
+                                    </mat-form-field>
+                                </div>
+    
+                                <div class="champ"> 
+                                    <p>Confirmer le nouveau mot de passe</p>
+                                    <mat-form-field appearance="fill">
+                                        <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" type="password" autocomplete="off" matInput />
+                                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>  
+                                        <div *ngIf="f.confirmPassword.errors?.mustMatch">Passwords must match</div>
+                                    </mat-form-field>
+                                </div>
+
+                                <div><button class="btnEdit" (click)="savePassword()" class="save">Sauvegarder</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 </main>

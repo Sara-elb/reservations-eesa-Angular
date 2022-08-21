@@ -25,7 +25,7 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
-    this.email="";
+    this.email=" ";
     this.tokenIdentification.user.subscribe(
       user => {
         if (user != null) {
@@ -34,8 +34,6 @@ export class AppComponent {
           this.monitor = user.droits.includes("ROLE_MONITEUR");
           this.rider = user.droits.includes("ROLE_CAVALIER");
           this.identifiant = user.sub
-
-          console.log("admin : "+this.admin+ " monitor : "+this.monitor+ " rider : "+this.rider)
         } else {
           this.email = "";
         }
@@ -55,7 +53,6 @@ export class AppComponent {
     this.client.get("http://" + environment.serverAddress + "/utilisateur/" + identifiant)
       .subscribe((response: any) => {
         this.name = response.prenom;
-        console.log("name" + this.name);
       });
   }
 

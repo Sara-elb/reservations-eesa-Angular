@@ -1,5 +1,5 @@
 <header>
-  <div *ngIf="email!= ''" class="row-nav">
+  <div *ngIf="email!=''" class="row-nav">
     <div class="signOut">
       <div><button routerLink="" (click)="signOut()">Se déconnecter</button></div>
       <!-- <div><img src="../assets/img/horse-1.png" alt="icon" width="45" height="25"></div> -->
@@ -47,8 +47,6 @@
       <img id="picture" src="../assets/img/the-girls-ride-on-horses.jpg" width="95" height="95" />
       <div class="cercle"></div>
   </div>
-  <div><h3>Hello {{ name }}</h3></div>
-
 </div>
 
 <router-outlet></router-outlet>

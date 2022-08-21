@@ -1,4 +1,20 @@
 <main>
+    <div [style.visibility]="alertErrorIds" class="msg-danger">
+        <div class="xd-message-icon">
+            <i class="ion-close-round"><mat-icon>error_outline</mat-icon></i>
+        </div>
+        <div class="xd-message-content">
+            <p><strong>Mauvais &nbsp;</strong> mot de passe ou identifiant</p>
+        </div>
+        <button (click)="exitAlertErrorIds()" class="xd-message-close close-icon">&#10006;</button>
+          
+    </div>
+    <!-- <div *ngIf="alertErrorIds">
+        <strong>Mauvais &nbsp;</strong> mot de passe ou identifiant
+        <button (click)="exitAlertErrorIds()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div> -->
     <div id="container">
         <div id="logo">
             <a href="http://ecole-equitation-saint-avold.simplesite.com/"><img src="assets/img/logo2.png"

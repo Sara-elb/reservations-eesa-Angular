@@ -26,10 +26,10 @@ export class PageConnexionComponent implements OnInit {
   public monitor: boolean = false;
   public rider: boolean = false;
   public idConnectedUser: any;
+  public alertErrorIds ='hidden';
 
   ngOnInit(): void {
   }
-
   
   onSignIn() {
     if (this.signInFormControl.valid) { //to check if the form is valid without sending it to the server
@@ -38,7 +38,7 @@ export class PageConnexionComponent implements OnInit {
       this.client.post('http://' + environment.serverAddress + '/connexion', user)
         .subscribe((response: any) => {
           if (response.erreur) {
-            alert(response.erreur);
+            this.alertErrorIds = 'visible';
           } else {
             localStorage.setItem('token', response.token);
             this.tokenIdentification.refreshToken()
@@ -68,6 +68,10 @@ export class PageConnexionComponent implements OnInit {
         // console.log(this.idConnectedUser);
       }
     );
+  }
+
+  exitAlertErrorIds(){
+    this.alertErrorIds = 'hidden';
   }
 }
 

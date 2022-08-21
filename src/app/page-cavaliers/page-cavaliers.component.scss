@@ -116,9 +116,20 @@ button {
   color : white;
 }
 
-
-
-
+#buttonExit{
+  padding: 5px 9px 5px 9px;
+  margin-right: 0 ;
+  margin-bottom: 1px;
+  margin-top:1px;
+  background-color: inherit;
+  opacity: 0.8;
+  // border-radius: 50% 20% / 10% 40%;;
+  // border: 2px #FFFFFF solid;
+  // filter: drop-shadow(0 0 0.75rem white);
+  width: 10%;
+  color: white;
+  filter: none;
+}
 
 #buttonExit:hover{
     opacity: 1;
@@ -126,7 +137,6 @@ button {
     transform: scale(1.1, 1.1);
     filter: none;
     color: #6d7180;
-
 }
 
 .exit{
@@ -196,20 +206,7 @@ button {
   // box-shadow: 3px 3px 0.5px 0.25px rgba(7, 7, 33, 0.5);
 }
 
-#buttonExit{
-  padding: 5px 9px 5px 9px;
-  margin-right: 0 ;
-  margin-bottom: 1px;
-  margin-top:1px;
-  background-color: inherit;
-  opacity: 0.8;
-  // border-radius: 50% 20% / 10% 40%;;
-  // border: 2px #FFFFFF solid;
-  // filter: drop-shadow(0 0 0.75rem white);
-  width: 10%;
-  color: white;
-  filter: none;
-}
+
 
 #formulaireCavalier{
   background-color: #B3B6C3;

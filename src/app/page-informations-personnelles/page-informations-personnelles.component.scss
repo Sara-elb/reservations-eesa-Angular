@@ -12,7 +12,6 @@ main{
     margin-top: 20px;
     color:#FFFFFF;
     overflow: hidden;
-
 }
 
 #body{
@@ -30,19 +29,6 @@ main{
     color: #000000;
 }
 
-#titre{
-    height: 10%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    justify-content: flex-start;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-weight: bold;
-    font-size: 20px;
-    color: #000000;;
-}
-
 #container-infos{
     display: flex;
     flex-direction: row;
@@ -55,14 +41,13 @@ main{
 #left{
     display: flex;
     flex-direction: column;
-    width: 38%;
-    height: 90%;
+    width: 45%;
+    height: 100%;
     background: rgba(0,0,0,0.70);
     text-align: center;
     justify-content: center;
     border-radius: 7px;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
-    padding: 15px;
     color: #FFFFFF;
 }
 
@@ -114,15 +99,29 @@ main{
 #right{
     display: flex;
     flex-direction: column;
-    width: 56%;
-    height: 90%;
-    background: rgba(0,0,0,0.70);
+    width: 49%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
     text-align: center;
-    justify-content: center;
+    // justify-content: center;
     border-radius: 7px;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
-    padding: 15px;
+    padding-top: 10px;
     color: #FFFFFF;
+}
+
+#titre{
+    height: 10%;
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // text-align: center;
+    // justify-content: flex-start;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000;
+    margin-top: 15px;
 }
 
 #validationNewInfos{
@@ -156,8 +155,6 @@ main{
     transform: scale(1.01, 1.01);
     filter: none;
 }
-
-
 
 // form{
 //     margin-top: 5%;
@@ -198,27 +195,18 @@ mat-label{
     border-bottom: 1px solid #000; 
     width: 65%;
     justify-content: center;
-    margin-left: 18%;
+    margin-left:18%;
     margin-top: 5%;
-}
-
-#nvMdp{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
 }
 
 .champ{
     display: flex;
     flex-direction: column;
+    width:auto;
 }
 
 mat-icon{
     color:#000000;
-}
-
-form{
-    margin-top: 5%;
 }
 
 input:-webkit-autofill,
@@ -235,16 +223,26 @@ input:-webkit-autofill{
     // opacity: 1;
 }
 
-button{
-    width: 60%;
+button.edit{
+    // width: 35%;
     border-radius: 50px;
     border: 2px #000000 solid;
+    margin-left: 0;
   //   opacity: 0.8;
     background-color: rgba(216,223,189,0.9);
     color:#000000;
     filter: none;
-    margin-left: 22%;
-    padding: 5px;
+    // margin-left: 22%;
+    border-color: #5d6f63;
+    color: #000000;
+    box-shadow: 0 0 40px 40px #5d6f63 inset, 0 0 0 0 #5d6f63;
+    transition: all 150ms ease-in-out;
+    padding: 6px 6px 6px 6px;
+
+    
+    &:hover {
+        box-shadow: 0 0 10px 0 #5d6f63 inset, 0 0 10px 4px #5d6f63;
+    }
 }
 
 button:hover{
@@ -257,22 +255,124 @@ button:hover{
     filter: none;
 }
 
-section{
-    display: flex;
-    flex-direction: row;
-  pointer-events: none;
-  z-index: 0; 
-  -webkit-transition: transform 0.45s cubic-bezier(0, 0, 0.21, 1);
-  transition: transform 0.45s cubic-bezier(0, 0, 0.21, 1);
+.modifContainer button.save{
+    width: 110px;
+    height: 40px;
+    background-color:rgba(0,0,0,0.7);
+    color:#d8dfbd;
+    border-radius: 3px;
 }
 
-// a[id= "one"]:target ~ #one {
-//     -webkit-transform: translate3d(0, 0, 0);
-//     transform: translate3d(0, 0, 0);
-// }
+.modifContainer button.save:hover{
+    opacity: 1;
+    background-color: rgba(216,223,189,0.7);
+    color:#000000;
+    border: 2px #d8dfbd solid;
+    transition:250ms;
+    transform: scale(1.01, 1.01);
+    filter: none;
+}
 
-button .save{
-    padding: 0;
-    width: 100px;
-    height: 50px;
+#right p{
+    color : #d8e1b4;
+}
+
+::ng-deep {
+    .mat-form-field .mat-form-field-flex{
+    background-color: rgba(216,225,180,0.5) ;
+    color:black;
+    }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px rgba(216, 225, 180, 0) inset !important;
+    opacity: 0.5;
+    color:#000000;
+}
+
+input:-webkit-autofill{
+    -webkit-text-fill-color: black !important;
+    // opacity: 1;
+}
+
+.btnEdit{
+    width:35%;
+    margin-top: 5%;
+}
+
+.champ p{
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.exit{
+    background-color: inherit;
+    opacity: 0.8;
+    color: #FFFFFF;
+    filter: none;
+    padding: 5px 9px 5px 9px;
+    border:none;
+}
+
+.exit:hover{
+    border:none;
+    background-color: inherit;
+    opacity: 1;
+    transition:250ms;
+    transform: scale(1.1, 1.1);
+    color: #d8dfbd;
+}
+
+.row-btn{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 5%;
+}
+
+.modification{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1%;
+}
+
+.modifContainer{
+    position: absolute;
+    display:flex;
+    flex-direction: column;
+    margin-left: 0;
+    margin-top: 5%;
+    height: 50%;
+    width:25%;
+}
+
+.alert{
+    margin-top: 1%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    width: 52%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    // width: 80%;
+    // color: #FFFFFF;
+    // margin-left: 22%;
+}
+
+.buttonExit{
+    width: 100%;
+    margin-top: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
 }

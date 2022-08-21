@@ -17,22 +17,22 @@ import { MustMatch } from '../_helpers/must-match.validator';
 })
 
 export class PageInformationsPersonnellesComponent implements OnInit {
-  registerForm!: FormGroup;
-  goodPassword : boolean = true;
+  public registerForm!: FormGroup;
+  public goodPassword : boolean = false;
   public alertEditInfos: boolean = false;
-  passwordPattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[!@#$%^&*_=+-]).(6,8)";
+  public passwordPattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[!@#$%^&*_=+-]).(6,8)";
+  public emailFormControl: UntypedFormGroup = this.formBuilder.group({
+    "adresseEmail": ["",[Validators.required, Validators.email]],
+  });
 
-
-  public infosFormControl: UntypedFormGroup = this.formBuilder.group({
-    "adresseEmail": [""],
-    "motDePasse": [""],
-    "niveau": [""],
+  public levelFormControl: UntypedFormGroup = this.formBuilder.group({
+    "niveau": ["", Validators.required],
   });
 
   public passwordFormControl: UntypedFormGroup = this.formBuilder.group({
-    "actualPassword": [""],
-    "password": [""],
-    "confirm_password": [""],
+    "actualPassword": ["", Validators.required],
+    "password": ["", [Validators.required, Validators.minLength(8)]],
+    "confirm_password": ["",[Validators.required, Validators.minLength(8)]],
   });
 
   public hide : boolean =true;
@@ -54,6 +54,18 @@ export class PageInformationsPersonnellesComponent implements OnInit {
   public passwordValid: any;
 
   public containerEditEmail = "hidden";
+  public containerEditLevel = "hidden";
+  public containerEditPassword = "hidden";
+
+  public alertEditEmail: boolean = false;
+  public alertErrorEditEmail: boolean = false;
+
+  public alertEditLevel: boolean = false;
+  public alertErrorEditLevel: boolean = false;
+
+  public alertEditPassword: boolean = false;
+  public alertErrorEditPassword: boolean = false;
+
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -64,7 +76,6 @@ export class PageInformationsPersonnellesComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateLevelsList();
-    console.log(this.levelsList);
 
     this.tokenIdentification.user.subscribe(
       user => {
@@ -138,7 +149,7 @@ export class PageInformationsPersonnellesComponent implements OnInit {
       };
     }
   
-    public editMdpRider(): void {
+    public savePassword(): void {
       this.passwordError();
       let retour :boolean;
       this.motDePasse=this.registerForm.value.confirmPassword;
@@ -172,7 +183,8 @@ export class PageInformationsPersonnellesComponent implements OnInit {
         retour=retour||response;
         console.log("mdp"+response)
         console.log(retour);
-        })
+        });
+      this.containerEditPassword="hidden";
     }
 
     closeAlertEditInfos() {
@@ -190,13 +202,84 @@ export class PageInformationsPersonnellesComponent implements OnInit {
         
     }
 
-    test(){
+    changeEmail(){
+      this.containerEditLevel = "hidden";
+      this.containerEditPassword="hidden";
       this.containerEditEmail = "visible";
+    }
 
+    changeLevel(){
+      this.containerEditPassword="hidden";
+      this.containerEditEmail = "hidden";
+      this.containerEditLevel = "visible";
+    }
+
+    changePassword(){
+      this.containerEditEmail = "hidden";
+      this.containerEditLevel = "hidden";
+      this.containerEditPassword="visible";
+    }
+
+    saveLevel(){
+      console.log("idNiveau = "+this.registerForm.value.niveau)
+      if(this.levelFormControl.valid){
+        this.client.post("http://" + environment.serverAddress + "/cavalier/"+ this.idRider+"/modifier-niveau/"+this.levelFormControl.value.niveau , this.rider)
+        .subscribe(response => {
+          if (response ==true) {
+            this.alertEditLevel = true;
+            this.containerEditLevel = "hidden";
+            this.editRider(this.idConnectedUser);
+            console.log("niveau modifié")
+          } else {
+            this.alertErrorEditLevel = true;
+          }
+        })
+        this.emailFormControl.value.reset;
+      }
     }
 
     saveEmail(){
-      this.containerEditEmail = "hidden";
+      console.log("email" + this.emailFormControl.value.adresseEmail);
+      if(this.emailFormControl.valid){
+        this.client.post("http://" + environment.serverAddress + "/cavalier/"+this.idConnectedUser+"/modifier-email", this.emailFormControl.value.adresseEmail)
+      .subscribe(response => {
+        if (response == true) {
+          this.alertEditEmail = true;
+          this.containerEditEmail="hidden";
+          this.editRider(this.idConnectedUser);
+        } else {
+          this.alertErrorEditEmail = true;
+        }
+      })
+    }
+    this.emailFormControl.value.reset;
+    }
 
+    exitEditEmail(){
+      this.containerEditEmail = "hidden";
+    }
+
+    exitEditLevel(){
+      this.containerEditLevel = "hidden";
+    }
+
+    exitEditPassword(){
+      this.containerEditPassword = "hidden";
+    }
+
+    exitAlertEmailSuccess(){
+      this.alertEditEmail = false;
+    }
+
+    exitAlertEmailDanger(){
+      this.alertErrorEditEmail = false;
+    }
+
+    exitAlertLevelDanger(){
+      this.alertErrorEditLevel = false;
+    }
+
+    exitAlertLevelSuccess(){
+      this.alertEditLevel = false;
     }
 }

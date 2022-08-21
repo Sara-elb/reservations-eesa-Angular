@@ -53,6 +53,7 @@ export interface ReservationsData {
 
 export class HistoriqueReservationsComponent implements AfterViewInit {
   public levelsList: any;
+  public listeNiveaux: any;
 
   displayedColumns: string[] = ['id', 'dateReservation', 'dateSeance', 'listeNiveaux','typeSeance','dureeSeance','categories'];
   dataSource= new MatTableDataSource<ReservationsData>();
@@ -120,13 +121,27 @@ export class HistoriqueReservationsComponent implements AfterViewInit {
       .subscribe((response: any) => {
         console.log(response);
       console.log( this.datePipe.transform('2022-07-19T17:45:00.000+00:00', 'jj/MM/aaaa'));
+      console.log( this.datePipe.transform('2022-07-19T17:45:00.000+00:00', 'fullDate'));
+
 
         response.forEach((element:any)=>{
+          console.log("date : "+element.date)
           element.date=this.datePipe.transform(element.date, 'fullDate', 'fr-FR');
-          
-          element.seance.date=this.datePipe.transform(element.seance.date, 'medium');
-          // console.log(formatDate(element.date, 'fullDate', 'fr-FR'));
+          element.seance.dateDebut=this.datePipe.transform(element.seance.dateDebut, 'fullDate', 'fr-FR');
+          this.client.get('http://' + environment.serverAddress + '/niveauxSeances/'+element.seance.id)
+          .subscribe((response:any) => {
+            this.listeNiveaux = response;
+            console.log(element.seance.id+" là "+this.listeNiveaux);
+          })
+          // this.generateLevelsList(element.seance.id);
         });
+
+        // response.forEach((element:any)=>{
+        //   element.date=this.datePipe.transform(element.date, 'fullDate', 'fr-FR');
+          
+        //   element.seance.date=this.datePipe.transform(element.seance.date, 'medium');
+        //   // console.log(formatDate(element.date, 'fullDate', 'fr-FR'));
+        // });
           // element.listeNiveaux.push(this.generateLevelsList(element.seance.id)[0]);
           // element.listeNiveaux.push(this.generateLevelsList(element.seance.id)[1]);
 
@@ -149,9 +164,9 @@ export class HistoriqueReservationsComponent implements AfterViewInit {
   public generateLevelsList(idSeance:number):any {
     this.client.get('http://' + environment.serverAddress + '/niveauxSeances/'+idSeance)
       .subscribe(response => {
-        console.log(response);
-        return response;
-      ;})
+        this.listeNiveaux = response;
+        console.log(idSeance+" là "+this.listeNiveaux);
+      })
   }
   
   makePDF(){
