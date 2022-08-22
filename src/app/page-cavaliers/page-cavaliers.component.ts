@@ -235,7 +235,7 @@ export class PageCavaliersComponent implements OnInit {
         } else {
           alert("Erreur lors de la modification ")
         }
-      })
+      });
     this.editRiderFormControl.value.reset;
   }
 

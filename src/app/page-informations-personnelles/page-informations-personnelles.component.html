@@ -72,7 +72,7 @@
                                 <p>Adresse Email</p>
                                 <form [formGroup]="emailFormControl">
                                     <mat-form-field appearance="fill">
-                                        <input autocomplete="nope" id="textInputContent" formControlName="adresseEmail" type="text" value={{adresseEmail}} matInput />
+                                        <input autocomplete="nope" formControlName="adresseEmail" type="text" value={{adresseEmail}} matInput />
                                     </mat-form-field>
                                 </form>
                             </div>
@@ -100,7 +100,7 @@
                             <form [formGroup]="passwordFormControl" [formGroup]="registerForm">
                                 <p>Mot de passe actuel</p>
                                 <mat-form-field appearance="fill">
-                                    <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="actualPassword" type="password" autocomplete="off"
+                                    <input [type]="hide ? 'password' : 'text'" formControlName="actualPassword" type="password" autocomplete="off"
                                         matInput />
                                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> 
                                     <div *ngIf="!goodPassword">Entrer le mot de passe actuel</div>   
@@ -109,7 +109,7 @@
                                 <div class="champ">
                                     <p>Nouveau mot de passe</p>
                                     <mat-form-field appearance="fill">
-                                        <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="password" type="password" autocomplete="off"
+                                        <input [type]="hide ? 'password' : 'text'" formControlName="password" type="password" autocomplete="off"
                                         matInput [pattern]="passwordPattern"/>
                                         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>  
                                     </mat-form-field>
@@ -118,7 +118,7 @@
                                 <div class="champ"> 
                                     <p>Confirmer le nouveau mot de passe</p>
                                     <mat-form-field appearance="fill">
-                                        <input id="textInputContent" [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" type="password" autocomplete="off" matInput />
+                                        <input [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" type="password" autocomplete="off" matInput />
                                         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>  
                                         <div *ngIf="f.confirmPassword.errors?.mustMatch">Passwords must match</div>
                                     </mat-form-field>

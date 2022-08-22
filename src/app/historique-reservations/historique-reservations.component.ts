@@ -11,18 +11,19 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 // import {  } from 'angular-calendar';
-import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { MatDatepicker } from '@angular/material/datepicker';
 import 'moment/locale/ja';
 import 'moment/locale/fr';
-import { DatePipe, formatDate, registerLocaleData } from '@angular/common';
+import { DatePipe, formatDate, registerLocaleData, Time } from '@angular/common';
 
 
 export interface ReservationsData {
   id: number;
   dateReservation: Date;
   dateSeance: Date;
+  timeSeance: Time;
   listeNiveaux: any;
   typeSeance:string;
   dureeSeance:number;
@@ -54,8 +55,15 @@ export interface ReservationsData {
 export class HistoriqueReservationsComponent implements AfterViewInit {
   public levelsList: any;
   public listeNiveaux: any;
+  public listeEquides: any;
 
-  displayedColumns: string[] = ['id', 'dateReservation', 'dateSeance', 'listeNiveaux','typeSeance','dureeSeance','categories'];
+  public datesFormControl: UntypedFormGroup = this.formBuilder.group({
+    "start": ["", Validators.required],
+    "end": ["", Validators.required],
+  });
+
+
+  displayedColumns: string[] = ['id', 'dateReservation', 'dateSeance', 'timeSeance','listeNiveaux','typeSeance','dureeSeance','categories'];
   dataSource= new MatTableDataSource<ReservationsData>();
 
   range = new FormGroup({
@@ -74,6 +82,7 @@ export class HistoriqueReservationsComponent implements AfterViewInit {
   @ViewChild('content', {static: false}) el!:ElementRef;
 
   constructor(
+    private formBuilder: UntypedFormBuilder,
     private client: HttpClient,
     private tokenIdentification: TokenIdentificationService,
     private router: Router,
@@ -95,6 +104,7 @@ export class HistoriqueReservationsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this._locale = 'fr';
+    this.dataSource.sort = this.sort;
     this._adapter.setLocale(this._locale);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -119,20 +129,27 @@ export class HistoriqueReservationsComponent implements AfterViewInit {
   public generateReservations(idRider: number): void {
     this.client.get("http://" + environment.serverAddress + "/reservation-seance/cavalier/" + idRider)
       .subscribe((response: any) => {
-        console.log(response);
-      console.log( this.datePipe.transform('2022-07-19T17:45:00.000+00:00', 'jj/MM/aaaa'));
-      console.log( this.datePipe.transform('2022-07-19T17:45:00.000+00:00', 'fullDate'));
+      //   console.log(response);
+      // console.log( this.datePipe.transform('2022-07-19T17:45:00.000+00:00', 'jj/MM/aaaa'));
+      // console.log( this.datePipe.transform('2022-07-19T17:45:00.000+00:00', 'fullDate'));
 
 
         response.forEach((element:any)=>{
-          console.log("date : "+element.date)
+          // console.log("date : "+element.date)
           element.date=this.datePipe.transform(element.date, 'fullDate', 'fr-FR');
           element.seance.dateDebut=this.datePipe.transform(element.seance.dateDebut, 'fullDate', 'fr-FR');
           this.client.get('http://' + environment.serverAddress + '/niveauxSeances/'+element.seance.id)
           .subscribe((response:any) => {
-            this.listeNiveaux = response;
-            console.log(element.seance.id+" là "+this.listeNiveaux);
-          })
+            element.listeNiveaux = response;
+          });
+          this.client.get('http://'+ environment.serverAddress + '/equidesSeances/'+element.seance.id)
+          .subscribe((response:any)=>{
+            element.listeEquides = response;
+
+            // if(this.listeEquides.length==2){
+            //   this.ok=true;
+            // }
+          });
           // this.generateLevelsList(element.seance.id);
         });
 
@@ -170,15 +187,37 @@ export class HistoriqueReservationsComponent implements AfterViewInit {
   }
   
   makePDF(){
-    let pdf = new jsPDF('p','pt','a4');
+    let pdf = new jsPDF('l','pt','a4');
     pdf.html(this.el.nativeElement, {
       callback:(pdf)=>{
+        // pdf.addImage(url(""))
         pdf.save("historique.pdf");
       }
     });
   }
 
-
+  searchSessions(){
+    let firstDate = new Date(this.datesFormControl.value.start);
+    let secondDate = new Date(this.datesFormControl.value.end);
+    this.client.get('http://' + environment.serverAddress + '/cavalier/'+this.idConnectedUser+'/reservation-seance/'+ this.datePipe.transform(firstDate, 'yyyy-MM-dd') +'/'+ this.datePipe.transform(secondDate, 'yyyy-MM-dd'))
+    .subscribe((response: any) => {
+      response.forEach((element:any)=>{
+        element.date=this.datePipe.transform(element.date, 'fullDate', 'fr-FR');
+        element.seance.dateDebut=this.datePipe.transform(element.seance.dateDebut, 'fullDate', 'fr-FR');
+        this.client.get('http://' + environment.serverAddress + '/niveauxSeances/'+element.seance.id)
+        .subscribe((response:any) => {
+          element.listeNiveaux = response;
+        });
+        this.client.get('http://'+ environment.serverAddress + '/equidesSeances/'+element.seance.id)
+        .subscribe((response:any)=>{
+          element.listeEquides = response;
+        });
+      });
+      this.reservationsList=response;
+      this.dataSource = new MatTableDataSource(this.reservationsList);
+      this.dataSource.paginator = this.paginator;
+    });
+  }
   
 }
 
