@@ -23,10 +23,11 @@ h1{
   body{
     display: flex;
     flex-direction: column;
-    background: #edf1f5;
+    background: inherit;
     margin-top:0;
       justify-content: center;
-      width: 100%;
+      width: 85%;
+      margin: 2% 7.5%;
   }
   .horse {
       position: relative;
@@ -66,6 +67,8 @@ h1{
   
   table {
       width: 100%;
+      justify-content: center;
+      margin: 1%;
   }
   
   button {
@@ -77,6 +80,10 @@ h1{
       border: none;
       filter: drop-shadow(0 0 0.75rem grey);
     // box-shadow: 5px 0px 0px 2px black
+    &:hover{
+      scale: 1.1;
+      color: #839192;
+  }
   }
   
   #boxIds {
@@ -115,10 +122,6 @@ h1{
   #ids h2{
     color : white;
   }
-  
-  
-  
-  
   
   #buttonExit:hover{
       opacity: 1;
@@ -177,6 +180,7 @@ h1{
     // margin-bottom: 50px;
     position: absolute;
     z-index: 2;
+
   }
   
   #boxEditHorse {
@@ -329,7 +333,7 @@ h1{
     }
     
     td, th {
-      width: 1.110%;
+      width: auto;
     }
   
     .mat-column {
@@ -429,21 +433,34 @@ h1{
       transition: 0.65s ease-in-out;
   
       background-color : #1c0f2a;
-  color:white;
+      color:white;
   
     }
   
-    #editIcon{
-      background-color: #d2d061;
-      padding: 5px 15px 5px 15px;
-      margin-top: 6px;
+    button .editAndDelete{
+        //padding: 8px 12px 8px 12px;
+        margin: 1px 5px;
+        // margin-bottom: 8px;
+        background-color: inherit;
+        //border-radius: 5px;
+        border: none;
+        filter: none;
+      // box-shadow: 5px 0px 0px 2px black
+      &:hover{
+        scale: 1.1;
+        color: #839192;
+      }
     }
+    //   background-color: #d2d061;
+    //   padding: 5px 15px 5px 15px;
+    //   margin-top: 6px;
+    // }
   
-    #deleteIcon{
-      background-color: #c63b3b;
-      padding: 5px 15px 5px 15px;
-      margin-top: 6px;
-    }
+    // #deleteIcon{
+    //   background-color: #c63b3b;
+    //   padding: 5px 15px 5px 15px;
+    //   margin-top: 6px;
+    // }
   
   
   

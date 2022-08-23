@@ -1,4 +1,4 @@
-import { Time } from '@angular/common';
+import { DatePipe, Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
@@ -21,6 +21,7 @@ export interface SessionsData {
   duree:number;
   // couleur:string;
   categorie:string;
+  options:string;
 }
 
 @Component({
@@ -32,7 +33,7 @@ export class PageSeancesComponent implements OnInit {
   public admin: boolean = false;
   public idConnectedUser: any;
   public sessionsList:any;
-  displayedColumns: string[] = ['id', 'nombrePlaces', 'typeSeance','listeNiveaux','commentaire','dateDebut','horaire','duree','categorie'];
+  displayedColumns: string[] = ['id', 'nombrePlaces', 'typeSeance','listeNiveaux','commentaire','dateDebut','horaire','duree','categorie','options'];
 
   dataSource= new MatTableDataSource<SessionsData>();
 
@@ -44,9 +45,8 @@ export class PageSeancesComponent implements OnInit {
     private client: HttpClient,
     private tokenIdentification: TokenIdentificationService,
     private router: Router,
-    ) {
-
-  }
+    private datePipe : DatePipe,
+    ) {}
 
   ngOnInit(): void {
     this.refreshSessionsList();
@@ -72,17 +72,34 @@ export class PageSeancesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  
   refreshSessionsList() {
     this.client.get("http://" + environment.serverAddress + "/admin/liste-seances")
-      .subscribe(response => {
+      .subscribe((response:any) => {
         this.sessionsList = response;
         response.forEach((element:any)=>{
-          element.date=this.datePipe.transform(element.date, 'fullDate', 'fr-FR');
-        }  
+          element.dateDebut=this.datePipe.transform(element.dateDebut, 'fullDate', 'fr-FR');
+          this.client.get('http://' + environment.serverAddress + '/niveauxSeances/'+element.id)
+          .subscribe((response:any) => {
+            element.listeNiveaux = response;
+          });
+          this.client.get('http://'+ environment.serverAddress + '/equidesSeances/'+element.id)
+          .subscribe((response:any)=>{
+            element.categorie = response;
+          });
+        });
         this.dataSource = new MatTableDataSource<SessionsData>(this.sessionsList);
         this.dataSource.paginator = this.paginator;
       });
   }
 
+  deleteSession(idSession:number){
+
+  }
+
+  editSession(idSession:number){
+
+  }
 }
+
 

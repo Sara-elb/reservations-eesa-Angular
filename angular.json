@@ -37,7 +37,7 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "./node_modules/angular-calendar/css/angular-calendar.css",
-              "../node_modules/angular-calendar-week-hours-view/angular-calendar-week-hours-view.scss"
+              "./node_modules/angular-calendar-week-hours-view/angular-calendar-week-hours-view.scss"
               
             ],
             "scripts": []
@@ -70,7 +70,8 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "aot":false
             }
           },
           "defaultConfiguration": "production"
@@ -109,7 +110,7 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "./node_modules/angular-calendar/css/angular-calendar.css",
-              "../node_modules/angular-calendar-week-hours-view/angular-calendar-week-hours-view.scss"
+              "./node_modules/angular-calendar-week-hours-view/angular-calendar-week-hours-view.scss"
             ],
             "scripts": []
           }

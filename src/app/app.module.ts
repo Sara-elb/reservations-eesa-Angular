@@ -53,6 +53,7 @@ import {
   NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
 import { PageSeancesComponent } from './page-seances/page-seances.component';
+import { EspaceMoniteurComponent } from './espace-moniteur/espace-moniteur.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { PageSeancesComponent } from './page-seances/page-seances.component';
     HistoriqueReservationsComponent,
     PageInformationsPersonnellesComponent,
     PageSeancesComponent,
+    EspaceMoniteurComponent,
   
   ],
   imports: [

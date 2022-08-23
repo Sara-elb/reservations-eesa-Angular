@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EspaceAdministrateurComponent } from './espace-administrateur/espace-administrateur.component';
 import { EspaceCavalierComponent } from './espace-cavalier/espace-cavalier.component';
+import { EspaceMoniteurComponent } from './espace-moniteur/espace-moniteur.component';
 import { HistoriqueReservationsComponent } from './historique-reservations/historique-reservations.component';
 import { PageCartesComponent } from './page-cartes/page-cartes.component';
 import { PageCavaliersComponent } from './page-cavaliers/page-cavaliers.component';
@@ -20,8 +21,8 @@ const routes: Routes = [
   {path:'espace-administrateur', component: EspaceAdministrateurComponent, canActivate : [AdminGuard]},
   {path:'espace-cavalier', component: EspaceCavalierComponent},
   {path:'espace-cavalier/historique-reservations', component: HistoriqueReservationsComponent},
-  {path:'espace-cavalier/informations-personnelles', component: PageInformationsPersonnellesComponent}
-
+  {path:'espace-cavalier/informations-personnelles', component: PageInformationsPersonnellesComponent},
+  {path:'espace-moniteur', component: EspaceMoniteurComponent},
 ];
 
 @NgModule({

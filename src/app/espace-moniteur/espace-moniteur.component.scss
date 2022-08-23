@@ -1,0 +1,47 @@
+main{
+    overflow: hidden;
+    width:85%;
+    margin: 2% 7.5%;
+}
+
+.row{
+    margin: 20px 0 25px 0;
+}
+
+h3 {
+    margin: 0 0;
+    color:#5d6f63;
+    font-size: 18px;
+    font-weight: lighter;
+    text-transform: uppercase;
+    
+}
+
+.btn-primary{
+    background-color: #839192;
+    border:#000000 solid 1.5px;
+}  
+
+.btn-primary:hover{
+    background-color: #a47996;
+    border:#000000 solid 1.5px;
+} 
+
+.btn{ 
+    border:#000000 solid 1.5px;
+}
+
+.btn-outline-secondary:hover{
+    background-color: #dfe7e5;
+    color:#000000;
+}
+
+.active{
+    background-color: rgb(223, 231, 229);
+    color: #000000;
+    font-weight: b;
+}
+
+p{
+    color:#525459;
+}

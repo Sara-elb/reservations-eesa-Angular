@@ -15,4 +15,14 @@ table {
 td, th {
     width: auto;
 }
-  
+
+button{
+    border: none;
+    margin: 1px;
+    background-color: inherit;
+    &:hover{
+        scale: 1.1;
+        color: #839192;
+        background-color: inherit;
+    }
+}

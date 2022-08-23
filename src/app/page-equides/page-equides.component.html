@@ -186,10 +186,10 @@
               <td mat-cell *matCellDef="let element">
                 <li><h3>TypeEquide:</h3> {{element.typeEquide.nom}}</li>
 
-              <button id="editIcon" (click)="editHorse(element.id)">
+              <button class="editAndDelete" (click)="editHorse(element.id)">
                 <mat-icon>edit</mat-icon>
                 </button>
-                <button id="deleteIcon" (click)="deleteHorse(element.id)">
+                <button class="editAndDelete" (click)="deleteHorse(element.id)">
                 <mat-icon>delete</mat-icon>
                 </button>
               </td>
