@@ -45,7 +45,7 @@
   <button (click)="addEvent()">Ajouter une séance "PONEY & CHEVAUX"</button>
   <button (click)="addEthologySession()">Ajouter une séance "ETHOLOGIE"</button> -->
   <button (click)="formulaireSeance()">Ajouter une séance</button>
-  <button>Voir les séances</button>
+  <button (click)="formulaireSeance()">Voir les séances</button>
 </div>
 
 <!-- AJOUT SEANCES -->
@@ -201,6 +201,10 @@
   </ng-template> -->
     <mwl-calendar-month-view 
       *ngSwitchCase="CalendarView.Month"
+      [hourSegments]="2"
+      [dayStartHour]="8"
+      [dayEndHour]="21"
+      [weekStartsOn]="1"
       [viewDate]="viewDate"
       [events]="events"
       [refresh]="refresh"
@@ -211,7 +215,11 @@
     </mwl-calendar-month-view>
 
     <mwl-calendar-week-view
-     *ngSwitchCase="CalendarView.Week" 
+     *ngSwitchCase="CalendarView.Week"
+    [hourSegments]="2"
+    [dayStartHour]="8"
+    [dayEndHour]="21"
+    [weekStartsOn]="1"      
     [viewDate]="viewDate"
     [events]="events"
     [refresh]="refresh"
@@ -222,6 +230,9 @@
 
     <mwl-calendar-day-view 
     *ngSwitchCase="CalendarView.Day"
+    [hourSegments]="2"
+    [dayStartHour]="8"
+    [dayEndHour]="21"
     [viewDate]="viewDate"
     [events]="events"
     [refresh]="refresh"

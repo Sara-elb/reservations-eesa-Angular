@@ -14,7 +14,8 @@
 
     <div *ngIf="admin" class="menu">
         <ul>
-            <li><a routerLink="espace-administrateur">Les séances</a></li>
+            <li><a routerLink="espace-administrateur">Le planning</a></li>
+            <li><a routerLink="espace-administrateur/gestion-des-seances">Les séances</a></li>
             <li><a routerLink="espace-administrateur/gestion-des-equides">Les équidés</a></li>
             <li><a routerLink="espace-administrateur/gestion-des-cavaliers">Les cavaliers</a></li>
             <li><a routerLink="espace-administrateur/gestion-des-cartes">Les cartes</a></li>
@@ -60,15 +61,15 @@
 <footer *ngIf="email!= ''">
   <div class="rowFooter">
     <div>
-      <button id="nomSite" href="http://ecole-equitation-saint-avold.simplesite.com/"><img src="../assets/img/logo2.png" alt="logo" width="66" height="55"> École d'Équitation de Saint-Avold</button>
+      <button id="nomSite" href="http://ecole-equitation-saint-avold.simplesite.com/"><img src="../assets/img/logo2.png" alt="logo" width="115" height="80"> École d'Équitation de Saint-Avold</button>
     </div>
-    <div id="fb"><button href="https://fr-fr.facebook.com/ecoleequitationsaintavold/"><mat-icon id="icon">facebook</mat-icon>Facebook</button></div>
   </div>
 
   <div class="rowFooter">
     <div><mat-icon> location_on</mat-icon>7 Rue de l'Ermitage, 57500 Saint-Avold</div>
     <div><mat-icon>phone</mat-icon> 03 87 92 24 24</div>
     <div><mat-icon>email</mat-icon>equisainta2@wanadoo.fr</div>
+    <div id="fb"><mat-icon onclick="window.location.href ='https://fr-fr.facebook.com/ecoleequitationsaintavold/'" id="icon">facebook</mat-icon></div>
   </div>
 </footer>
 

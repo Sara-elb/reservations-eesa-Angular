@@ -1,6 +1,6 @@
 .row-nav{
     padding: 9px 0 0 0;
-    background: #5d6f63;
+    background: #839192;
     font-family:'Maiah';
     font-style:normal;
     font-weight:normal;
@@ -55,7 +55,7 @@
     background-size: 60px 40px;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #5d6f63;
+    background-color: #839192;
     border: none;
     padding: 10px;
 }
@@ -68,9 +68,7 @@
     background-size: 66px 42px;
     transform:scale(1.1);
     font-weight: bold;
-
 }
-
 
 .menu{
     margin-top: 25px;
@@ -220,10 +218,10 @@ footer{
 
 #nomSite{
     text-decoration: none;
-    color:#575555;
+    color:#90ab99;
     align-items: center;
-    font-size: 16px;
-    // A REVOIR 
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
     &:hover{
         scale: 1.1;
     }
@@ -258,7 +256,7 @@ footer{
 
 
 mat-icon{
-    color:#575555;
+    color:#90ab99;
     margin-right:4px;
     vertical-align: middle;
 }
@@ -268,8 +266,12 @@ mat-icon{
 }
 
 #icon{
-    color:#6457df;
-    // color : linear-gradient(90deg,#8fc4e3 0%, #6457df 100%);
+    color:#90ab99;
+    &:hover{
+        opacity: 0.5;
+        scale: 1.1;
+        cursor:pointer;
+    }
 }
 
 #banniere{

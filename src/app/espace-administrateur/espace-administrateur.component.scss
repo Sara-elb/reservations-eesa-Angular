@@ -1,5 +1,7 @@
 main{
     overflow: hidden;
+    width:90%;
+    margin: 2% 5%;
 }
 
 .row{
@@ -21,12 +23,12 @@ h3 {
   }
 
 .btn-primary{
-    background-color: #b7d0bf;
+    background-color: #839192;
     border:#000000 solid 1.5px;
 }  
 
 .btn-primary:hover{
-    background-color: #9ab3a2;
+    background-color: #a47996;
     border:#000000 solid 1.5px;
 } 
 
@@ -35,13 +37,14 @@ h3 {
 }
 
 .btn-outline-secondary:hover{
-    background-color: #eeed9f;
+    background-color: #dfe7e5;
     color:#000000;
 }
 
 .active{
-    background-color: #f6f4b5;
+    background-color: rgb(223, 231, 229);
     color: #000000;
+    font-weight: b;
 }
 
 // .e-calendar{
@@ -142,7 +145,7 @@ button:hover{
     // align-items: center;
     width: 80%;
     color: #FFFFFF;
-    margin-left: 13%;
+    margin-left: 7%;
 }
 
 #validationNewSession{

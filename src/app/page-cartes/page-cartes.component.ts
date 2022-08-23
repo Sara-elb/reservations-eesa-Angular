@@ -44,7 +44,8 @@ export class PageCartesComponent implements OnInit {
   public typeSeance: string ="";
   public nbSeances: number=0;
   public idCarte: any;
-
+  public admin: boolean = false;
+  public idConnectedUser: any;
 
 
   public cardFormControl: UntypedFormGroup = this.formBuilder.group({
@@ -79,8 +80,7 @@ export class PageCartesComponent implements OnInit {
     // this.dataSource = new MatTableDataSource<CardsData>(this.cards);
   }
 
-  public admin: boolean = false;
-  public idConnectedUser: any;
+
 
   // ngOnInit(): void {
   //   this.refreshCardsList();

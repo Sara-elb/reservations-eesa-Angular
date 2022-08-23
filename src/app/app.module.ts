@@ -43,6 +43,8 @@ import { PageInformationsPersonnellesComponent } from './page-informations-perso
 
 import { NgPasswordValidatorModule, NgPasswordValidatorOptions } from "ng-password-validator";
 
+
+
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 
 import {
@@ -50,6 +52,7 @@ import {
   NgxMatNativeDateModule,
   NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
+import { PageSeancesComponent } from './page-seances/page-seances.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,7 @@ import {
     EspaceCavalierComponent,
     HistoriqueReservationsComponent,
     PageInformationsPersonnellesComponent,
+    PageSeancesComponent,
   
   ],
   imports: [
@@ -93,8 +97,7 @@ import {
     MatAutocompleteModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
-    
+    NgxMatNativeDateModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, 
     MatDatepickerModule,DatePipe,],

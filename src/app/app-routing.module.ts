@@ -8,10 +8,12 @@ import { PageCavaliersComponent } from './page-cavaliers/page-cavaliers.componen
 import { PageConnexionComponent } from './page-connexion/page-connexion.component';
 import { PageEquidesComponent } from './page-equides/page-equides.component';
 import { PageInformationsPersonnellesComponent } from './page-informations-personnelles/page-informations-personnelles.component';
+import { PageSeancesComponent } from './page-seances/page-seances.component';
 import { AdminGuard } from './services/admin.guard';
 
 const routes: Routes = [
   {path:'', component: PageConnexionComponent},
+  {path:'espace-administrateur/gestion-des-seances', component: PageSeancesComponent, canActivate : [AdminGuard]},
   {path:'espace-administrateur/gestion-des-equides', component: PageEquidesComponent},
   {path:'espace-administrateur/gestion-des-cavaliers', component: PageCavaliersComponent},
   {path:'espace-administrateur/gestion-des-cartes', component: PageCartesComponent, canActivate : [AdminGuard]},
