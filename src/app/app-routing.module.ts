@@ -17,7 +17,6 @@ const routes: Routes = [
   {path:'espace-administrateur/gestion-des-cartes', component: PageCartesComponent, canActivate : [AdminGuard]},
   {path:'espace-administrateur', component: EspaceAdministrateurComponent, canActivate : [AdminGuard]},
   {path:'espace-cavalier', component: EspaceCavalierComponent},
-  // {path:'planning', component: PagePlanningComponent},
   {path:'espace-cavalier/historique-reservations', component: HistoriqueReservationsComponent},
   {path:'espace-cavalier/informations-personnelles', component: PageInformationsPersonnellesComponent}
 

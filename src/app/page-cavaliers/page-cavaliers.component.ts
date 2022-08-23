@@ -72,7 +72,7 @@ export class PageCavaliersComponent implements OnInit {
     "prenom": ["", [Validators.required]],
     "email": ["", [Validators.required, Validators.email]],
     "dateDeNaissance": ["", [Validators.required]],
-    "niveau": ["", [Validators.required]],
+    "niveau": [""],
   });
 
   public editRiderFormControl: UntypedFormGroup = this.formBuilder.group({
@@ -150,7 +150,7 @@ export class PageCavaliersComponent implements OnInit {
 
   public createRider(): void {
     if (this.riderFormControl.valid) {
-      console.log("ok fonction create rider");
+      console.log(this.riderFormControl.value.niveau);
       this.rider = this.riderFormControl.value;
       this.client.post("http://" + environment.serverAddress + "/admin/ajouter-cavalier", this.rider)
         .subscribe((response: any) => {

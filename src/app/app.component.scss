@@ -194,15 +194,16 @@ h2 {
 }
 
 footer{
-    margin-top: 15px;
+    // margin-top: 15px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 20%;
     justify-content: center;
-    // background-image: url('../assets/img/footer2.jpg');
-    // background: linear-gradient(90deg,#5d6f63 0%, #406346 35%, #516254 100%);
-     background-color: #070c07;
+        // background-image: url('../assets/img/footer2.jpg');
+    // background: linear-gradient(90deg,#435148 0%, #f7eeee 100%);
+    background-color: #070c07;
     color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .col{
@@ -210,15 +211,65 @@ footer{
     flex-direction: column;
 }
 
-.col button{
+.rowFooter{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 1% 0;
+}
+
+#nomSite{
+    text-decoration: none;
+    color:#575555;
+    align-items: center;
+    font-size: 16px;
+    // A REVOIR 
+    &:hover{
+        scale: 1.1;
+    }
+}
+
+.rowFooter button{
     text-decoration: none;
     background-color: #070c07;
-    border: solid 0.8px #ffffff;
+    color:#ffffff;
+    border:none;
     border-radius: 5px;
     justify-content: center;
     display: flex;
     flex-direction: row;
     padding: 5px;
+    // box-shadow: 0 0 40px 40px #5d6f63 inset, 0 0 0 0 #5d6f63;
+    transition: all 150ms ease-in-out;
+    padding: 6px 6px 6px 6px;
+    
+    &:hover {
+        // color : #575555;
+        scale: 1.1;
+        // box-shadow: 0 0 10px 0 #484747 inset, 0 0 10px 4px #5d6f63;
+        // color: 0 0 10px 0 #484747 inset, 0 0 10px 4px #5d6f63;
+    }
+}
+
+.rowFooter img {
+    margin-right:4px;
+    vertical-align: middle;
+}
+
+
+mat-icon{
+    color:#575555;
+    margin-right:4px;
+    vertical-align: middle;
+}
+
+#fb{
+    font-size: 16px;
+}
+
+#icon{
+    color:#6457df;
+    // color : linear-gradient(90deg,#8fc4e3 0%, #6457df 100%);
 }
 
 #banniere{

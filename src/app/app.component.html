@@ -32,7 +32,7 @@
 
     <div *ngIf="rider" class="menu">
       <ul>
-        <li><a routerLink="planning">Planning</a></li>
+        <li><a routerLink="espace-cavalier">Planning</a></li>
         <li><a routerLink="espace-cavalier/historique-reservations">Historique</a></li>
         <li><a routerLink="espace-cavalier/informations-personnelles">Informations personnelles</a></li>
         <!-- <li><a routerLink="espace-cavalier/gestion-des-cavaliers">Espace cavalier</a></li> -->
@@ -58,7 +58,21 @@
   </p>
 </footer> -->
 <footer *ngIf="email!= ''">
-  <div class="col">
+  <div class="rowFooter">
+    <div>
+      <button id="nomSite" href="http://ecole-equitation-saint-avold.simplesite.com/"><img src="../assets/img/logo2.png" alt="logo" width="66" height="55"> École d'Équitation de Saint-Avold</button>
+    </div>
+    <div id="fb"><button href="https://fr-fr.facebook.com/ecoleequitationsaintavold/"><mat-icon id="icon">facebook</mat-icon>Facebook</button></div>
+  </div>
+
+  <div class="rowFooter">
+    <div><mat-icon> location_on</mat-icon>7 Rue de l'Ermitage, 57500 Saint-Avold</div>
+    <div><mat-icon>phone</mat-icon> 03 87 92 24 24</div>
+    <div><mat-icon>email</mat-icon>equisainta2@wanadoo.fr</div>
+  </div>
+</footer>
+
+  <!-- <div class="col">
     <p><img src="../assets/img/logo2.png" alt="logo" width="50" height="45">
       <a href="http://ecole-equitation-saint-avold.simplesite.com/">École d'Équitation de Saint-Avold</a>
     </p>
@@ -68,5 +82,4 @@
     <p><mat-icon>phone</mat-icon> 03 87 92 24 24</p>
     <p><mat-icon>email</mat-icon>equisainta2@wanadoo.fr</p>
     <p><button href="https://fr-fr.facebook.com/ecoleequitationsaintavold/"><mat-icon>facebook</mat-icon>Facebook</button></p>
-  </div>
-</footer>
+  </div> -->
