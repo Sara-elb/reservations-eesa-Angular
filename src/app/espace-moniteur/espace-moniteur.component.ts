@@ -48,17 +48,48 @@ interface MyEvent extends CalendarEvent {
 })
 
 export class EspaceMoniteurComponent implements OnInit {
+  public containerAttributionHorse = "hidden";
   public sessionsList:any;
   public monitor: boolean = false;
   public idConnectedUser:any;
-  public containerAddVisible = "hidden";
   public levelsList: any;
+  public equideList:any;
   public typeSessionList: any;
   public typeEquideList: any;
   public session : any;
   public sessionId : any;
   public typeEquide : any;
   public duree : number = 0;
+  public registeredRiders:any;
+  public reservations:any;
+
+  public attributionFormControl0: UntypedFormGroup = this.formBuilder.group({
+    "equide": ["", [Validators.required]]
+    });
+
+  public attributionFormControl1: UntypedFormGroup = this.formBuilder.group({
+      "equide": ["", [Validators.required]]
+  });
+
+  public attributionFormControl2: UntypedFormGroup = this.formBuilder.group({
+    "equide": ["", [Validators.required]]
+});
+
+public attributionFormControl3: UntypedFormGroup = this.formBuilder.group({
+  "equide": ["", [Validators.required]]
+});
+
+public attributionFormControl4: UntypedFormGroup = this.formBuilder.group({
+  "equide": ["", [Validators.required]]
+});
+
+public attributionFormControl5: UntypedFormGroup = this.formBuilder.group({
+  "equide": ["", [Validators.required]]
+});
+
+public attributionFormControl: UntypedFormGroup = this.formBuilder.group({
+  "equide": ["", [Validators.required]]
+});
 
   public sessionFormControl: UntypedFormGroup = this.formBuilder.group({
     "commentaire": [""],
@@ -91,7 +122,7 @@ export class EspaceMoniteurComponent implements OnInit {
         label: '<i class="fas fa-fw fa-pencil-alt"></i>',
         a11yLabel: 'Edit',
         onClick: ({ event }: { event: MyEvent }): void => {
-          this.handleEvent('Edited', event);
+          // this.handleEvent('Edited', event);
         },
       },
       {
@@ -99,7 +130,7 @@ export class EspaceMoniteurComponent implements OnInit {
         a11yLabel: 'Delete',
         onClick: ({ event }: { event: MyEvent }): void => {
           this.events = this.events.filter((iEvent) => iEvent !== event);
-          this.handleEvent('Deleted', event);
+          // this.handleEvent('Deleted', event);
         },
       },
     ];
@@ -121,20 +152,24 @@ export class EspaceMoniteurComponent implements OnInit {
     this.tokenIdentification.user.subscribe(
       user => {
         this.monitor = user != null && user.droits.includes("ROLE_MONITEUR");
-        console.log(this.monitor)
         this.idConnectedUser = user.id
-        console.log(this.idConnectedUser)
       });
+      this.refreshSessionsList();
     this.generateLevelsList();
+    this.generateEquidesList();
     this.generateTypeSessionList();
     this.generateTypeEquideList();
-    this.refreshSessionsList();
   }
 
   
   generateLevelsList() {
     this.client.get('http://' + environment.serverAddress + '/liste-niveaux')
       .subscribe(response => this.levelsList = response);
+  }
+
+  generateEquidesList() {
+    this.client.get('http://' + environment.serverAddress + '/moniteur/liste-equides')
+    .subscribe(response => this.equideList = response);
   }
 
   generateTypeSessionList() {
@@ -151,10 +186,11 @@ export class EspaceMoniteurComponent implements OnInit {
     this.client.get("http://" + environment.serverAddress + "/moniteur/liste-seances")
       .subscribe(response => {
         this.sessionsList = response;
-        this.sessionsList.forEach((seance: { commentaire: any; nombrePlaces: any; dateDebut: any; dateFin: any; typeSeance: any; }) => {
+        this.sessionsList.forEach((seance: { id:any; commentaire: any; nombrePlaces: any; dateDebut: any; dateFin: any; typeSeance: any; }) => {
           this.events = [
             ...this.events,
             {
+              id:seance.id,
               title: seance.commentaire,
               nombrePlaces:seance.nombrePlaces,
               start: new Date(seance.dateDebut),
@@ -171,20 +207,9 @@ export class EspaceMoniteurComponent implements OnInit {
             },
           ];
         });
-        console.log("liste events : "+this.events);
-
       });
 
   }
-
-  // refreshCardsList() {
-  //   if(this.admin){
-  //     this.client.get('http://' + environment.serverAddress + '/admin/liste-seances')
-  //     .subscribe(response => {
-  //       this.sessionsList = response;
-  //     });
-  //   }
-  // }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -208,11 +233,30 @@ export class EspaceMoniteurComponent implements OnInit {
     this.view = view;
   }
 
-eventClicked(action: string, event: MyEvent):void{
-  
-  // containerAttributionHorse = true;
 
-}
+
+eventClicked({ event }: { event: MyEvent }): void {
+  this.session=event;
+  // this.generateRegisteredRiders(this.session.id);
+      this.client.get("http://" + environment.serverAddress + "/moniteur/reservation-par-seance/" + this.session.id)
+    .subscribe((response: any) => {
+      if(response.length!=0){
+        this.reservations =response;
+        this.containerAttributionHorse = 'visible';
+        console.log(event.title, event);
+      }else{
+      alert("- Aucune réservation -")
+      }
+    });
+  }
+  // if(this.reservations!=null){
+  //   this.containerAttributionHorse = 'visible';
+  //   console.log(event.title, event);
+  // }else{
+  //   alert("- Aucune réservation -")
+  // }
+
+
 
 eventTimesChanged({
   event ,
@@ -237,13 +281,13 @@ eventTimesChanged({
     }
     return iEvent;
   });
-  this.handleEvent('Dropped ou redimensionner', event);
+  // this.handleEvent('Dropped ou redimensionner', event);
 }
 
-  handleEvent(action: string, event: MyEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
-  }
+  // handleEvent(action: string, event: MyEvent): void {
+  //   this.modalData = { event, action };
+  //   this.modal.open(this.modalContent, { size: 'lg' });
+  // }
 
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
@@ -254,7 +298,31 @@ eventTimesChanged({
   }
 
   public exitNewSession() {
-    this.containerAddVisible = "hidden";
+    this.containerAttributionHorse = "hidden";
   }
 
+  addAttribution(){
+    if(this.attributionFormControl0.valid){
+      console.log("ok");
+      this.containerAttributionHorse = "hidden";
+      this.attributionFormControl0.reset();
+
+    }
+  }
+
+  exitBox(){
+    this.containerAttributionHorse = "hidden";
+  }
+
+  generateRegisteredRiders(idSession:number){
+    this.client.get("http://" + environment.serverAddress + "/moniteur/reservation-par-seance/" + idSession)
+    .subscribe((response: any) => {
+      if(response.length>0){
+        this.reservations =response;
+      }
+        this.reservations =null;
+        // this.registeredRiders = response;
+
+    });
+  }
 }

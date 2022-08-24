@@ -29,12 +29,12 @@ const colors: Record<string, EventColor>={
     secondary!: '#fffb04',
   },
   blue: {
-    primary!: '#9ccbff',
+    primary!: '#000000',
     secondary!: '#5275a0',
   },
   red: {
     primary!: '#ffcc9a',
-    secondary!: '#f7a757',
+    secondary!: 'rgb(133, 161, 153,0.5)',
   },
 };
 

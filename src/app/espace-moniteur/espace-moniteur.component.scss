@@ -2,6 +2,10 @@ main{
     overflow: hidden;
     width:85%;
     margin: 2% 7.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
 
 .row{
@@ -18,7 +22,8 @@ h3 {
 }
 
 .btn-primary{
-    background-color: #839192;
+    background-color: #839f8c;
+    // background-color: #839192;
     border:#000000 solid 1.5px;
 }  
 
@@ -44,4 +49,164 @@ h3 {
 
 p{
     color:#525459;
+}
+
+#box {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: auto;
+    padding: 1%;
+    margin: 0 20%;
+    // margin-top: 10px;
+    // margin-bottom: 50px;
+    position: absolute;
+    z-index: 2;
+    background-color: #7CA1A4;
+    border-radius: 3px;
+    box-shadow: 3px 3px 0.5px 0.25px rgba(7, 7, 33, 0.5);
+}
+
+#buttonExit{
+    padding: 8px 12px 8px 12px;
+    margin-right: 0 ;
+    margin-bottom: 8px;
+    background-color: #7CA1A4;
+    opacity: 0.8;
+    border:none;
+    // border-radius: 50% 20% / 10% 40%;;
+    // border: 2px #FFFFFF solid;
+    // filter: drop-shadow(0 0 0.75rem white);
+    width: 10%;
+    color: white;
+    filter: none;
+}
+
+#buttonExit :hover{
+    opacity: 1;
+    transition:250ms;
+    transform: scale(1.1, 1.1);
+    filter: none;
+}
+
+.exit{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+#formulaireAttribution{
+    background-color: inherit;
+    border: none;
+    border-radius: 3px;
+    width:50%;
+    height:30%;
+    display: flex;
+    flex-direction: row;
+    // padding-top: 2%;
+    justify-content: center;
+    margin-left: 25%;
+    // text-align: center;
+    justify-content: space-around;
+
+  }
+
+  #validationNewRider{
+    display: flex;
+    flex-direction:row;
+    justify-content:center;
+  }
+
+#validationButton{
+    border-radius: 10px;
+    width:12%;
+    color:#ffffff;
+    border: #ffffff solid 1px;
+    background-color: #7CA1A4;
+    &:hover{
+        background-color: #ffffff;
+        scale:1.1;
+        color : #7ca1a4;
+    }
+}
+
+.champ{
+    display: flex;
+    flex-direction: column;
+    width:auto;
+    margin: 1% 5%;
+}
+
+// table,th,td{
+//     border : 1px solid #5d6f63;
+//     margin: 1%;
+//     background-color: #7CA1A4;
+// }
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.9em;
+    // font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+
+.styled-table thead tr {
+    background-color: #ffffff;
+    color: #7CA1A4;
+    text-align: center;
+    border: 1px #7CA1A4;
+    // padding:10%;
+}
+
+.styled-table thead th {
+    padding:1%;
+    width: auto;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 1px 2px;
+    text-align: center;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:nth-of-type(odd) {
+    background-color: #ebf3ea;
+}
+
+// .styled-table tbody tr:last-of-type {
+//     background-color: #ffffff;
+//     border-bottom: 2px solid #80918e;
+// }
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+table mat-form-field{
+    background-color: inherit !important;
+
+}
+
+// .mat-form-field{
+//     background-color: inherit;
+// }
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: inherit; 
+}
+
+.uppercase{
+    text-transform: uppercase;
 }

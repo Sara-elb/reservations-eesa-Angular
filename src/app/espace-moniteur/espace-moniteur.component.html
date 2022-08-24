@@ -80,4 +80,50 @@
       (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-day-view>
   </div>
+
+    <div id="box" [style.visibility]="containerAttributionHorse">
+        <div class="exit"> 
+            <button id="buttonExit" (click)="exitBox()">
+            <mat-icon>exit_to_app</mat-icon>
+            </button>
+        </div>
+        <!-- <h1>{{session.title}}&nbsp;{{session.niveau}}&nbsp;{{session.typeSeance.nom}}</h1> -->
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Cavalier</th>
+                    <th>Proposition</th>
+                    <th>Équidé</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let reservation of reservations; let indexOfelement=index;">
+                    <td>
+                        <span class="uppercase">{{reservation.cavalier.nom}}</span>&nbsp;{{reservation.cavalier.prenom}}
+                    </td>
+                    <td>
+                        {{reservation.proposition}}
+                    </td>
+                    <td>
+                        <form id="formulaireAttribution" [formGroup]= "attributionFormControl" (submit)="addAttribution()">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Choisir l'équidé :</mat-label>
+                                <mat-select formControlName="equide">
+                                    <mat-option *ngFor="let equide of equideList"
+                                        [value]="equide" >{{equide.nom}} 
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="validationNewRider">
+            <button type="submit" id="validationButton">
+                Valider
+            </button>
+        </div>
+    </div>
 </main>

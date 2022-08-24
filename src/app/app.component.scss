@@ -1,6 +1,9 @@
 .row-nav{
     padding: 9px 0 0 0;
-    background: #839192;
+    background: #839f8c;
+    // bonne couleur
+    // background: #839192; 
+
     font-family:'Maiah';
     font-style:normal;
     font-weight:normal;
@@ -55,7 +58,8 @@
     background-size: 60px 40px;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #839192;
+    background-color: #839f8c;
+    // background-color: #839192;
     border: none;
     padding: 10px;
 }
@@ -199,7 +203,8 @@ footer{
     justify-content: center;
         // background-image: url('../assets/img/footer2.jpg');
     // background: linear-gradient(90deg,#435148 0%, #f7eeee 100%);
-    background-color: #070c07;
+    background-color: #476760;
+    // background-color: #466060;
     color: aliceblue;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -218,7 +223,8 @@ footer{
 
 #nomSite{
     text-decoration: none;
-    color:#90ab99;
+    color:#d8dfbd;
+    // color:#90ab99;
     align-items: center;
     font-size: 18px;
     font-family: 'Courier New', Courier, monospace;
@@ -229,7 +235,8 @@ footer{
 
 .rowFooter button{
     text-decoration: none;
-    background-color: #070c07;
+    background-color: #476760;
+    // background-color: #466060;
     color:#ffffff;
     border:none;
     border-radius: 5px;
@@ -254,7 +261,8 @@ footer{
 
 
 mat-icon{
-    color:#90ab99;
+    color:#d8dfbd;
+    // color:#90ab99;
     margin-right:4px;
     vertical-align: middle;
 }
@@ -264,7 +272,8 @@ mat-icon{
 }
 
 #icon{
-    color:#90ab99;
+    color:#d8dfbd;
+    // color:#90ab99;
     &:hover{
         opacity: 0.5;
         scale: 1.1;

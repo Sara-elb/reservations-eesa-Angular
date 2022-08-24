@@ -74,7 +74,7 @@ export class PageSeancesComponent implements OnInit {
   }
   
   refreshSessionsList() {
-    this.client.get("http://" + environment.serverAddress + "/admin/liste-seances")
+    this.client.get("http://" + environment.serverAddress + "/moniteur/liste-seances")
       .subscribe((response:any) => {
         this.sessionsList = response;
         response.forEach((element:any)=>{
