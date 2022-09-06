@@ -29,12 +29,13 @@ export class PageConnexionComponent implements OnInit {
   public alertErrorIds ='hidden';
 
   ngOnInit(): void {
+    this.ngOnInit();
   }
+
   
   onSignIn() {
-    if (this.signInFormControl.valid) { //to check if the form is valid without sending it to the server
+    if (this.signInFormControl.valid) { 
       const user = this.signInFormControl.value;
-
       this.client.post('http://' + environment.serverAddress + '/connexion', user)
         .subscribe((response: any) => {
           if (response.erreur) {

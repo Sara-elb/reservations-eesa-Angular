@@ -23,7 +23,7 @@
         <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}</h3>
         </div>
     <div class="col-md-4">
-          <div class="btn-group">
+        <div class="btn-group">
               <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
                   Mois
               </div>
@@ -33,9 +33,18 @@
               <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
                   Jour
               </div>
-          </div>
-      </div>
+        </div>
+    </div>
   </div>
+    <div [style.visibility]="alertVoidSession" class="msg-danger">
+        <div class="xd-message-icon">
+            <i class="ion-close-round"><mat-icon>info</mat-icon></i>
+        </div>
+        <div class="xd-message-content">
+            <p><strong>Aucune réservation&nbsp;</strong> pour le moment.</p>
+        </div>
+        <button (click)="exitAlertVoidSession()" class="xd-message-close close-icon">&#10006;</button>
+    </div>
   <br/>
   
   <div [ngSwitch]="view">
@@ -82,48 +91,53 @@
   </div>
 
     <div id="box" [style.visibility]="containerAttributionHorse">
-        <div class="exit"> 
-            <button id="buttonExit" (click)="exitBox()">
-            <mat-icon>exit_to_app</mat-icon>
-            </button>
-        </div>
-        <!-- <h1>{{session.title}}&nbsp;{{session.niveau}}&nbsp;{{session.typeSeance.nom}}</h1> -->
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Cavalier</th>
-                    <th>Proposition</th>
-                    <th>Équidé</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr  *ngFor="let reservation of reservations; let indexOfelement=index;">
-                    <td>
-                        <span class="uppercase">{{reservation.cavalier.nom}}</span>&nbsp;{{reservation.cavalier.prenom}}
-                    </td>
-                    <td>
-                        {{reservation.proposition}}
-                    </td>
-                    <td>
-                        <form id="formulaireAttribution" [formGroup]= "attributionFormControl" (submit)="addAttribution()">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Choisir l'équidé :</mat-label>
-                                <mat-select formControlName="equide">
-                                    <mat-option *ngFor="let equide of equideList"
-                                        [value]="equide" >{{equide.nom}} 
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- [formGroup]= "attributionFormControl"  -->
+        <form id="formulaireAttribution"(submit)="addAttribution()">
+            <div class="exit"> 
+                
+                <button id="buttonExit" (click)="exitBox()">
 
-        <div id="validationNewRider">
-            <button type="submit" id="validationButton">
-                Valider
-            </button>
-        </div>
+                <!-- <button id="buttonExit" (click)="exitBox()"> -->
+                <mat-icon>exit_to_app</mat-icon>
+                </button>
+            </div>
+            <!-- <h1>{{session.title}}&nbsp;{{session.niveau}}&nbsp;{{session.typeSeance.nom}}</h1> -->
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Cavalier</th>
+                        <!-- <th>Proposition</th> -->
+                        <th>Équidé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  *ngFor="let reservation of reservations; let indexOfelement=index;">
+                        <td>
+                            <span class="uppercase">{{reservation.cavalier.nom}}</span>&nbsp;{{reservation.cavalier.prenom}}
+                        </td>
+                        <!-- <td>
+                            {{reservation.proposition}}
+                        </td> -->
+                        <td>
+                            <mat-form-field appearance="fill">
+                                    <mat-label>Choisir l'équidé :</mat-label>
+                                    <mat-select formControlName="equide">
+                                        <mat-option *ngFor="let equide of equideList"
+                                            [value]="equide" >{{equide.nom}} 
+                                        </mat-option>
+                                    </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div id="validationAttribution">
+                <button type="submit" id="validationButton">
+                    Valider
+                </button>
+            </div>
+        </form>
+
     </div>
 </main>

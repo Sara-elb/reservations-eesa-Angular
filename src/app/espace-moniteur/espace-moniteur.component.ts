@@ -62,34 +62,36 @@ export class EspaceMoniteurComponent implements OnInit {
   public duree : number = 0;
   public registeredRiders:any;
   public reservations:any;
+  public alertVoidSession ='hidden';
 
-  public attributionFormControl0: UntypedFormGroup = this.formBuilder.group({
-    "equide": ["", [Validators.required]]
-    });
 
-  public attributionFormControl1: UntypedFormGroup = this.formBuilder.group({
-      "equide": ["", [Validators.required]]
-  });
+//   public attributionFormControl0: UntypedFormGroup = this.formBuilder.group({
+//     "equide": ["", [Validators.required]]
+//     });
 
-  public attributionFormControl2: UntypedFormGroup = this.formBuilder.group({
-    "equide": ["", [Validators.required]]
-});
+//   public attributionFormControl1: UntypedFormGroup = this.formBuilder.group({
+//       "equide": ["", [Validators.required]]
+//   });
 
-public attributionFormControl3: UntypedFormGroup = this.formBuilder.group({
-  "equide": ["", [Validators.required]]
-});
+//   public attributionFormControl2: UntypedFormGroup = this.formBuilder.group({
+//     "equide": ["", [Validators.required]]
+// });
 
-public attributionFormControl4: UntypedFormGroup = this.formBuilder.group({
-  "equide": ["", [Validators.required]]
-});
+// public attributionFormControl3: UntypedFormGroup = this.formBuilder.group({
+//   "equide": ["", [Validators.required]]
+// });
 
-public attributionFormControl5: UntypedFormGroup = this.formBuilder.group({
-  "equide": ["", [Validators.required]]
-});
+// public attributionFormControl4: UntypedFormGroup = this.formBuilder.group({
+//   "equide": ["", [Validators.required]]
+// });
 
-public attributionFormControl: UntypedFormGroup = this.formBuilder.group({
-  "equide": ["", [Validators.required]]
-});
+// public attributionFormControl5: UntypedFormGroup = this.formBuilder.group({
+//   "equide": ["", [Validators.required]]
+// });
+
+// public attributionFormControl: UntypedFormGroup = this.formBuilder.group({
+//   "equide": ["", [Validators.required]]
+// });
 
   public sessionFormControl: UntypedFormGroup = this.formBuilder.group({
     "commentaire": [""],
@@ -241,13 +243,19 @@ eventClicked({ event }: { event: MyEvent }): void {
       this.client.get("http://" + environment.serverAddress + "/moniteur/reservation-par-seance/" + this.session.id)
     .subscribe((response: any) => {
       if(response.length!=0){
+        // for(let i = 0; i <response.length; i++){
+        //   UntypedFormGroup;
+        //   `'attributionFormControl'+i` = this.formBuilder.group({
+        //     "equide": ["", [Validators.required]]
+        //   });
+        
         this.reservations =response;
         this.containerAttributionHorse = 'visible';
         console.log(event.title, event);
       }else{
-      alert("- Aucune réservation -")
-      }
-    });
+        this.alertVoidSession = 'visible';
+      };
+    })
   }
   // if(this.reservations!=null){
   //   this.containerAttributionHorse = 'visible';
@@ -302,12 +310,11 @@ eventTimesChanged({
   }
 
   addAttribution(){
-    if(this.attributionFormControl0.valid){
+    // if(this.attributionFormControl.valid){
       console.log("ok");
       this.containerAttributionHorse = "hidden";
-      this.attributionFormControl0.reset();
-
-    }
+      // this.attributionFormControl.reset();
+    
   }
 
   exitBox(){
@@ -324,5 +331,10 @@ eventTimesChanged({
         // this.registeredRiders = response;
 
     });
+  }
+
+  
+  exitAlertVoidSession(){
+    this.alertVoidSession = 'hidden';
   }
 }

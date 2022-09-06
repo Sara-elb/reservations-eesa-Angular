@@ -46,6 +46,9 @@ export class AppComponent {
 
   signOut(){
     this.email = "";
+    this.rider=false;
+    this.monitor=false;
+    this.admin=false;
     this.tokenIdentification.onTokenExpired();
   }
 
